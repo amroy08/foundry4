@@ -205,7 +205,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json({ success: true, message: "Enquiry submitted successfully." });
 
-  } catch (error: any) {
+  } catch (error) {
     console.error("Server error handling enquiry submission:", error);
     // Never expose detailed SMTP/server error messages to the client browser
     return NextResponse.json(

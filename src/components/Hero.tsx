@@ -1,11 +1,31 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { siteConfig } from "@/config/site";
-import { ArrowRight, ArrowDown, Globe, ShieldCheck, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ArrowDown, Globe, Sparkles, CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    checkMobile();
+    window.addEventListener("resize", checkMobile);
+
+    const timer = setTimeout(() => {
+      setMounted(true);
+    }, 0);
+
+    return () => {
+      window.removeEventListener("resize", checkMobile);
+      clearTimeout(timer);
+    };
+  }, []);
+
   const handleScrollTo = (id: string) => {
     const targetElement = document.getElementById(id);
     if (targetElement) {
@@ -23,17 +43,17 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen pt-32 pb-20 overflow-hidden flex flex-col justify-center bg-grid-pattern">
       {/* Visual background gradient glow orbs */}
-      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[350px] h-[350px] md:w-[600px] md:h-[600px] rounded-full bg-brand-primary/10 blur-[80px] md:blur-[130px] pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-[300px] h-[300px] md:w-[500px] md:h-[500px] rounded-full bg-brand-secondary/5 blur-[80px] md:blur-[120px] pointer-events-none" />
-      <div className="absolute top-10 right-1/3 w-[250px] h-[250px] rounded-full bg-brand-accent/5 blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] rounded-full bg-brand-primary/10 blur-[50px] md:blur-[130px] pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-[200px] h-[200px] md:w-[500px] md:h-[500px] rounded-full bg-brand-secondary/5 blur-[50px] md:blur-[120px] pointer-events-none" />
+      <div className="absolute top-10 right-1/3 w-[180px] h-[180px] rounded-full bg-brand-accent/5 blur-[40px] md:blur-[80px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         {/* Left Side Copy */}
         <div className="lg:col-span-7 flex flex-col space-y-8 text-left">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
+            initial={!mounted || isMobile ? false : { opacity: 0, y: 15 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.4 }}
             className="inline-flex items-center space-x-2 bg-white/5 border border-white/10 rounded-full px-4 py-1.5 w-fit"
           >
             <Sparkles className="h-4 w-4 text-brand-secondary" />
@@ -43,19 +63,19 @@ export default function Hero() {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] md:leading-[1.08]"
+            initial={!mounted || isMobile ? false : { opacity: 0, y: 20 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.1 }}
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] md:leading-[1.08]"
           >
             Technology, Creativity, Data & Marketing —{" "}
             <span className="text-gradient">Built Around Your Business.</span>
           </motion.h1>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
+            initial={!mounted || isMobile ? false : { opacity: 0, y: 20 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.2 }}
             className="text-base md:text-lg text-text-secondary leading-relaxed max-w-2xl"
           >
             {siteConfig.description}
@@ -63,14 +83,14 @@ export default function Hero() {
 
           {/* Action Buttons */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
+            initial={!mounted || isMobile ? false : { opacity: 0, y: 20 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.4, delay: 0.3 }}
             className="flex flex-col sm:flex-row items-stretch sm:items-center gap-4 pt-2"
           >
             <button
               onClick={() => handleScrollTo("contact")}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 bg-brand-primary text-white hover:bg-brand-primary/95 hover:scale-[1.03] shadow-xl shadow-brand-primary/25 hover:shadow-brand-primary/30 active:scale-[0.98]"
+              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 bg-brand-primary text-white hover:bg-brand-primary/95 md:hover:scale-[1.03] shadow-xl shadow-brand-primary/25 md:hover:shadow-brand-primary/30 active:scale-[0.98]"
             >
               Start Your Project
               <ArrowRight className="ml-2 h-4 w-4" />
@@ -85,9 +105,9 @@ export default function Hero() {
 
           {/* Credibility & Trust Highlights */}
           <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.55 }}
+            initial={!mounted || isMobile ? false : { opacity: 0, y: 25 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.4 }}
             className="pt-10 border-t border-white/5"
           >
             <div className="bg-gradient-to-br from-white/5 to-white/[0.01] border border-white/10 rounded-2xl p-6 relative overflow-hidden backdrop-blur-sm max-w-xl">
@@ -121,17 +141,17 @@ export default function Hero() {
         {/* Right Side Visual Art / Interactive Graph (Isometric Grid & Floating Service Spheres) */}
         <div className="lg:col-span-5 relative flex justify-center items-center">
           <motion.div
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.9, delay: 0.2 }}
+            initial={!mounted || isMobile ? false : { opacity: 0, scale: 0.95 }}
+            animate={!mounted || isMobile ? false : { opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 0.15 }}
             className="w-full max-w-[420px] aspect-square rounded-3xl relative flex items-center justify-center"
           >
             {/* Ambient visual background glow */}
             <div className="absolute inset-0 bg-gradient-to-tr from-brand-primary/10 to-brand-secondary/15 rounded-full filter blur-2xl animate-pulse" />
 
             {/* Rotating central ring */}
-            <div className="absolute w-[80%] h-[80%] border border-dashed border-white/10 rounded-full animate-[spin_60s_linear_infinite]" />
-            <div className="absolute w-[60%] h-[60%] border border-white/5 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+            <div className={`absolute w-[80%] h-[80%] border border-dashed border-white/10 rounded-full ${isMobile ? "" : "animate-[spin_60s_linear_infinite]"}`} />
+            <div className={`absolute w-[60%] h-[60%] border border-white/5 rounded-full ${isMobile ? "" : "animate-[spin_40s_linear_infinite_reverse]"}`} />
 
             {/* Interactive SVG geometric representation */}
             <svg

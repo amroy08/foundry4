@@ -1,8 +1,8 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { siteConfig } from "@/config/site";
 import { Menu, X, ArrowUpRight } from "lucide-react";
+import Image from "next/image";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
@@ -20,6 +20,17 @@ export default function Header() {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isOpen]);
 
   const navLinks = [
     { name: "Home", href: "#" },
@@ -58,7 +69,7 @@ export default function Header() {
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrolled
           ? "bg-bg-dark/80 backdrop-blur-md border-b border-white/5 py-4"
-          : "bg-transparent py-6"
+          : "bg-transparent py-4 md:py-6"
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
@@ -69,7 +80,7 @@ export default function Header() {
           className="flex items-center space-x-3 focus-visible:ring-2 focus-visible:ring-brand-primary animate-fade-in"
           aria-label="Foundry4 Homepage"
         >
-          <img src="/images/logo.png" alt="Foundry4 Icon" className="h-8 md:h-9 w-auto object-contain shrink-0" />
+          <Image src="/images/logo.png" alt="Foundry4 Icon" width={36} height={36} className="h-8 md:h-9 w-auto object-contain shrink-0" priority />
           <span className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center">
             <span>Foundry</span>
             <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent ml-0.5">
@@ -119,7 +130,7 @@ export default function Header() {
       {/* Mobile Drawer Menu */}
       <div
         id="mobile-menu"
-        className={`md:hidden fixed inset-0 top-[73px] bg-bg-dark/95 backdrop-blur-xl transition-all duration-300 ease-in-out border-t border-white/5 z-40 ${
+        className={`md:hidden fixed inset-0 top-[64px] bg-bg-dark/95 backdrop-blur-xl transition-all duration-300 ease-in-out border-t border-white/5 z-40 ${
           isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"

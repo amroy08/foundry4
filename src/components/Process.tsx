@@ -1,6 +1,6 @@
 import React from "react";
 import { siteConfig } from "@/config/site";
-import { CheckCircle2, ShieldAlert } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 export default function Process() {
   return (
@@ -24,7 +24,7 @@ export default function Process() {
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {siteConfig.whyChooseUs.map((benefit, index) => (
+            {siteConfig.whyChooseUs.map((benefit) => (
               <div
                 key={benefit.title}
                 className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 transition-all duration-300 hover:bg-white/[0.03] hover:border-white/10"

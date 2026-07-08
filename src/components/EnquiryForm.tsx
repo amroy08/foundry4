@@ -158,7 +158,7 @@ export default function EnquiryForm() {
         </div>
 
         {/* Form Container */}
-        <div className="glass-panel border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl relative">
+        <div className="glass-panel border border-white/10 rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl relative">
           
           {/* Honeypot hidden input for spam bots */}
           <div className="hidden" aria-hidden="true">
@@ -214,7 +214,7 @@ export default function EnquiryForm() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
                       errors.fullName ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="Enter your full name"
@@ -240,7 +240,7 @@ export default function EnquiryForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
                       errors.email ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="Enter your email address"
@@ -266,7 +266,7 @@ export default function EnquiryForm() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
                       errors.phone ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="e.g. +91 98765 43210"
@@ -292,7 +292,7 @@ export default function EnquiryForm() {
                     name="companyName"
                     value={formData.companyName}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
                     placeholder="Your organization name (optional)"
                     disabled={status === "loading"}
                   />
@@ -308,7 +308,7 @@ export default function EnquiryForm() {
                     name="serviceRequired"
                     value={formData.serviceRequired}
                     onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
+                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
                     disabled={status === "loading"}
                   >
                     <option value="Website Development">Website Development</option>
@@ -344,7 +344,7 @@ export default function EnquiryForm() {
                     name="estimatedBudget"
                     value={formData.estimatedBudget}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
                     placeholder="e.g. ₹50,000 - ₹2,00,000"
                     disabled={status === "loading"}
                   />
@@ -360,7 +360,7 @@ export default function EnquiryForm() {
                     name="preferredContact"
                     value={formData.preferredContact}
                     onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
+                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
                     disabled={status === "loading"}
                   >
                     <option value="Email">Email</option>
@@ -379,7 +379,7 @@ export default function EnquiryForm() {
                     name="projectTimeline"
                     value={formData.projectTimeline}
                     onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-sm text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
+                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
                     disabled={status === "loading"}
                   >
                     <option value="Immediate (< 1 Month)">Immediate (&lt; 1 Month)</option>
@@ -402,7 +402,7 @@ export default function EnquiryForm() {
                   value={formData.projectDescription}
                   onChange={handleInputChange}
                   rows={5}
-                  className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-sm text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors resize-none ${
+                  className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors resize-none ${
                     errors.projectDescription ? "border-red-500/50" : "border-white/10"
                   }`}
                   placeholder="Tell us about your requirements, features needed, target audience, and business challenges..."

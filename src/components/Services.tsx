@@ -4,6 +4,7 @@ import React from "react";
 import { siteConfig } from "@/config/site";
 import * as Icons from "lucide-react";
 import { ArrowRight, Check } from "lucide-react";
+import Image from "next/image";
 
 export default function Services() {
   const getIcon = (name: string) => {
@@ -73,10 +74,10 @@ export default function Services() {
 
         {/* Services Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
-          {siteConfig.services.map((service, index) => (
+          {siteConfig.services.map((service) => (
             <div
               key={service.title}
-              className="glass-card rounded-2xl p-8 flex flex-col justify-between"
+              className="glass-card rounded-2xl p-5 sm:p-8 flex flex-col justify-between"
             >
               <div>
                 {/* Icon header */}
@@ -96,21 +97,23 @@ export default function Services() {
 
                 {/* Image preview of service */}
                 <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-6 border border-white/5 relative group">
-                  <img
+                  <Image
                     src={
                       service.title.includes("Software")
-                        ? "/images/software.png"
+                        ? "/images/software.webp"
                         : service.title.includes("Creative")
-                        ? "/images/creative.png"
+                        ? "/images/creative.webp"
                         : service.title.includes("Data")
-                        ? "/images/data.png"
-                        : "/images/ai.png"
+                        ? "/images/data.webp"
+                        : "/images/ai.webp"
                     }
                     alt={service.title}
-                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 500px"
+                    className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/50 to-transparent pointer-events-none" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/50 to-transparent pointer-events-none z-10" />
                 </div>
 
                 {/* Sub-services list (flat list or grouped subheadings) */}

@@ -3,6 +3,7 @@
 import React from "react";
 import { siteConfig } from "@/config/site";
 import { ExternalLink, Check, Globe } from "lucide-react";
+import Image from "next/image";
 
 export default function Portfolio() {
   return (
@@ -57,13 +58,15 @@ export default function Portfolio() {
                     </div>
                     {/* Real Screenshot from live website */}
                     <div className="aspect-[16/10] w-full overflow-hidden relative">
-                      <img
-                        src={project.id === "mvhs" ? "/images/mvhs.png" : "/images/bodals.png"}
+                      <Image
+                        src={project.id === "mvhs" ? "/images/mvhs.webp" : "/images/bodals.webp"}
                         alt={project.title}
-                        className="w-full h-full object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 500px"
+                        className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
                         loading="lazy"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/40 to-transparent pointer-events-none" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/40 to-transparent pointer-events-none z-10" />
                     </div>
                   </div>
                 </div>

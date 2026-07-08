@@ -1,6 +1,6 @@
 import React from "react";
 import { siteConfig } from "@/config/site";
-import { Layers, Activity, ShieldCheck, Zap } from "lucide-react";
+import { Layers, ShieldCheck, Zap } from "lucide-react";
 
 export default function About() {
   return (

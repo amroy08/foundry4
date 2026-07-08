@@ -61,11 +61,11 @@ export default function Industries() {
             <div className="h-1 w-12 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto mt-4 rounded-full" />
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
             {siteConfig.industries.map((ind) => (
               <div
                 key={ind}
-                className="bg-white/[0.01] border border-white/5 rounded-2xl p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/[0.03] hover:border-white/10"
+                className="bg-white/[0.01] border border-white/5 rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center text-center transition-all duration-300 hover:bg-white/[0.03] hover:border-white/10"
               >
                 <div className="p-3 rounded-xl bg-white/5 border border-white/10 mb-4">
                   {getIcon(ind)}

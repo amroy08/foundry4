@@ -101,7 +101,7 @@ export default function Portfolio() {
                     <h4 className="text-xs font-bold text-slate-200 uppercase tracking-widest">
                       Key Deliverables
                     </h4>
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-2.5">
+                    <ul className="grid grid-cols-1 min-[370px]:grid-cols-2 gap-x-6 gap-y-2.5">
                       {project.keyFeatures.slice(0, 6).map((feat, i) => (
                         <li key={i} className="flex items-start text-xs text-text-secondary">
                           <Check className="h-4 w-4 text-brand-secondary shrink-0 mr-2 mt-0.5" />

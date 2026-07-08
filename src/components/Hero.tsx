@@ -139,7 +139,7 @@ export default function Hero() {
         </div>
 
         {/* Right Side Visual Art / Interactive Graph (Isometric Grid & Floating Service Spheres) */}
-        <div className="lg:col-span-5 relative flex justify-center items-center">
+        <div className="hidden lg:flex lg:col-span-5 relative justify-center items-center">
           <motion.div
             initial={!mounted || isMobile ? false : { opacity: 0, scale: 0.95 }}
             animate={!mounted || isMobile ? false : { opacity: 1, scale: 1 }}

@@ -125,7 +125,7 @@ export default function Services() {
                           <h4 className="text-[10px] font-bold text-brand-secondary uppercase tracking-widest">
                             {group.heading}
                           </h4>
-                          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                          <ul className="grid grid-cols-1 min-[370px]:grid-cols-2 gap-x-4 gap-y-2">
                             {group.items.map((sub, i) => (
                               <li key={i} className="flex items-start text-[11px] text-text-secondary">
                                 <Check className="h-3.5 w-3.5 text-brand-accent shrink-0 mr-2 mt-0.5" />
@@ -141,7 +141,7 @@ export default function Services() {
                       <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">
                         Key Deliverables
                       </h4>
-                      <ul className="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-2">
+                      <ul className="grid grid-cols-1 min-[370px]:grid-cols-2 gap-x-4 gap-y-2">
                         {service.subServices && service.subServices.map((sub, i) => (
                           <li key={i} className="flex items-start text-[11px] text-text-secondary">
                             <Check className="h-3.5 w-3.5 text-brand-accent shrink-0 mr-2 mt-0.5" />

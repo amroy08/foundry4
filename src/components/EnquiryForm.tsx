@@ -142,7 +142,7 @@ export default function EnquiryForm() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-[#02000a] border-t border-white/5">
+    <section id="contact" className="relative py-24 bg-[#02000a] border-t border-white/5 overflow-hidden">
       {/* Background decoration elements */}
       <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-10 right-1/4 w-[300px] h-[300px] bg-brand-secondary/5 rounded-full blur-[80px] pointer-events-none" />

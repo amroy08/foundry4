@@ -55,7 +55,7 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="relative py-24 bg-bg-dark border-t border-white/5">
+    <section id="services" className="relative py-24 bg-bg-dark border-t border-white/5 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none" />
 

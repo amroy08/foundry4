@@ -7,7 +7,7 @@ import Image from "next/image";
 
 export default function Portfolio() {
   return (
-    <section id="work" className="relative py-24 bg-[#02000a] border-t border-white/5">
+    <section id="work" className="relative py-24 bg-[#02000a] border-t border-white/5 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-1/4 left-10 w-[300px] h-[300px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-1/4 right-10 w-[300px] h-[300px] bg-brand-secondary/5 rounded-full blur-[100px] pointer-events-none" />

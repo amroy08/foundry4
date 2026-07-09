@@ -4,7 +4,7 @@ import { CheckCircle2 } from "lucide-react";
 
 export default function Process() {
   return (
-    <section id="process" className="relative py-24 bg-bg-dark border-t border-white/5">
+    <section id="process" className="relative py-24 bg-bg-dark border-t border-white/5 overflow-hidden">
       {/* Background gradients */}
       <div className="absolute top-0 right-1/4 w-[400px] h-[400px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" />
       <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-brand-secondary/5 rounded-full blur-[100px] pointer-events-none" />

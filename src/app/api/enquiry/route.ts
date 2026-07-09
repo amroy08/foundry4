@@ -214,7 +214,7 @@ export async function POST(request: Request) {
               <td style="text-align: center; padding-bottom: 16px; font-size: 13px;">
                 <a href="mailto:hello@foundry4.in" style="color: #6366f1; text-decoration: none; margin: 0 10px;">hello@foundry4.in</a>
                 <span style="color: #334155;">|</span>
-                <a href="tel:+919876543210" style="color: #6366f1; text-decoration: none; margin: 0 10px;">+91 98765 43210</a>
+                <a href="tel:+918433568078" style="color: #6366f1; text-decoration: none; margin: 0 10px;">+91 8433568078</a>
                 <span style="color: #334155;">|</span>
                 <a href="https://foundry4.in" target="_blank" style="color: #6366f1; text-decoration: none; margin: 0 10px;">foundry4.in</a>
               </td>

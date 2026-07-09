@@ -272,7 +272,7 @@ export default function EnquiryForm() {
                     className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
                       errors.phone ? "border-red-500/50" : "border-white/10"
                     }`}
-                    placeholder="e.g. +91 98765 43210"
+                    placeholder="e.g. +91 8433568078"
                     disabled={status === "loading"}
                     required
                   />

@@ -35,9 +35,7 @@ export default function Portfolio() {
             return (
               <div
                 key={project.id}
-                className={`grid grid-cols-1 lg:grid-cols-12 gap-12 items-center ${
-                  isOdd ? "lg:flex-row-reverse" : ""
-                }`}
+                className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center"
               >
                 {/* Visual Browser Mockup (Equal Importance) */}
                 <div

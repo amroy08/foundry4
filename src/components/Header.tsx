@@ -7,6 +7,7 @@ import Image from "next/image";
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
   useEffect(() => {
     const handleScroll = () => {
@@ -31,6 +32,42 @@ export default function Header() {
       document.body.style.overflow = "";
     };
   }, [isOpen]);
+
+  useEffect(() => {
+    const sections = ["about", "services", "work", "process", "contact"];
+    const observerOptions = {
+      root: null,
+      rootMargin: "-20% 0px -60% 0px",
+      threshold: 0,
+    };
+
+    const observerCallback = (entries: IntersectionObserverEntry[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(observerCallback, observerOptions);
+
+    const handleScrollActive = () => {
+      if (window.scrollY < 100) {
+        setActiveSection("");
+      }
+    };
+    window.addEventListener("scroll", handleScrollActive);
+
+    sections.forEach((id) => {
+      const el = document.getElementById(id);
+      if (el) observer.observe(el);
+    });
+
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("scroll", handleScrollActive);
+    };
+  }, []);
 
   const navLinks = [
     { name: "Home", href: "#" },
@@ -91,16 +128,23 @@ export default function Header() {
 
         {/* Desktop Navigation */}
         <nav className="hidden md:flex items-center space-x-8" aria-label="Main Navigation">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="text-sm font-medium text-text-secondary hover:text-white transition-colors duration-200"
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isLinkActive =
+              (link.href === "#" && activeSection === "") ||
+              (link.href !== "#" && activeSection === link.href.replace("#", ""));
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`text-sm font-medium transition-colors duration-200 ${
+                  isLinkActive ? "text-brand-primary" : "text-text-secondary hover:text-white"
+                }`}
+              >
+                {link.name}
+              </a>
+            );
+          })}
         </nav>
 
         {/* Desktop CTA */}
@@ -130,23 +174,32 @@ export default function Header() {
       {/* Mobile Drawer Menu */}
       <div
         id="mobile-menu"
-        className={`md:hidden fixed inset-0 top-[64px] bg-bg-dark/95 backdrop-blur-xl transition-all duration-300 ease-in-out border-t border-white/5 z-40 ${
+        className={`md:hidden fixed inset-0 top-[64px] bg-bg-dark/95 backdrop-blur-xl transition-all duration-300 ease-in-out border-t border-white/5 z-40 overflow-y-auto ${
           isOpen
             ? "opacity-100 translate-y-0 pointer-events-auto"
             : "opacity-0 -translate-y-4 pointer-events-none"
         }`}
       >
         <nav className="flex flex-col p-8 space-y-6" aria-label="Mobile Navigation">
-          {navLinks.map((link) => (
-            <a
-              key={link.name}
-              href={link.href}
-              onClick={(e) => handleNavClick(e, link.href)}
-              className="text-lg font-medium text-text-secondary hover:text-white border-b border-white/5 pb-2 transition-colors"
-            >
-              {link.name}
-            </a>
-          ))}
+          {navLinks.map((link) => {
+            const isLinkActive =
+              (link.href === "#" && activeSection === "") ||
+              (link.href !== "#" && activeSection === link.href.replace("#", ""));
+            return (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className={`text-lg font-medium border-b pb-2 transition-colors ${
+                  isLinkActive
+                    ? "text-brand-primary border-brand-primary/20"
+                    : "text-text-secondary hover:text-white border-white/5"
+                }`}
+              >
+                {link.name}
+              </a>
+            );
+          })}
           <a
             href="#contact"
             onClick={(e) => handleNavClick(e, "#contact")}

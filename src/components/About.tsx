@@ -70,31 +70,31 @@ export default function About() {
               </div>
 
               {/* Dashboard metrics preview visual */}
-              <div className="grid grid-cols-3 gap-4 my-6 relative z-10">
-                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-xs text-text-secondary mb-1">Web Platform</span>
-                  <span className="text-base font-extrabold text-white font-mono">100%</span>
-                  <span className="text-[9px] text-brand-accent mt-0.5 font-semibold">RESPONSIVE</span>
+              <div className="grid grid-cols-3 gap-2 sm:gap-4 my-6 relative z-10">
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
+                  <span className="text-[10px] sm:text-xs text-text-secondary mb-1 truncate max-w-full">Web Platform</span>
+                  <span className="text-xs sm:text-base font-extrabold text-white font-mono">100%</span>
+                  <span className="text-[8px] sm:text-[9px] text-brand-accent mt-0.5 font-semibold">RESPONSIVE</span>
                 </div>
-                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-xs text-text-secondary mb-1">Dashboard</span>
-                  <span className="text-base font-extrabold text-white font-mono">Realtime</span>
-                  <span className="text-[9px] text-brand-secondary mt-0.5 font-semibold">POWER BI</span>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
+                  <span className="text-[10px] sm:text-xs text-text-secondary mb-1 truncate max-w-full">Dashboard</span>
+                  <span className="text-xs sm:text-base font-extrabold text-white font-mono truncate max-w-full">Realtime</span>
+                  <span className="text-[8px] sm:text-[9px] text-brand-secondary mt-0.5 font-semibold">POWER BI</span>
                 </div>
-                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-xs text-text-secondary mb-1">Campaigns</span>
-                  <span className="text-base font-extrabold text-white font-mono">Leads</span>
-                  <span className="text-[9px] text-brand-primary mt-0.5 font-semibold">OPTIMIZED</span>
+                <div className="bg-white/[0.02] border border-white/5 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
+                  <span className="text-[10px] sm:text-xs text-text-secondary mb-1 truncate max-w-full">Campaigns</span>
+                  <span className="text-xs sm:text-base font-extrabold text-white font-mono">Leads</span>
+                  <span className="text-[8px] sm:text-[9px] text-brand-primary mt-0.5 font-semibold">OPTIMIZED</span>
                 </div>
               </div>
 
               {/* Bottom taglines / trust highlight inside container */}
               <div className="bg-white/5 border border-white/10 rounded-xl p-4 relative z-10 flex items-center justify-between">
                 <div className="space-y-1">
-                  <div className="text-[10px] uppercase font-bold tracking-wider text-brand-primary">Our Code Guarantee</div>
+                  <div className="text-[10px] uppercase font-bold tracking-wider text-brand-primary-light">Our Code Guarantee</div>
                   <div className="text-xs text-text-secondary">Fully Custom Systems. Highly Secure & Scalable.</div>
                 </div>
-                <ShieldCheck className="h-6 w-6 text-brand-primary shrink-0 ml-2" />
+                <ShieldCheck className="h-6 w-6 text-brand-primary-light shrink-0 ml-2" />
               </div>
             </div>
           </div>

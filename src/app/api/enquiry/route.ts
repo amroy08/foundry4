@@ -169,21 +169,21 @@ export async function POST(request: Request) {
         </div>
       `;
 
-      // Dispatch to Company Inbox
-      await transporter.sendMail({
-        from: `"Foundry4 Enquiries" <${SMTP_USER}>`,
-        to: targetCompanyEmail,
-        subject: `New Project Request - ${serviceRequired} [${fullName}]`,
-        html: adminMailHtml,
-      });
-
-      // Dispatch to Client Confirmation
-      await transporter.sendMail({
-        from: `"Foundry4 Support" <${SMTP_USER}>`,
-        to: email,
-        subject: `We've received your Foundry4 project inquiry!`,
-        html: clientMailHtml,
-      });
+      // Dispatch to Company Inbox and Client Confirmation in parallel
+      await Promise.all([
+        transporter.sendMail({
+          from: `"Foundry4 Enquiries" <${SMTP_USER}>`,
+          to: targetCompanyEmail,
+          subject: `New Project Request - ${serviceRequired} [${fullName}]`,
+          html: adminMailHtml,
+        }),
+        transporter.sendMail({
+          from: `"Foundry4 Support" <${SMTP_USER}>`,
+          to: email,
+          subject: `We've received your Foundry4 project inquiry!`,
+          html: clientMailHtml,
+        })
+      ]);
       
       console.log(`Enquiry email dispatched successfully for: ${email}`);
 

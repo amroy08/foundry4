@@ -2,6 +2,7 @@
 
 @theme inline {
   --color-brand-primary: #6366f1; /* Indigo */
+  --color-brand-primary-light: #818cf8; /* Light Indigo */
   --color-brand-secondary: #d946ef; /* Fuchsia */
   --color-brand-accent: #06b6d4; /* Cyan */
   --color-bg-dark: #030014; /* Deep rich dark background */

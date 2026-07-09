@@ -59,9 +59,9 @@ export const siteConfig: SiteConfig = {
   description: "Foundry4 helps businesses build custom digital products, powerful visual content, data-driven solutions, and high-performing marketing campaigns.",
   aboutText: "Foundry4 is a technology, creative, data, and digital marketing company helping businesses turn ideas into practical digital solutions. Our work includes live websites for organisations in education and international trade, along with custom software, mobile applications, data dashboards, creative design, video production, and performance marketing services.",
   contact: {
-    email: "hello@foundry4.in",
-    phone: "+91 98765 43210",
-    address: "B-Wing, 4th Floor, Tech Hub, Andheri East, Mumbai, Maharashtra, India - 400069",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@foundry4.in",
+    phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+91 98765 43210",
+    address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "B-Wing, 4th Floor, Tech Hub, Andheri East, Mumbai, Maharashtra, India - 400069",
     socials: {
       twitter: "https://twitter.com/foundry4",
       linkedin: "https://linkedin.com/company/foundry4",

@@ -2,23 +2,22 @@
 
 import React from "react";
 import { siteConfig } from "@/config/site";
-import * as Icons from "lucide-react";
-import { ArrowRight, Check } from "lucide-react";
+import { Code, Palette, BarChart3, Cpu, HelpCircle, ArrowRight, Check } from "lucide-react";
 import Image from "next/image";
 
 export default function Services() {
   const getIcon = (name: string) => {
     switch (name) {
       case "Code":
-        return <Icons.Code className="h-6 w-6 text-brand-primary" />;
+        return <Code className="h-6 w-6 text-brand-primary" />;
       case "Palette":
-        return <Icons.Palette className="h-6 w-6 text-brand-secondary" />;
+        return <Palette className="h-6 w-6 text-brand-secondary" />;
       case "BarChart3":
-        return <Icons.BarChart3 className="h-6 w-6 text-brand-accent" />;
+        return <BarChart3 className="h-6 w-6 text-brand-accent" />;
       case "Cpu":
-        return <Icons.Cpu className="h-6 w-6 text-brand-primary" />;
+        return <Cpu className="h-6 w-6 text-brand-primary" />;
       default:
-        return <Icons.HelpCircle className="h-6 w-6 text-brand-primary" />;
+        return <HelpCircle className="h-6 w-6 text-brand-primary" />;
     }
   };
 

@@ -1,13 +1,15 @@
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Services from "@/components/Services";
-import Portfolio from "@/components/Portfolio";
-import Process from "@/components/Process";
-import Industries from "@/components/Industries";
-import EnquiryForm from "@/components/EnquiryForm";
-import Footer from "@/components/Footer";
 import { siteConfig } from "@/config/site";
+
+const About = dynamic(() => import("@/components/About"));
+const Services = dynamic(() => import("@/components/Services"));
+const Portfolio = dynamic(() => import("@/components/Portfolio"));
+const Process = dynamic(() => import("@/components/Process"));
+const Industries = dynamic(() => import("@/components/Industries"));
+const EnquiryForm = dynamic(() => import("@/components/EnquiryForm"));
+const Footer = dynamic(() => import("@/components/Footer"));
 
 export default function Home() {
   const jsonLd = {

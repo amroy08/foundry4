@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Send, CheckCircle2, AlertCircle, Loader2 } from "lucide-react";
+import { Send, CheckCircle2, AlertCircle, Loader2, ChevronDown } from "lucide-react";
 
 interface FormData {
   fullName: string;
@@ -69,8 +69,11 @@ export default function EnquiryForm() {
       tempErrors.email = "Please enter a valid email address";
     }
 
+    const phoneRegex = /^\+?[0-9\s\-()]{10,20}$/;
     if (!formData.phone.trim()) {
       tempErrors.phone = "Phone number is required";
+    } else if (!phoneRegex.test(formData.phone)) {
+      tempErrors.phone = "Please enter a valid phone number (min 10 digits)";
     }
 
     if (!formData.projectDescription.trim()) {
@@ -214,7 +217,7 @@ export default function EnquiryForm() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
                       errors.fullName ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="Enter your full name"
@@ -240,7 +243,7 @@ export default function EnquiryForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
                       errors.email ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="Enter your email address"
@@ -266,7 +269,7 @@ export default function EnquiryForm() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors ${
+                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
                       errors.phone ? "border-red-500/50" : "border-white/10"
                     }`}
                     placeholder="e.g. +91 98765 43210"
@@ -292,7 +295,7 @@ export default function EnquiryForm() {
                     name="companyName"
                     value={formData.companyName}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
                     placeholder="Your organization name (optional)"
                     disabled={status === "loading"}
                   />
@@ -303,34 +306,39 @@ export default function EnquiryForm() {
                   <label htmlFor="serviceRequired" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                     Service Required
                   </label>
-                  <select
-                    id="serviceRequired"
-                    name="serviceRequired"
-                    value={formData.serviceRequired}
-                    onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
-                    disabled={status === "loading"}
-                  >
-                    <option value="Website Development">Website Development</option>
-                    <option value="Ecommerce Website Development">Ecommerce Website Development</option>
-                    <option value="Mobile App Development">Mobile App Development</option>
-                    <option value="Custom Software Development">Custom Software Development</option>
-                    <option value="Web Application Development">Web Application Development</option>
-                    <option value="ERP or Business System">ERP or Business System</option>
-                    <option value="Creative Design and Branding">Creative Design and Branding</option>
-                    <option value="Poster or Brochure Design">Poster or Brochure Design</option>
-                    <option value="Video Editing and Animation">Video Editing and Animation</option>
-                    <option value="Social Media Marketing">Social Media Marketing</option>
-                    <option value="Meta Ads">Meta Ads</option>
-                    <option value="Google Ads">Google Ads</option>
-                    <option value="Data Analysis">Data Analysis</option>
-                    <option value="Power BI Dashboard">Power BI Dashboard</option>
-                    <option value="AI Chatbot">AI Chatbot</option>
-                    <option value="WhatsApp Automation">WhatsApp Automation</option>
-                    <option value="Business Workflow Automation">Business Workflow Automation</option>
-                    <option value="Custom AI Solution">Custom AI Solution</option>
-                    <option value="Other">Other</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="serviceRequired"
+                      name="serviceRequired"
+                      value={formData.serviceRequired}
+                      onChange={handleInputChange}
+                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      disabled={status === "loading"}
+                    >
+                      <option value="Website Development">Website Development</option>
+                      <option value="Ecommerce Website Development">Ecommerce Website Development</option>
+                      <option value="Mobile App Development">Mobile App Development</option>
+                      <option value="Custom Software Development">Custom Software Development</option>
+                      <option value="Web Application Development">Web Application Development</option>
+                      <option value="ERP or Business System">ERP or Business System</option>
+                      <option value="Creative Design and Branding">Creative Design and Branding</option>
+                      <option value="Poster or Brochure Design">Poster or Brochure Design</option>
+                      <option value="Video Editing and Animation">Video Editing and Animation</option>
+                      <option value="Social Media Marketing">Social Media Marketing</option>
+                      <option value="Meta Ads">Meta Ads</option>
+                      <option value="Google Ads">Google Ads</option>
+                      <option value="Data Analysis">Data Analysis</option>
+                      <option value="Power BI Dashboard">Power BI Dashboard</option>
+                      <option value="AI Chatbot">AI Chatbot</option>
+                      <option value="WhatsApp Automation">WhatsApp Automation</option>
+                      <option value="Business Workflow Automation">Business Workflow Automation</option>
+                      <option value="Custom AI Solution">Custom AI Solution</option>
+                      <option value="Other">Other</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500">
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Estimated Budget */}
@@ -344,7 +352,7 @@ export default function EnquiryForm() {
                     name="estimatedBudget"
                     value={formData.estimatedBudget}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors"
+                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
                     placeholder="e.g. ₹50,000 - ₹2,00,000"
                     disabled={status === "loading"}
                   />
@@ -355,18 +363,23 @@ export default function EnquiryForm() {
                   <label htmlFor="preferredContact" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                     Preferred Contact Method
                   </label>
-                  <select
-                    id="preferredContact"
-                    name="preferredContact"
-                    value={formData.preferredContact}
-                    onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
-                    disabled={status === "loading"}
-                  >
-                    <option value="Email">Email</option>
-                    <option value="Phone Call">Phone Call</option>
-                    <option value="WhatsApp">WhatsApp</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="preferredContact"
+                      name="preferredContact"
+                      value={formData.preferredContact}
+                      onChange={handleInputChange}
+                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      disabled={status === "loading"}
+                    >
+                      <option value="Email">Email</option>
+                      <option value="Phone Call">Phone Call</option>
+                      <option value="WhatsApp">WhatsApp</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500">
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                  </div>
                 </div>
 
                 {/* Project Timeline */}
@@ -374,19 +387,24 @@ export default function EnquiryForm() {
                   <label htmlFor="projectTimeline" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
                     Project Timeline
                   </label>
-                  <select
-                    id="projectTimeline"
-                    name="projectTimeline"
-                    value={formData.projectTimeline}
-                    onChange={handleInputChange}
-                    className="w-full bg-bg-dark border border-white/10 rounded-xl px-4 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary transition-colors cursor-pointer"
-                    disabled={status === "loading"}
-                  >
-                    <option value="Immediate (< 1 Month)">Immediate (&lt; 1 Month)</option>
-                    <option value="1-3 Months">1-3 Months</option>
-                    <option value="3-6 Months">3-6 Months</option>
-                    <option value="Flexible / Long-Term">Flexible / Long-Term</option>
-                  </select>
+                  <div className="relative">
+                    <select
+                      id="projectTimeline"
+                      name="projectTimeline"
+                      value={formData.projectTimeline}
+                      onChange={handleInputChange}
+                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      disabled={status === "loading"}
+                    >
+                      <option value="Immediate (< 1 Month)">Immediate (&lt; 1 Month)</option>
+                      <option value="1-3 Months">1-3 Months</option>
+                      <option value="3-6 Months">3-6 Months</option>
+                      <option value="Flexible / Long-Term">Flexible / Long-Term</option>
+                    </select>
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-slate-500">
+                      <ChevronDown className="h-4 w-4" />
+                    </div>
+                  </div>
                 </div>
 
               </div>
@@ -402,7 +420,7 @@ export default function EnquiryForm() {
                   value={formData.projectDescription}
                   onChange={handleInputChange}
                   rows={5}
-                  className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary transition-colors resize-none ${
+                  className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all resize-none ${
                     errors.projectDescription ? "border-red-500/50" : "border-white/10"
                   }`}
                   placeholder="Tell us about your requirements, features needed, target audience, and business challenges..."

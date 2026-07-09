@@ -59,7 +59,7 @@ export const siteConfig: SiteConfig = {
   description: "Foundry4 helps businesses build custom digital products, powerful visual content, data-driven solutions, and high-performing marketing campaigns.",
   aboutText: "Foundry4 is a technology, creative, data, and digital marketing company helping businesses turn ideas into practical digital solutions. Our work includes live websites for organisations in education and international trade, along with custom software, mobile applications, data dashboards, creative design, video production, and performance marketing services.",
   contact: {
-    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "hello@foundry4.in",
+    email: process.env.NEXT_PUBLIC_CONTACT_EMAIL || "info@foundry4.in",
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+91 8433568078",
     address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "House No 625 Bhoiwada village GD Ambekar Road Near jan mandir parel mum 12",
     socials: {

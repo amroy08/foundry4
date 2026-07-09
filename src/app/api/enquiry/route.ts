@@ -148,24 +148,100 @@ export async function POST(request: Request) {
 
       // HTML body for Client Confirmation Email
       const clientMailHtml = `
-        <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
-          <h2 style="color: #4f46e5; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">Foundry4 Project Enquiry</h2>
-          <p>Dear ${fullName},</p>
-          <p>Thank you for reaching out to **Foundry4**. We have successfully received your project enquiry details.</p>
-          <p>Our team of technical architects and creative leads is reviewing your requirements. We will contact you shortly via <strong>${preferredContact}</strong> to discuss the scope and define the next steps.</p>
+        <div style="background-color: #030014; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #1e1b4b; border-radius: 16px;">
+          <!-- Top Accent Gradient Bar -->
+          <div style="height: 4px; background: linear-gradient(90deg, #6366f1 0%, #d946ef 100%); border-radius: 4px; margin-bottom: 24px;"></div>
           
-          <div style="margin-top: 20px; padding: 15px; background-color: #f8fafc; border-radius: 6px;">
-            <h4 style="margin-top: 0; margin-bottom: 8px; color: #334155;">Summary of your request:</h4>
-            <ul style="margin: 0; padding-left: 20px; font-size: 14px; color: #475569;">
-              <li><strong>Service:</strong> ${serviceRequired}</li>
-              <li><strong>Timeline:</strong> ${projectTimeline}</li>
-              <li><strong>Preferred Contact:</strong> ${preferredContact}</li>
-            </ul>
+          <!-- Header Logo & Brand -->
+          <div style="text-align: center; margin-bottom: 32px;">
+            <a href="https://foundry4.in" target="_blank" style="text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+              <img src="https://foundry4.in/images/logo.png" alt="Foundry4 Logo" width="36" height="36" style="vertical-align: middle; border: 0; outline: none;" />
+              <span style="font-size: 24px; font-weight: bold; color: #ffffff; letter-spacing: -0.5px; vertical-align: middle; margin-left: 6px; font-family: sans-serif;">
+                Foundry<span style="color: #6366f1;">4</span>
+              </span>
+            </a>
           </div>
           
-          <p style="margin-top: 20px; font-size: 12px; color: #94a3b8; border-top: 1px solid #f1f5f9; padding-top: 15px;">
-            This is an automated confirmation of your request. Please do not reply directly to this email.
+          <!-- Message Body -->
+          <h3 style="color: #ffffff; font-size: 18px; margin-top: 0; margin-bottom: 12px; font-weight: 600;">Project Enquiry Received</h3>
+          <p style="color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 16px;">Dear ${fullName},</p>
+          <p style="color: #94a3b8; font-size: 15px; line-height: 1.6; margin-bottom: 20px;">
+            Thank you for reaching out to <strong>Foundry4</strong>. We have successfully received your project enquiry details.
           </p>
+          
+          <!-- Main Response Line -->
+          <div style="color: #f8fafc; font-size: 15px; line-height: 1.6; margin-bottom: 24px; padding: 12px 16px; background-color: rgba(99, 102, 241, 0.1); border-left: 3px solid #6366f1; border-radius: 4px;">
+            <strong>Our team will contact you within 24–48 hours</strong> via your preferred contact method (<strong>${preferredContact}</strong>) to discuss the project scope, timeline, and next steps.
+          </div>
+          
+          <!-- Request Details Card -->
+          <div style="background-color: rgba(13, 10, 33, 0.6); border: 1px solid #1e1b4b; border-radius: 12px; padding: 20px; margin-bottom: 24px;">
+            <h4 style="color: #ffffff; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-top: 0; margin-bottom: 16px; font-weight: bold; border-bottom: 1px solid #1e1b4b; padding-bottom: 8px;">Summary of Request</h4>
+            <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+              <tr>
+                <td style="padding: 8px 0; color: #94a3b8; width: 40%; font-weight: 500;">Service Required:</td>
+                <td style="padding: 8px 0; color: #ffffff; font-weight: 600;">${serviceRequired}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #94a3b8; font-weight: 500;">Estimated Timeline:</td>
+                <td style="padding: 8px 0; color: #ffffff; font-weight: 600;">${projectTimeline}</td>
+              </tr>
+              <tr>
+                <td style="padding: 8px 0; color: #94a3b8; font-weight: 500;">Preferred Contact:</td>
+                <td style="padding: 8px 0; color: #ffffff; font-weight: 600; text-transform: capitalize;">${preferredContact}</td>
+              </tr>
+            </table>
+          </div>
+          
+          <!-- Better Ending Message -->
+          <p style="color: #64748b; font-size: 13px; line-height: 1.5; margin-bottom: 24px; text-align: center; font-style: italic;">
+            This is an automated confirmation email. Our team will follow up with you shortly.
+          </p>
+          
+          <!-- Divider -->
+          <div style="border-top: 1px solid #1e1b4b; margin-bottom: 24px;"></div>
+          
+          <!-- Brand Footer -->
+          <table style="width: 100%; border-collapse: collapse;">
+            <tr>
+              <td style="text-align: center; padding-bottom: 16px;">
+                <span style="font-size: 16px; font-weight: bold; color: #ffffff;">Foundry4</span>
+                <br />
+                <span style="font-size: 11px; color: #64748b; line-height: 1.5;">Building Digital Experiences That Move Businesses Forward.</span>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center; padding-bottom: 16px; font-size: 13px;">
+                <a href="mailto:hello@foundry4.in" style="color: #6366f1; text-decoration: none; margin: 0 10px;">hello@foundry4.in</a>
+                <span style="color: #334155;">|</span>
+                <a href="tel:+919876543210" style="color: #6366f1; text-decoration: none; margin: 0 10px;">+91 98765 43210</a>
+                <span style="color: #334155;">|</span>
+                <a href="https://foundry4.in" target="_blank" style="color: #6366f1; text-decoration: none; margin: 0 10px;">foundry4.in</a>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center; padding-bottom: 16px;">
+                <!-- Social Badges for Brand Identity -->
+                <a href="https://linkedin.com/company/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">LinkedIn</span>
+                </a>
+                <a href="https://instagram.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">Instagram</span>
+                </a>
+                <a href="https://twitter.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">Twitter</span>
+                </a>
+                <a href="https://github.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">GitHub</span>
+                </a>
+              </td>
+            </tr>
+            <tr>
+              <td style="text-align: center; font-size: 11px; color: #475569;">
+                &copy; 2026 Foundry4. All rights reserved.
+              </td>
+            </tr>
+          </table>
         </div>
       `;
 

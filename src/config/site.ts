@@ -51,6 +51,10 @@ export interface SiteConfig {
     description: string;
   }[];
   industries: string[];
+  faqs: {
+    question: string;
+    answer: string;
+  }[];
 }
 
 export const siteConfig: SiteConfig = {
@@ -303,5 +307,31 @@ export const siteConfig: SiteConfig = {
     "Tech Startups",
     "Professional Services",
     "Small & Medium Businesses"
+  ],
+  faqs: [
+    {
+      question: "What services does Foundry4 offer?",
+      answer: "Foundry4 offers custom software and website development, creative media and digital marketing, data analysis and business intelligence dashboards, and AI automation solutions. We help businesses build custom websites, mobile apps, ecommerce platforms, Power BI dashboards, run Meta and Google ad campaigns, and implement AI chatbots and workflow automation."
+    },
+    {
+      question: "Where is Foundry4 located?",
+      answer: "Foundry4 is based in Mumbai, India. We work with clients across India and internationally, delivering digital solutions remotely and on-site as needed."
+    },
+    {
+      question: "How much does it cost to build a website with Foundry4?",
+      answer: "Every project is custom-scoped based on your requirements. We offer competitive pricing for startups, small businesses, and enterprises. Contact us at info@foundry4.in or call +91 8433568078 for a free consultation and quote."
+    },
+    {
+      question: "Does Foundry4 build mobile apps?",
+      answer: "Yes, Foundry4 builds custom mobile applications for Android and iOS platforms, including native apps, cross-platform apps, and progressive web apps (PWAs) tailored to your business needs."
+    },
+    {
+      question: "Can Foundry4 help with digital marketing and social media ads?",
+      answer: "Yes, Foundry4 provides full-service digital marketing including Meta Ads (Facebook and Instagram), Google Ads, social media marketing, content creation, lead generation campaigns, and performance tracking with detailed analytics and reporting."
+    },
+    {
+      question: "What is Foundry4's process for starting a new project?",
+      answer: "Our process starts with a Discovery and Analysis phase where we understand your goals, followed by Planning and Strategy, then Design and Development, rigorous Review and Testing, Launch and Delivery, and ongoing Support and Growth to ensure long-term success."
+    }
   ]
 };

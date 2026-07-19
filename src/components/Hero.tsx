@@ -68,7 +68,7 @@ export default function Hero() {
             transition={{ duration: 0.4, delay: 0.1 }}
             className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-[1.1] md:leading-[1.08]"
           >
-            Technology, Creativity, Data & Marketing —{" "}
+            Foundry4 — Technology, Creativity, Data & Marketing{" "}
             <span className="text-gradient">Built Around Your Business.</span>
           </motion.h1>
 

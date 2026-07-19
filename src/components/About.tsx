@@ -15,7 +15,7 @@ export default function About() {
           {/* Copy Column */}
           <div className="lg:col-span-6 space-y-6">
             <h2 className="text-xs font-bold uppercase tracking-widest text-brand-secondary">
-              Who We Are
+              About Foundry4
             </h2>
             <h3 className="text-3xl md:text-4xl font-extrabold text-white tracking-tight leading-tight">
               One Unified Partner for All Your Digital Needs

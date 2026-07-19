@@ -228,11 +228,8 @@ export async function POST(request: Request) {
                 <a href="https://instagram.com/foundry4.in" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
                   <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">Instagram</span>
                 </a>
-                <a href="https://twitter.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
-                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">Twitter</span>
-                </a>
-                <a href="https://github.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
-                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">GitHub</span>
+                <a href="https://facebook.com/foundry4.in" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                  <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">Facebook</span>
                 </a>
               </td>
             </tr>

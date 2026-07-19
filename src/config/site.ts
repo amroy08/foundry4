@@ -33,10 +33,9 @@ export interface SiteConfig {
     phone: string;
     address: string;
     socials: {
-      twitter: string;
       linkedin: string;
       instagram: string;
-      github: string;
+      facebook: string;
     };
   };
   services: ServiceItem[];
@@ -67,10 +66,9 @@ export const siteConfig: SiteConfig = {
     phone: process.env.NEXT_PUBLIC_CONTACT_PHONE || "+91 8433568078",
     address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "House No 625 Bhoiwada village GD Ambekar Road Near jan mandir parel mum 12",
     socials: {
-      twitter: "https://twitter.com/foundry4",
       linkedin: "https://linkedin.com/company/foundry4-digital/",
       instagram: "https://instagram.com/foundry4.in",
-      github: "https://github.com/foundry4"
+      facebook: "https://facebook.com/foundry4.in"
     }
   },
   services: [

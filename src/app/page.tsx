@@ -68,9 +68,8 @@ export default function Home() {
         ],
         "sameAs": [
           siteConfig.contact.socials.linkedin,
-          siteConfig.contact.socials.twitter,
           siteConfig.contact.socials.instagram,
-          siteConfig.contact.socials.github
+          siteConfig.contact.socials.facebook
         ],
         "knowsAbout": [
           "Website Development",

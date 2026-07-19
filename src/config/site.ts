@@ -64,7 +64,7 @@ export const siteConfig: SiteConfig = {
     address: process.env.NEXT_PUBLIC_CONTACT_ADDRESS || "House No 625 Bhoiwada village GD Ambekar Road Near jan mandir parel mum 12",
     socials: {
       twitter: "https://twitter.com/foundry4",
-      linkedin: "https://linkedin.com/company/foundry4",
+      linkedin: "https://linkedin.com/company/foundry4-digital/",
       instagram: "https://instagram.com/foundry4",
       github: "https://github.com/foundry4"
     }

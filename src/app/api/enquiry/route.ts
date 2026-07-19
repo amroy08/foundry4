@@ -222,7 +222,7 @@ export async function POST(request: Request) {
             <tr>
               <td style="text-align: center; padding-bottom: 16px;">
                 <!-- Social Badges for Brand Identity -->
-                <a href="https://linkedin.com/company/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
+                <a href="https://linkedin.com/company/foundry4-digital/" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">
                   <span style="padding: 6px 12px; font-size: 11px; background-color: rgba(255,255,255,0.05); color: #94a3b8; border-radius: 12px; border: 1px solid #1e1b4b; font-family: sans-serif;">LinkedIn</span>
                 </a>
                 <a href="https://instagram.com/foundry4" target="_blank" style="text-decoration: none; margin: 0 4px; display: inline-block;">

@@ -20,7 +20,7 @@ export default function Home() {
         "@id": "https://foundry4.in/#organization",
         "name": siteConfig.name,
         "url": "https://foundry4.in",
-        "logo": "https://foundry4.in/logo.png",
+        "logo": "https://foundry4.in/images/logo.svg",
         "contactPoint": [
           {
             "@type": "ContactPoint",

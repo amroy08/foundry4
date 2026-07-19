@@ -45,7 +45,7 @@ export default function Footer() {
               className="flex items-center space-x-3 focus-visible:ring-2 focus-visible:ring-brand-primary w-fit"
               aria-label="Foundry4 Homepage"
             >
-              <Image src="/images/logo.png" alt="Foundry4 Icon" width={36} height={36} className="h-8 md:h-9 w-auto object-contain shrink-0" loading="lazy" />
+              <Image src="/images/logo.svg" alt="Foundry4 Icon" width={36} height={36} className="h-8 md:h-9 w-auto object-contain shrink-0" loading="lazy" />
               <span className="text-xl md:text-2xl font-bold tracking-tight text-white flex items-center">
                 <span>Foundry</span>
                 <span className="bg-gradient-to-r from-brand-primary to-brand-secondary bg-clip-text text-transparent ml-0.5">

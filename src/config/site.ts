@@ -65,7 +65,7 @@ export const siteConfig: SiteConfig = {
     socials: {
       twitter: "https://twitter.com/foundry4",
       linkedin: "https://linkedin.com/company/foundry4-digital/",
-      instagram: "https://instagram.com/foundry4",
+      instagram: "https://instagram.com/foundry4.in",
       github: "https://github.com/foundry4"
     }
   },

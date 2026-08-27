@@ -136,100 +136,125 @@ export default function Hero() {
               </div>
             </div>
           </motion.div>
-        </div>        {/* Right Side Visual Art / Interactive Graph (Isometric Grid & Floating Service Spheres) */}
-        <div className="hidden lg:flex lg:col-span-5 relative justify-center items-center">
-          <motion.div
-            initial={!mounted || isMobile ? false : { opacity: 0, scale: 0.95 }}
-            animate={!mounted || isMobile ? false : { opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 0.15 }}
-            className="w-full max-w-[420px] aspect-square rounded-3xl relative flex items-center justify-center"
-          >
-            {/* Ambient visual background glow */}
-            <div className="absolute inset-0 bg-gradient-to-tr from-blue-100/50 to-indigo-50/50 rounded-full filter blur-2xl animate-pulse" />
+        </div>        {/* Right Side Visual Art: Corporate Dashboard Mockup Stack */}
+        <div className="hidden lg:flex lg:col-span-5 relative justify-center items-center h-[450px]">
+          {/* Ambient Glows */}
+          <div className="absolute top-10 right-10 w-72 h-72 rounded-full bg-blue-100/10 blur-3xl pointer-events-none" />
+          <div className="absolute -bottom-10 -left-10 w-72 h-72 rounded-full bg-indigo-100/10 blur-3xl pointer-events-none" />
 
-            {/* Rotating central ring */}
-            <div className={`absolute w-[80%] h-[80%] border border-dashed border-slate-200 rounded-full ${isMobile ? "" : "animate-[spin_60s_linear_infinite]"}`} />
-            <div className={`absolute w-[60%] h-[60%] border border-slate-200/50 rounded-full ${isMobile ? "" : "animate-[spin_40s_linear_infinite_reverse]"}`} />
+          {/* Interactive Card Stack */}
+          <div className="relative w-full max-w-[400px] h-full flex items-center justify-center">
+            
+            {/* Background decorative dot grid */}
+            <div className="absolute inset-0 bg-[radial-gradient(#e2e8f0_1.5px,transparent_1.5px)] [background-size:16px_16px] opacity-70 pointer-events-none" />
 
-            {/* Interactive SVG geometric representation */}
-            <svg
-              viewBox="0 0 400 400"
-              className="w-full h-full relative z-10"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
+            {/* Card 1: Main Platform Analytics Card (Middle/Base) */}
+            <motion.div
+              whileHover={{ y: -6, transition: { duration: 0.2 } }}
+              className="absolute w-[340px] bg-white border border-slate-200 rounded-2xl p-5 shadow-lg relative z-20"
             >
-              {/* Central Core Sphere */}
-              <defs>
-                <radialGradient id="coreGlow" cx="50%" cy="50%" r="50%">
-                  <stop offset="0%" stopColor="#2563eb" stopOpacity="0.15" />
-                  <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
-                </radialGradient>
-                <linearGradient id="primaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#2563eb" />
-                  <stop offset="100%" stopColor="#1d4ed8" />
-                </linearGradient>
-                <linearGradient id="secondaryGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0f172a" />
-                  <stop offset="100%" stopColor="#1e293b" />
-                </linearGradient>
-                <linearGradient id="accentGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                  <stop offset="0%" stopColor="#0284c7" />
-                  <stop offset="100%" stopColor="#0369a1" />
-                </linearGradient>
-              </defs>
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                <div className="flex items-center space-x-2">
+                  <div className="h-2 w-2 rounded-full bg-blue-600 animate-pulse" />
+                  <span className="text-[10px] font-bold text-slate-800 tracking-wider uppercase">Analytics Engine</span>
+                </div>
+                <span className="text-[9px] font-mono font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">Live</span>
+              </div>
 
-              <circle cx="200" cy="200" r="80" fill="url(#coreGlow)" />
-              <circle
-                cx="200"
-                cy="200"
-                r="35"
-                fill="#ffffff"
-                stroke="url(#primaryGrad)"
-                strokeWidth="2"
-              />
-              <text
-                x="200"
-                y="204"
-                textAnchor="middle"
-                className="fill-slate-900 font-extrabold text-[10px] tracking-widest"
-              >
-                FOUNDRY4
-              </text>
+              {/* Metric Title */}
+              <div className="space-y-1">
+                <span className="text-[10px] text-slate-500 font-semibold uppercase">Business Conversion Value</span>
+                <div className="flex items-baseline space-x-2">
+                  <span className="text-2xl font-extrabold text-slate-900 tracking-tight">₹48,25,910</span>
+                  <span className="text-xs font-bold text-emerald-605 bg-emerald-50 px-1.5 py-0.5 rounded flex items-center text-emerald-600">
+                    ↑ 312.4%
+                  </span>
+                </div>
+              </div>
 
-              {/* Connected nodes representing 4 departments */}
-              {/* Dept 1: Software - Top Left */}
-              <line x1="200" y1="200" x2="110" y2="110" stroke="rgba(37, 99, 235, 0.2)" strokeWidth="2" strokeDasharray="4 4" />
-              <circle cx="110" cy="110" r="28" fill="#ffffff" stroke="url(#primaryGrad)" strokeWidth="2" />
-              <path d="M104 104l5 5-5 5M116 116l-5-5 5-5" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-              <text x="110" y="152" textAnchor="middle" className="fill-slate-600 font-semibold text-[10px]">SOFTWARE</text>
+              {/* SVG Line Graph */}
+              <div className="h-28 w-full mt-4">
+                <svg viewBox="0 0 300 100" className="w-full h-full overflow-visible">
+                  <defs>
+                    <linearGradient id="chartGlow" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#2563eb" stopOpacity="0.15" />
+                      <stop offset="100%" stopColor="#2563eb" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                  {/* Fill path */}
+                  <path
+                    d="M0 80 Q 40 50, 80 60 T 160 30 T 240 40 T 300 10 L 300 100 L 0 100 Z"
+                    fill="url(#chartGlow)"
+                  />
+                  {/* Line path */}
+                  <motion.path
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 1.5, ease: "easeOut" }}
+                    d="M0 80 Q 40 50, 80 60 T 160 30 T 240 40 T 300 10"
+                    fill="none"
+                    stroke="#2563eb"
+                    strokeWidth="3"
+                    strokeLinecap="round"
+                  />
+                  {/* Dot on target */}
+                  <circle cx="300" cy="10" r="4" fill="#ffffff" stroke="#2563eb" strokeWidth="2.5" />
+                </svg>
+              </div>
 
-              {/* Dept 2: Creative - Top Right */}
-              <line x1="200" y1="200" x2="290" y2="110" stroke="rgba(15, 23, 42, 0.2)" strokeWidth="2" strokeDasharray="4 4" />
-              <circle cx="290" cy="110" r="28" fill="#ffffff" stroke="url(#secondaryGrad)" strokeWidth="2" />
-              <path d="M282 108a8 8 0 1016 0 8 8 0 10-16 0zM286 114h8" stroke="#0f172a" strokeWidth="1.5" />
-              <text x="290" y="152" textAnchor="middle" className="fill-slate-600 font-semibold text-[10px]">CREATIVE</text>
+              {/* Footnote */}
+              <div className="flex items-center justify-between text-[9px] text-slate-400 font-mono mt-3">
+                <span>01 AUG - 27 AUG</span>
+                <span>SYSTEM HEALTH: OPTIMAL</span>
+              </div>
+            </motion.div>
 
-              {/* Dept 3: Data - Bottom Right */}
-              <line x1="200" y1="200" x2="290" y2="290" stroke="rgba(2, 132, 199, 0.2)" strokeWidth="2" strokeDasharray="4 4" />
-              <circle cx="290" cy="290" r="28" fill="#ffffff" stroke="url(#accentGrad)" strokeWidth="2" />
-              <path d="M280 295v-8m10 8v-14m10 14v-5" stroke="#0284c7" strokeWidth="2" strokeLinecap="round" />
-              <text x="290" y="332" textAnchor="middle" className="fill-slate-600 font-semibold text-[10px]">DATA</text>
+            {/* Card 2: Software Latency / API Card (Top Left - Overlapping) */}
+            <motion.div
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              className="absolute -top-4 -left-6 w-[200px] bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl z-30 cursor-pointer"
+            >
+              <div className="flex items-center justify-between mb-3">
+                <span className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">SYSTEM LATENCY</span>
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </div>
+              <div className="text-xl font-extrabold text-white font-mono">42ms</div>
+              <p className="text-[9px] text-slate-400 mt-1 leading-relaxed">
+                Global Edge network delivering <span className="text-blue-400 font-semibold">99.9% uptime</span>.
+              </p>
+            </motion.div>
 
-              {/* Dept 4: Marketing - Bottom Left */}
-              <line x1="200" y1="200" x2="110" y2="290" stroke="rgba(37, 99, 235, 0.2)" strokeWidth="2" strokeDasharray="4 4" />
-              <circle cx="110" cy="290" r="28" fill="#ffffff" stroke="url(#primaryGrad)" strokeWidth="2" />
-              <path d="M102 290l8-8 4 4 8-8" stroke="#2563eb" strokeWidth="2" strokeLinecap="round" />
-              <text x="110" y="332" textAnchor="middle" className="fill-slate-600 font-semibold text-[10px]">MARKETING</text>
-            </svg>
+            {/* Card 3: Marketing Leads / Ads Card (Bottom Right - Overlapping) */}
+            <motion.div
+              whileHover={{ y: -8, transition: { duration: 0.2 } }}
+              className="absolute -bottom-8 -right-6 w-[220px] bg-white border border-slate-200 rounded-2xl p-4 shadow-xl z-30 cursor-pointer"
+            >
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-[9px] font-bold text-slate-500 uppercase tracking-widest">CAMPAIGN ROI</span>
+                <span className="text-[9px] font-bold text-blue-600">Active</span>
+              </div>
+              
+              <div className="space-y-2">
+                <div className="flex justify-between items-baseline">
+                  <span className="text-base font-extrabold text-slate-900">4.8k leads</span>
+                  <span className="text-[10px] text-emerald-600 font-bold">↑ 22.4%</span>
+                </div>
+                {/* Visual bar graph representation */}
+                <div className="flex space-x-1 items-end h-6 pt-1">
+                  <div className="bg-slate-100 rounded-sm w-full h-[40%]" />
+                  <div className="bg-slate-100 rounded-sm w-full h-[60%]" />
+                  <div className="bg-slate-100 rounded-sm w-full h-[50%]" />
+                  <div className="bg-slate-200 rounded-sm w-full h-[70%]" />
+                  <div className="bg-blue-500 rounded-sm w-full h-[95%]" />
+                </div>
+                <div className="text-[8px] text-slate-400 leading-tight">
+                  Meta, Google, and LinkedIn campaigns fully optimized.
+                </div>
+              </div>
+            </motion.div>
 
-            {/* Orbiting text pills */}
-            <div className="absolute -top-4 -right-2 glass-panel border border-slate-100 rounded-full px-4 py-1.5 text-[10px] font-bold text-slate-600 shadow-md">
-              🎯 Meta & Google Ads
-            </div>
-            <div className="absolute bottom-4 -left-6 glass-panel border border-slate-100 rounded-full px-4 py-1.5 text-[10px] font-bold text-slate-600 shadow-md">
-              📊 BI Dashboards
-            </div>
-          </motion.div>
+          </div>
         </div>
       </div>
 

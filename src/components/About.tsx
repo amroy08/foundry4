@@ -1,6 +1,6 @@
 import React from "react";
 import { siteConfig } from "@/config/site";
-import { Layers, ShieldCheck, Zap } from "lucide-react";
+import { Layers, ShieldCheck, Zap, Mail, Cpu, BarChart3, MessageSquare } from "lucide-react";
 
 export default function About() {
   return (
@@ -50,51 +50,86 @@ export default function About() {
             </div>
           </div>
 
-          {/* Visual Column */}
+          {/* Visual Column: Integration Pipeline Canvas */}
           <div className="lg:col-span-6 flex justify-center">
-            <div className="w-full max-w-[460px] aspect-[4/3] relative rounded-2xl overflow-hidden glass-panel border border-slate-100 p-6 flex flex-col justify-between shadow-2xl">
-              {/* Abstract decorative grid */}
-              <div className="absolute inset-0 bg-grid-pattern opacity-10 pointer-events-none" />
+            <div className="w-full max-w-[460px] aspect-[4/3] relative rounded-2xl overflow-hidden bg-white border border-slate-200 p-6 flex flex-col justify-between shadow-xl">
+              {/* Grid Background */}
+              <div className="absolute inset-0 bg-[radial-gradient(#f1f5f9_1.5px,transparent_1.5px)] [background-size:16px_16px] pointer-events-none" />
 
-              {/* Fake dashboard headers */}
-              <div className="flex items-center justify-between border-b border-slate-100 pb-4 relative z-10">
+              {/* Canvas Header */}
+              <div className="flex items-center justify-between border-b border-slate-100 pb-3 relative z-10">
                 <div className="flex items-center space-x-2">
-                  <div className="h-3 w-3 rounded-full bg-red-500/80" />
-                  <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
-                  <div className="h-3 w-3 rounded-full bg-green-500/80" />
-                  <span className="text-[10px] text-slate-500 font-mono ml-2">foundry4_engine_v1.0</span>
+                  <div className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+                  <span className="text-[10px] font-bold text-slate-800 tracking-wider uppercase">Integration Pipeline</span>
                 </div>
-                <span className="px-2 py-0.5 rounded bg-slate-50 text-[9px] font-mono text-brand-primary border border-slate-200">
-                  STATUS: ACTIVE
+                <span className="text-[9px] font-mono font-bold text-slate-500 bg-slate-50 border border-slate-200 px-2 py-0.5 rounded">
+                  v1.2 Active
                 </span>
               </div>
 
-              {/* Dashboard metrics preview visual */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 my-6 relative z-10">
-                <div className="bg-slate-50 border border-slate-100 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-[10px] sm:text-xs text-slate-600 mb-1 truncate max-w-full">Web Platform</span>
-                  <span className="text-xs sm:text-base font-extrabold text-slate-900 font-mono">100%</span>
-                  <span className="text-[8px] sm:text-[9px] text-brand-primary mt-0.5 font-semibold">RESPONSIVE</span>
+              {/* Workflow flowchart nodes */}
+              <div className="my-auto py-4 relative z-10 flex flex-col items-center space-y-3">
+                
+                {/* Node 1: Trigger */}
+                <div className="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl p-3 w-[260px] shadow-sm">
+                  <div className="p-2 rounded-lg bg-blue-50 border border-blue-100 text-brand-primary">
+                    <Mail className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[9px] font-bold text-blue-600 tracking-wide uppercase">Trigger Event</div>
+                    <div className="text-xs font-bold text-slate-900">Lead Form Submitted</div>
+                  </div>
                 </div>
-                <div className="bg-slate-50 border border-slate-100 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-[10px] sm:text-xs text-slate-600 mb-1 truncate max-w-full">Dashboard</span>
-                  <span className="text-xs sm:text-base font-extrabold text-slate-900 font-mono truncate max-w-full">Realtime</span>
-                  <span className="text-[8px] sm:text-[9px] text-brand-accent mt-0.5 font-semibold">POWER BI</span>
+
+                {/* Vertical connection line */}
+                <div className="h-5 w-0.5 bg-blue-200 relative">
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-1.5 w-1.5 bg-blue-500 rounded-full animate-ping" />
                 </div>
-                <div className="bg-slate-50 border border-slate-100 rounded-xl p-2 sm:p-4 flex flex-col justify-center items-center text-center">
-                  <span className="text-[10px] sm:text-xs text-slate-600 mb-1 truncate max-w-full">Campaigns</span>
-                  <span className="text-xs sm:text-base font-extrabold text-slate-900 font-mono">Leads</span>
-                  <span className="text-[8px] sm:text-[9px] text-brand-accent mt-0.5 font-semibold">OPTIMIZED</span>
+
+                {/* Node 2: Processing Engine */}
+                <div className="flex items-center space-x-3 bg-slate-900 border border-slate-800 rounded-xl p-3 w-[260px] shadow-md">
+                  <div className="p-2 rounded-lg bg-blue-500/10 border border-blue-500/20 text-blue-400">
+                    <Cpu className="h-4 w-4" />
+                  </div>
+                  <div className="text-left">
+                    <div className="text-[9px] font-bold text-blue-400 tracking-wide uppercase">Processing Engine</div>
+                    <div className="text-xs font-bold text-white">AI Routing & Validation</div>
+                  </div>
                 </div>
+
+                {/* Split connector lines */}
+                <div className="w-[180px] h-3.5 relative flex justify-between">
+                  <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-200" />
+                  <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-200" />
+                  <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-slate-200" />
+                  <div className="absolute top-0 left-0 right-0 h-0.5 bg-slate-200" />
+                </div>
+
+                {/* Node 3: Outputs (Three columns) */}
+                <div className="flex justify-between w-full gap-2 pt-0.5">
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2 flex flex-col items-center text-center flex-1 shadow-sm">
+                    <Layers className="h-3.5 w-3.5 text-slate-700 mb-1" />
+                    <span className="text-[8px] font-bold text-slate-800 truncate max-w-full">Sync CRM</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2 flex flex-col items-center text-center flex-1 shadow-sm">
+                    <MessageSquare className="h-3.5 w-3.5 text-slate-700 mb-1" />
+                    <span className="text-[8px] font-bold text-slate-800 truncate max-w-full">Notify Team</span>
+                  </div>
+                  <div className="bg-slate-50 border border-slate-200 rounded-lg p-2 flex flex-col items-center text-center flex-1 shadow-sm">
+                    <BarChart3 className="h-3.5 w-3.5 text-slate-700 mb-1" />
+                    <span className="text-[8px] font-bold text-slate-800 truncate max-w-full">Update BI</span>
+                  </div>
+                </div>
+
               </div>
 
-              {/* Bottom taglines / trust highlight inside container */}
-              <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-4 relative z-10 flex items-center justify-between">
-                <div className="space-y-1">
-                  <div className="text-[10px] uppercase font-bold tracking-wider text-brand-primary">Our Code Guarantee</div>
-                  <div className="text-xs text-slate-600">Fully Custom Systems. Highly Secure & Scalable.</div>
+              {/* Bottom Guarantee Banner */}
+              <div className="bg-blue-50/50 border border-blue-100 rounded-xl p-3 relative z-10 flex items-center justify-between">
+                <div className="space-y-0.5 text-left">
+                  <div className="text-[9px] uppercase font-bold tracking-wider text-brand-primary">Our Code Guarantee</div>
+                  <div className="text-[10px] text-slate-600">Fully Custom Systems. Highly Secure.</div>
                 </div>
-                <ShieldCheck className="h-6 w-6 text-brand-primary shrink-0 ml-2" />
+                <ShieldCheck className="h-5 w-5 text-brand-primary shrink-0 ml-2" />
               </div>
             </div>
           </div>

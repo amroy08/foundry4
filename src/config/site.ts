@@ -208,7 +208,7 @@ export const siteConfig: SiteConfig = {
     },
     {
       id: "bodals",
-      title: "Bodal’s International Corporate Website",
+      title: "Bodal's International Corporate Website",
       category: "Export Business and Corporate Website",
       liveUrl: "https://bodalsint.com/",
       description: "A premium corporate website developed for an Indian merchant export business. The website professionally presents the company, its product categories, export capabilities, business information, and enquiry options for international buyers.",
@@ -227,6 +227,30 @@ export const siteConfig: SiteConfig = {
       ],
       technologies: ["PHP", "JavaScript", "Tailwind CSS", "MySQL", "HTML5"],
       location: "India",
+      isLive: true
+    },
+    {
+      id: "mvhs-erp",
+      title: "M.V. High School ERP System",
+      category: "School ERP and Management Software",
+      liveUrl: "https://mvhighscoolerp.in/",
+      description: "A full-featured, custom-built School ERP platform developed for M.V. High School, Mumbai. The system manages 600+ students across 17 classes, covering admissions, fee collection (₹4.1Cr+ tracked), attendance, academics, payroll, reports, and administration — all from a single unified dashboard.",
+      keyFeatures: [
+        "Live admin dashboard with real-time stats",
+        "Fee collection & outstanding dues tracker",
+        "Student, teacher & parent management",
+        "Class & section management (17 classes)",
+        "Attendance marking & daily reports",
+        "Automated WhatsApp fee reminders",
+        "8-module reports center (CSV, PDF, Print)",
+        "Stock, assets & library management",
+        "Payroll & daily accounts ledger",
+        "Role-based access for admin & staff",
+        "Academic year & exam management",
+        "Helpdesk, complaints & document store"
+      ],
+      technologies: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "WhatsApp API"],
+      location: "Mumbai, India",
       isLive: true
     }
   ],

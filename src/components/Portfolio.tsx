@@ -76,7 +76,13 @@ export default function Portfolio() {
                   {/* Real Screenshot from live website */}
                   <div className="aspect-[16/10] w-full overflow-hidden relative">
                     <Image
-                      src={project.id === "mvhs" ? "/images/mvhs.webp" : "/images/bodals.webp"}
+                      src={
+                        project.id === "mvhs"
+                          ? "/images/mvhs.webp"
+                          : project.id === "mvhs-erp"
+                          ? "/images/mvhs_erp.webp"
+                          : "/images/bodals.webp"
+                      }
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 500px"

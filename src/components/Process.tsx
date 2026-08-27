@@ -6,6 +6,16 @@ import { CheckCircle2 } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function Process() {
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  // Cycle active steps sequentially (every 4 seconds)
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setActiveStep((prev) => (prev + 1) % siteConfig.processSteps.length);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
+
   return (
     <section id="process" className="relative py-24 bg-slate-50 border-t border-slate-100 overflow-hidden">
       {/* Inline styles for custom dash animation */}
@@ -92,6 +102,7 @@ export default function Process() {
             <div className="space-y-12 lg:space-y-0 relative">
               {siteConfig.processSteps.map((step, index) => {
                 const isEven = index % 2 === 0;
+                const isActive = index === activeStep;
                 return (
                   <div
                     key={step.step}
@@ -101,37 +112,45 @@ export default function Process() {
                   >
                     {/* Panel Left/Right */}
                     <div className="w-full lg:w-[45%] flex flex-col justify-center">
-                      <motion.div
-                        initial={{ opacity: 0, x: isEven ? -30 : 30 }}
-                        whileInView={{ opacity: 1, x: 0 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.5, ease: "easeOut" }}
-                        className="glass-card rounded-2xl p-6 relative"
+                      <div
+                        onClick={() => setActiveStep(index)}
+                        className={`glass-card rounded-2xl p-6 relative transition-all duration-500 cursor-pointer ${
+                          isActive
+                            ? "border-brand-primary shadow-lg bg-white scale-[1.02] ring-4 ring-blue-50/50 opacity-100 z-20"
+                            : "border-slate-200 shadow-sm bg-white/70 opacity-60 scale-[0.98] hover:opacity-85"
+                        }`}
                       >
                         {/* Mobile Step Badge */}
-                        <div className="absolute top-4 right-4 text-xs font-mono font-bold px-2 py-0.5 bg-blue-50 text-brand-primary border border-blue-100 rounded lg:hidden">
+                        <div className={`absolute top-4 right-4 text-[10px] font-mono font-bold px-2 py-0.5 rounded lg:hidden transition-colors duration-500 ${
+                          isActive 
+                            ? "bg-blue-600 text-white" 
+                            : "bg-slate-100 text-slate-500 border border-slate-200"
+                        }`}>
                           STEP {step.step}
                         </div>
-                        <h3 className="text-lg font-bold text-slate-900 mb-2 tracking-wide">
+                        <h3 className={`text-base font-bold mb-2 tracking-wide transition-colors duration-500 ${
+                          isActive ? "text-blue-600" : "text-slate-900"
+                        }`}>
                           {step.title}
                         </h3>
                         <p className="text-xs text-slate-600 leading-relaxed">
                           {step.description}
                         </p>
-                      </motion.div>
+                      </div>
                     </div>
 
                     {/* Timeline Node Center (Desktop only) */}
                     <div className="hidden lg:flex items-center justify-center w-[10%] relative z-10">
-                      <motion.div
-                        initial={{ scale: 0.6, opacity: 0 }}
-                        whileInView={{ scale: 1, opacity: 1 }}
-                        viewport={{ once: true, margin: "-60px" }}
-                        transition={{ duration: 0.4, type: "spring", stiffness: 120, delay: 0.05 }}
-                        className="h-10 w-10 rounded-full bg-white border-2 border-brand-primary flex items-center justify-center font-mono text-xs font-bold text-brand-primary shadow-sm shadow-blue-100"
+                      <div
+                        onClick={() => setActiveStep(index)}
+                        className={`h-10 w-10 rounded-full flex items-center justify-center font-mono text-xs font-bold transition-all duration-500 cursor-pointer ${
+                          isActive
+                            ? "bg-brand-primary text-white border-brand-primary scale-110 shadow-lg shadow-blue-200 border-2"
+                            : "bg-white text-slate-400 border-slate-250 border-2 hover:border-slate-350 hover:text-slate-600"
+                        }`}
                       >
                         {step.step}
-                      </motion.div>
+                      </div>
                     </div>
 
                     {/* Spacer panel for even columns */}

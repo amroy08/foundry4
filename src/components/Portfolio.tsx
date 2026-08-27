@@ -13,9 +13,17 @@ export default function Portfolio() {
     setActiveIndex((prev) => (prev === 0 ? siteConfig.projects.length - 1 : prev - 1));
   };
 
-  const handleNext = () => {
+  const handleNext = React.useCallback(() => {
     setActiveIndex((prev) => (prev === siteConfig.projects.length - 1 ? 0 : prev + 1));
-  };
+  }, []);
+
+  // Autoplay effect - resets timer whenever activeIndex changes
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      handleNext();
+    }, 5000);
+    return () => clearInterval(timer);
+  }, [activeIndex, handleNext]);
 
   const project = siteConfig.projects[activeIndex];
 

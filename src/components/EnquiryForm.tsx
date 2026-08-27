@@ -142,26 +142,26 @@ export default function EnquiryForm() {
   };
 
   return (
-    <section id="contact" className="relative py-24 bg-[#02000a] border-t border-white/5 overflow-hidden">
+    <section id="contact" className="relative py-24 bg-white border-t border-slate-100 overflow-hidden">
       {/* Background decoration elements */}
-      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-brand-primary/5 rounded-full blur-[100px] pointer-events-none" />
-      <div className="absolute bottom-10 right-1/4 w-[300px] h-[300px] bg-brand-secondary/5 rounded-full blur-[80px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[400px] h-[400px] bg-blue-50/30 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-10 right-1/4 w-[300px] h-[300px] bg-indigo-50/20 rounded-full blur-[80px] pointer-events-none" />
 
       <div className="max-w-4xl mx-auto px-6 md:px-12 relative z-10">
         
         {/* Section Header */}
         <div className="text-center max-w-3xl mx-auto mb-16">
-          <h2 className="text-xs font-bold uppercase tracking-widest text-brand-secondary mb-3">
+          <h2 className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">
             Start a Conversation
           </h2>
-          <p className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             Tell Us About Your Project
-          </p>
-          <div className="h-1 w-12 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto mt-4 rounded-full" />
+          </h3>
+          <div className="h-1 w-12 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Form Container */}
-        <div className="glass-panel border border-white/10 rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl relative">
+        <div className="glass-panel border border-slate-200/85 rounded-3xl p-5 sm:p-8 md:p-12 shadow-2xl relative">
           
           {/* Honeypot hidden input for spam bots */}
           <div className="hidden" aria-hidden="true">
@@ -177,16 +177,16 @@ export default function EnquiryForm() {
 
           {status === "success" ? (
             <div className="text-center py-12 space-y-6 animate-fade-in">
-              <div className="inline-flex p-4 rounded-full bg-green-500/10 border border-green-500/20 text-green-500 mb-2">
+              <div className="inline-flex p-4 rounded-full bg-green-50 border border-green-200 text-green-600 mb-2">
                 <CheckCircle2 className="h-12 w-12" />
               </div>
-              <h3 className="text-2xl font-extrabold text-white">Enquiry Received!</h3>
-              <p className="text-sm text-text-secondary max-w-md mx-auto leading-relaxed">
+              <h3 className="text-2xl font-extrabold text-slate-900">Enquiry Received!</h3>
+              <p className="text-sm text-slate-600 max-w-md mx-auto leading-relaxed">
                 Thank you for reaching out to Foundry4. We have sent a confirmation email to you. Our engineering and strategy team will review your project parameters and respond within 24 hours.
               </p>
               <button
                 onClick={() => setStatus("idle")}
-                className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all bg-white/5 border border-white/10 text-white hover:bg-white/10"
+                className="mt-6 inline-flex items-center justify-center px-6 py-3 rounded-full text-xs font-bold tracking-wider uppercase transition-all bg-slate-50 border border-slate-200 text-slate-700 hover:bg-slate-100"
               >
                 Submit Another Enquiry
               </button>
@@ -196,7 +196,7 @@ export default function EnquiryForm() {
               
               {/* Form Failure Alert */}
               {status === "error" && (
-                <div className="p-4 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start space-x-3 text-red-400">
+                <div className="p-4 rounded-xl bg-red-50 border border-red-200 flex items-start space-x-3 text-red-600">
                   <AlertCircle className="h-5 w-5 shrink-0 mt-0.5" />
                   <div className="text-xs font-semibold leading-relaxed">
                     {errorMessage}
@@ -208,8 +208,8 @@ export default function EnquiryForm() {
                 
                 {/* Full Name */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="fullName" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                    Full Name <span className="text-brand-secondary">*</span>
+                  <label htmlFor="fullName" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Full Name <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="text"
@@ -217,15 +217,15 @@ export default function EnquiryForm() {
                     name="fullName"
                     value={formData.fullName}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
-                      errors.fullName ? "border-red-500/50" : "border-white/10"
+                    className={`w-full bg-white border rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all ${
+                      errors.fullName ? "border-red-400 focus:border-red-500 focus:ring-red-100" : "border-slate-200"
                     }`}
                     placeholder="Enter your full name"
                     disabled={status === "loading"}
                     required
                   />
                   {errors.fullName && (
-                    <span className="text-[10px] text-red-400 font-semibold flex items-center">
+                    <span className="text-[10px] text-red-550 font-semibold flex items-center">
                       <AlertCircle className="h-3 w-3 mr-1" />
                       {errors.fullName}
                     </span>
@@ -234,8 +234,8 @@ export default function EnquiryForm() {
 
                 {/* Email Address */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="email" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                    Email Address <span className="text-brand-secondary">*</span>
+                  <label htmlFor="email" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Email Address <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="email"
@@ -243,15 +243,15 @@ export default function EnquiryForm() {
                     name="email"
                     value={formData.email}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
-                      errors.email ? "border-red-500/50" : "border-white/10"
+                    className={`w-full bg-white border rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all ${
+                      errors.email ? "border-red-400 focus:border-red-500 focus:ring-red-100" : "border-slate-200"
                     }`}
                     placeholder="Enter your email address"
                     disabled={status === "loading"}
                     required
                   />
                   {errors.email && (
-                    <span className="text-[10px] text-red-400 font-semibold flex items-center">
+                    <span className="text-[10px] text-red-550 font-semibold flex items-center">
                       <AlertCircle className="h-3 w-3 mr-1" />
                       {errors.email}
                     </span>
@@ -260,8 +260,8 @@ export default function EnquiryForm() {
 
                 {/* Phone Number */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="phone" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                    Phone Number <span className="text-brand-secondary">*</span>
+                  <label htmlFor="phone" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                    Phone Number <span className="text-red-500">*</span>
                   </label>
                   <input
                     type="tel"
@@ -269,15 +269,15 @@ export default function EnquiryForm() {
                     name="phone"
                     value={formData.phone}
                     onChange={handleInputChange}
-                    className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all ${
-                      errors.phone ? "border-red-500/50" : "border-white/10"
+                    className={`w-full bg-white border rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all ${
+                      errors.phone ? "border-red-400 focus:border-red-500 focus:ring-red-100" : "border-slate-200"
                     }`}
                     placeholder="e.g. +91 8433568078"
                     disabled={status === "loading"}
                     required
                   />
                   {errors.phone && (
-                    <span className="text-[10px] text-red-400 font-semibold flex items-center">
+                    <span className="text-[10px] text-red-550 font-semibold flex items-center">
                       <AlertCircle className="h-3 w-3 mr-1" />
                       {errors.phone}
                     </span>
@@ -286,7 +286,7 @@ export default function EnquiryForm() {
 
                 {/* Company Name */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="companyName" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label htmlFor="companyName" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Company Name
                   </label>
                   <input
@@ -295,7 +295,7 @@ export default function EnquiryForm() {
                     name="companyName"
                     value={formData.companyName}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all"
                     placeholder="Your organization name (optional)"
                     disabled={status === "loading"}
                   />
@@ -303,7 +303,7 @@ export default function EnquiryForm() {
 
                 {/* Service Required */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="serviceRequired" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label htmlFor="serviceRequired" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Service Required
                   </label>
                   <div className="relative">
@@ -312,7 +312,7 @@ export default function EnquiryForm() {
                       name="serviceRequired"
                       value={formData.serviceRequired}
                       onChange={handleInputChange}
-                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      className="w-full appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-10 py-3.5 text-base text-slate-900 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all cursor-pointer"
                       disabled={status === "loading"}
                     >
                       <option value="Website Development">Website Development</option>
@@ -343,7 +343,7 @@ export default function EnquiryForm() {
 
                 {/* Estimated Budget */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="estimatedBudget" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label htmlFor="estimatedBudget" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Estimated Budget Range
                   </label>
                   <input
@@ -352,7 +352,7 @@ export default function EnquiryForm() {
                     name="estimatedBudget"
                     value={formData.estimatedBudget}
                     onChange={handleInputChange}
-                    className="w-full bg-white/[0.02] border border-white/10 rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all"
+                    className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all"
                     placeholder="e.g. ₹50,000 - ₹2,00,000"
                     disabled={status === "loading"}
                   />
@@ -360,7 +360,7 @@ export default function EnquiryForm() {
 
                 {/* Preferred Contact Method */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="preferredContact" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label htmlFor="preferredContact" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Preferred Contact Method
                   </label>
                   <div className="relative">
@@ -369,7 +369,7 @@ export default function EnquiryForm() {
                       name="preferredContact"
                       value={formData.preferredContact}
                       onChange={handleInputChange}
-                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      className="w-full appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-10 py-3.5 text-base text-slate-900 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all cursor-pointer"
                       disabled={status === "loading"}
                     >
                       <option value="Email">Email</option>
@@ -384,7 +384,7 @@ export default function EnquiryForm() {
 
                 {/* Project Timeline */}
                 <div className="flex flex-col space-y-2">
-                  <label htmlFor="projectTimeline" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
+                  <label htmlFor="projectTimeline" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
                     Project Timeline
                   </label>
                   <div className="relative">
@@ -393,7 +393,7 @@ export default function EnquiryForm() {
                       name="projectTimeline"
                       value={formData.projectTimeline}
                       onChange={handleInputChange}
-                      className="w-full appearance-none bg-bg-dark border border-white/10 rounded-xl pl-4 pr-10 py-3.5 text-base text-white focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all cursor-pointer"
+                      className="w-full appearance-none bg-white border border-slate-200 rounded-xl pl-4 pr-10 py-3.5 text-base text-slate-900 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all cursor-pointer"
                       disabled={status === "loading"}
                     >
                       <option value="Immediate (< 1 Month)">Immediate (&lt; 1 Month)</option>
@@ -411,8 +411,8 @@ export default function EnquiryForm() {
 
               {/* Project Description */}
               <div className="flex flex-col space-y-2">
-                <label htmlFor="projectDescription" className="text-xs font-bold text-slate-300 uppercase tracking-wider">
-                  Project Scope & Description <span className="text-brand-secondary">*</span>
+                <label htmlFor="projectDescription" className="text-xs font-bold text-slate-700 uppercase tracking-wider">
+                  Project Scope & Description <span className="text-red-500">*</span>
                 </label>
                 <textarea
                   id="projectDescription"
@@ -420,15 +420,15 @@ export default function EnquiryForm() {
                   value={formData.projectDescription}
                   onChange={handleInputChange}
                   rows={5}
-                  className={`w-full bg-white/[0.02] border rounded-xl px-4 py-3.5 text-base text-white placeholder-slate-500 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-brand-primary/20 transition-all resize-none ${
-                    errors.projectDescription ? "border-red-500/50" : "border-white/10"
+                  className={`w-full bg-white border rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all resize-none ${
+                    errors.projectDescription ? "border-red-400 focus:border-red-500 focus:ring-red-100" : "border-slate-200"
                   }`}
                   placeholder="Tell us about your requirements, features needed, target audience, and business challenges..."
                   disabled={status === "loading"}
                   required
                 />
                 {errors.projectDescription && (
-                  <span className="text-[10px] text-red-400 font-semibold flex items-center">
+                  <span className="text-[10px] text-red-555 font-semibold flex items-center">
                     <AlertCircle className="h-3 w-3 mr-1" />
                     {errors.projectDescription}
                   </span>
@@ -444,15 +444,15 @@ export default function EnquiryForm() {
                     name="consent"
                     checked={formData.consent}
                     onChange={handleInputChange}
-                    className="mt-1 h-4 w-4 bg-bg-dark border border-white/10 rounded focus:ring-brand-primary cursor-pointer text-brand-primary"
+                    className="mt-1 h-4 w-4 bg-white border border-slate-200 rounded focus:ring-brand-primary cursor-pointer text-brand-primary"
                     disabled={status === "loading"}
                   />
-                  <label htmlFor="consent" className="text-xs text-text-secondary leading-relaxed cursor-pointer select-none">
-                    I consent to Foundry4 processing my data and contacting me regarding this project enquiry according to their Privacy Policy. <span className="text-brand-secondary">*</span>
+                  <label htmlFor="consent" className="text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
+                    I consent to Foundry4 processing my data and contacting me regarding this project enquiry according to their Privacy Policy. <span className="text-red-500">*</span>
                   </label>
                 </div>
                 {errors.consent && (
-                  <span className="text-[10px] text-red-400 font-semibold flex items-center">
+                  <span className="text-[10px] text-red-555 font-semibold flex items-center">
                     <AlertCircle className="h-3 w-3 mr-1" />
                     {errors.consent}
                   </span>
@@ -463,7 +463,7 @@ export default function EnquiryForm() {
               <button
                 type="submit"
                 disabled={status === "loading"}
-                className="w-full inline-flex items-center justify-center py-4 px-8 rounded-xl font-bold tracking-wide uppercase transition-all duration-300 bg-brand-primary hover:bg-brand-primary/95 text-white disabled:bg-white/5 disabled:text-text-secondary disabled:cursor-not-allowed text-xs relative overflow-hidden active:scale-[0.98]"
+                className="w-full inline-flex items-center justify-center py-4 px-8 rounded-xl font-bold tracking-wide uppercase transition-all duration-300 bg-brand-primary hover:bg-brand-primary/95 text-white disabled:bg-slate-100 disabled:text-slate-400 disabled:cursor-not-allowed text-xs relative overflow-hidden active:scale-[0.98] shadow-md shadow-blue-100"
               >
                 {status === "loading" ? (
                   <>

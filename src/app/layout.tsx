@@ -125,7 +125,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} scroll-smooth overflow-x-hidden`}
     >
-      <body className="min-h-screen bg-bg-dark text-text-primary selection:bg-brand-primary/30 selection:text-white antialiased flex flex-col justify-between">
+      <body className="min-h-screen bg-white text-slate-900 selection:bg-blue-100 selection:text-blue-900 antialiased flex flex-col justify-between">
         {children}
       </body>
     </html>

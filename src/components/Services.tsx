@@ -55,9 +55,9 @@ export default function Services() {
   };
 
   return (
-    <section id="services" className="relative py-24 bg-bg-dark border-t border-white/5 overflow-hidden">
+    <section id="services" className="relative py-24 bg-white border-t border-slate-100 overflow-hidden">
       {/* Background gradients */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-brand-primary/5 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-blue-50/30 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 relative z-10">
         {/* Section Header */}
@@ -65,10 +65,10 @@ export default function Services() {
           <h2 className="text-xs font-bold uppercase tracking-widest text-brand-primary mb-3">
             Core Expertise
           </h2>
-          <p className="text-3xl md:text-4xl font-extrabold text-white tracking-tight">
+          <h3 className="text-3xl md:text-4xl font-extrabold text-slate-900 tracking-tight">
             Our Four Primary Service Categories
-          </p>
-          <div className="h-1 w-12 bg-gradient-to-r from-brand-primary to-brand-secondary mx-auto mt-4 rounded-full" />
+          </h3>
+          <div className="h-1 w-12 bg-gradient-to-r from-brand-primary to-brand-accent mx-auto mt-4 rounded-full" />
         </div>
 
         {/* Services Grid */}
@@ -81,21 +81,21 @@ export default function Services() {
               <div>
                 {/* Icon header */}
                 <div className="flex items-center space-x-4 mb-6">
-                  <div className="p-3.5 rounded-xl bg-white/5 border border-white/10 shadow-inner">
+                  <div className="p-3.5 rounded-xl bg-blue-50/50 border border-blue-100 shadow-sm">
                     {getIcon(service.iconName)}
                   </div>
-                  <h3 className="text-xl font-bold text-white tracking-wide">
+                  <h3 className="text-xl font-bold text-slate-900 tracking-wide">
                     {service.title}
                   </h3>
                 </div>
 
                 {/* Description */}
-                <p className="text-sm text-text-secondary leading-relaxed mb-6">
+                <p className="text-sm text-slate-600 leading-relaxed mb-6">
                   {service.description}
                 </p>
 
                 {/* Image preview of service */}
-                <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-6 border border-white/5 relative group">
+                <div className="w-full aspect-[16/9] rounded-xl overflow-hidden mb-6 border border-slate-100 shadow-sm relative group">
                   <Image
                     src={
                       service.title.includes("Software")
@@ -112,22 +112,22 @@ export default function Services() {
                     className="object-cover transition-transform duration-300 group-hover:scale-[1.03]"
                     loading="lazy"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#030014]/50 to-transparent pointer-events-none z-10" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/10 to-transparent pointer-events-none z-10" />
                 </div>
 
                 {/* Sub-services list (flat list or grouped subheadings) */}
-                <div className="border-t border-white/5 pt-6 mb-8">
+                <div className="border-t border-slate-100 pt-6 mb-8">
                   {service.groupedServices ? (
                     <div className="space-y-6">
                       {service.groupedServices.map((group, gIdx) => (
                         <div key={gIdx} className="space-y-2.5">
-                          <h4 className="text-[10px] font-bold text-brand-secondary uppercase tracking-widest">
+                          <h4 className="text-[10px] font-bold text-brand-primary uppercase tracking-widest">
                             {group.heading}
                           </h4>
                           <ul className="grid grid-cols-1 min-[370px]:grid-cols-2 gap-x-4 gap-y-2">
                             {group.items.map((sub, i) => (
-                              <li key={i} className="flex items-start text-[11px] text-text-secondary">
-                                <Check className="h-3.5 w-3.5 text-brand-accent shrink-0 mr-2 mt-0.5" />
+                              <li key={i} className="flex items-start text-[11px] text-slate-600">
+                                <Check className="h-3.5 w-3.5 text-brand-primary shrink-0 mr-2 mt-0.5" />
                                 <span>{sub}</span>
                               </li>
                             ))}
@@ -137,13 +137,13 @@ export default function Services() {
                     </div>
                   ) : (
                     <div className="space-y-4">
-                      <h4 className="text-xs font-semibold text-slate-300 uppercase tracking-wider mb-3">
+                      <h4 className="text-xs font-semibold text-slate-700 uppercase tracking-wider mb-3">
                         Key Deliverables
                       </h4>
                       <ul className="grid grid-cols-1 min-[370px]:grid-cols-2 gap-x-4 gap-y-2">
                         {service.subServices && service.subServices.map((sub, i) => (
-                          <li key={i} className="flex items-start text-[11px] text-text-secondary">
-                            <Check className="h-3.5 w-3.5 text-brand-accent shrink-0 mr-2 mt-0.5" />
+                          <li key={i} className="flex items-start text-[11px] text-slate-600">
+                            <Check className="h-3.5 w-3.5 text-brand-primary shrink-0 mr-2 mt-0.5" />
                             <span>{sub}</span>
                           </li>
                         ))}
@@ -156,7 +156,7 @@ export default function Services() {
               {/* Action trigger */}
               <button
                 onClick={() => handleEnquiry(service.title)}
-                className="w-full mt-auto inline-flex items-center justify-center py-3.5 px-6 rounded-xl border border-white/10 hover:border-brand-primary bg-white/[0.02] hover:bg-brand-primary/10 text-xs font-semibold uppercase tracking-wider text-white hover:text-white transition-all active:scale-[0.98]"
+                className="w-full mt-auto inline-flex items-center justify-center py-3.5 px-6 rounded-xl border border-slate-200 hover:border-brand-primary bg-slate-50 hover:bg-blue-50/50 text-xs font-semibold uppercase tracking-wider text-slate-700 hover:text-brand-primary transition-all active:scale-[0.98]"
               >
                 Enquire Now
                 <ArrowRight className="ml-2 h-4 w-4" />

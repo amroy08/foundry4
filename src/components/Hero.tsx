@@ -88,7 +88,7 @@ export default function Hero() {
       {/* Services Watermark Blueprint Background */}
       <motion.div 
         style={{ y: bgY, backgroundImage: "url('/images/services_bg.jpg')" }}
-        className="absolute inset-0 bg-no-repeat bg-contain bg-center pointer-events-none opacity-[0.04] mix-blend-multiply" 
+        className="absolute inset-0 bg-no-repeat bg-contain bg-center pointer-events-none opacity-[0.15] mix-blend-multiply" 
       />
 
       {/* Parallax background orbs */}

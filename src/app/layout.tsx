@@ -4,6 +4,7 @@ import "./globals.css";
 import { siteConfig } from "@/config/site";
 import Cursor from "@/components/Cursor";
 import ScrollProgress from "@/components/ScrollProgress";
+import FloatingActions from "@/components/FloatingActions";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -69,6 +70,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       <body className="min-h-screen bg-white text-slate-900 selection:bg-blue-100 selection:text-blue-900 antialiased flex flex-col justify-between">
         <Cursor />
         <ScrollProgress />
+        <FloatingActions />
         {children}
       </body>
     </html>

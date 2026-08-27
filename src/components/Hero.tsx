@@ -85,11 +85,16 @@ export default function Hero() {
 
   return (
     <section ref={sectionRef} className="relative min-h-screen pt-32 pb-20 overflow-hidden flex flex-col justify-center bg-grid-pattern">
-      {/* Services Watermark Blueprint Background */}
+      {/* Services Watermark Blueprint Background (with Parallax & Float Animation) */}
       <motion.div 
-        style={{ y: bgY, backgroundImage: "url('/images/services_bg.jpg')" }}
-        className="absolute inset-0 bg-no-repeat bg-contain bg-center pointer-events-none opacity-[0.15] mix-blend-multiply" 
-      />
+        style={{ y: bgY }}
+        className="absolute inset-x-0 -top-24 bottom-12 pointer-events-none z-0"
+      >
+        <div 
+          className="w-full h-full bg-no-repeat bg-contain bg-center opacity-[0.15] mix-blend-multiply animate-float"
+          style={{ backgroundImage: "url('/images/services_bg.jpg')" }}
+        />
+      </motion.div>
 
       {/* Parallax background orbs */}
       <motion.div style={{ y: blobY }} className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] rounded-full bg-blue-50/60 blur-[50px] md:blur-[130px] pointer-events-none" />

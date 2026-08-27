@@ -81,8 +81,16 @@ export default function Hero() {
   const cardVisible = shouldReduceMotion ? {} : { opacity: 1, y: 0, scale: 1 };
 
 
+  const bgY = useTransform(scrollYProgress, [0, 1], ["0%", "12%"]);
+
   return (
     <section ref={sectionRef} className="relative min-h-screen pt-32 pb-20 overflow-hidden flex flex-col justify-center bg-grid-pattern">
+      {/* Services Watermark Blueprint Background */}
+      <motion.div 
+        style={{ y: bgY, backgroundImage: "url('/images/services_bg.jpg')" }}
+        className="absolute inset-0 bg-no-repeat bg-contain bg-center pointer-events-none opacity-[0.04] mix-blend-multiply" 
+      />
+
       {/* Parallax background orbs */}
       <motion.div style={{ y: blobY }} className="absolute top-1/4 left-1/4 -translate-x-1/2 -translate-y-1/2 w-[250px] h-[250px] md:w-[600px] md:h-[600px] rounded-full bg-blue-50/60 blur-[50px] md:blur-[130px] pointer-events-none" />
       <motion.div style={{ y: blobY }} className="absolute bottom-10 right-10 w-[200px] h-[200px] md:w-[500px] md:h-[500px] rounded-full bg-indigo-50/60 blur-[50px] md:blur-[120px] pointer-events-none" />

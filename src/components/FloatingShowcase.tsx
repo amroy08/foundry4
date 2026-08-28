@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Sparkles, X, GraduationCap, Globe, BookOpen, Building } from "lucide-react";
 
 interface ShowcaseProject {
+  id: string;
   title: string;
   category: string;
   metric: string;
@@ -13,30 +14,35 @@ interface ShowcaseProject {
 
 const projects: ShowcaseProject[] = [
   {
+    id: "mvhs-erp",
     title: "M.V. High School ERP",
     category: "Custom School Administration System",
     metric: "600+ students, ₹4.1Cr+ fees & automated WhatsApp reminders live",
     icon: <GraduationCap className="h-6 w-6 text-blue-650" />
   },
   {
+    id: "bodals",
     title: "Bodal's International",
     category: "Global Export Merchant Platform",
     metric: "Full-scale logistics, product catalog & international enquiries live",
     icon: <Globe className="h-6 w-6 text-emerald-600" />
   },
   {
+    id: "sakhi-darpan",
     title: "Sakhi Darpan Magazine",
     category: "Festive Editorial Publication Design",
     metric: "27 high-resolution designed pages, custom Hindi typography live",
     icon: <BookOpen className="h-6 w-6 text-purple-650" />
   },
   {
+    id: "grc",
     title: "GRC Residency Branding",
     category: "Luxury Property Identity Design",
     metric: "Gold-accent business card design and luxury branding suite live",
     icon: <Building className="h-6 w-6 text-amber-650" />
   },
   {
+    id: "mvhs",
     title: "M.V. High School Portal",
     category: "School Website and Admissions System",
     metric: "Full online admission registrations & monthly circulars system live",
@@ -66,6 +72,17 @@ export default function FloatingShowcase() {
   }, [isVisible]);
 
   const activeProject = projects[activeIndex];
+
+  const handleProjectClick = () => {
+    window.dispatchEvent(new CustomEvent("select-portfolio-project", { detail: { id: activeProject.id } }));
+    const el = document.getElementById("work");
+    if (el) {
+      window.scrollTo({
+        top: el.getBoundingClientRect().top + window.scrollY - 80,
+        behavior: "smooth"
+      });
+    }
+  };
 
   return (
     <AnimatePresence>
@@ -107,7 +124,8 @@ export default function FloatingShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="flex items-start space-x-4.5"
+                className="flex items-start space-x-4.5 cursor-pointer hover:opacity-90 transition-opacity"
+                onClick={handleProjectClick}
               >
                 {/* Icon Box */}
                 <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex-shrink-0 shadow-sm relative group-hover:scale-105 transition-transform duration-300">

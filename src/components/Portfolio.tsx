@@ -46,6 +46,22 @@ export default function Portfolio() {
     return () => { done = true; cancelAnimationFrame(raf); };
   }, [activeIndex, handleNext, shouldReduceMotion]);
 
+  // Listen for showcase clicks to change the active slide
+  useEffect(() => {
+    const handleSelectProject = (e: Event) => {
+      const customEvent = e as CustomEvent<{ id: string }>;
+      if (customEvent.detail && customEvent.detail.id) {
+        const targetIdx = siteConfig.projects.findIndex((p) => p.id === customEvent.detail.id);
+        if (targetIdx !== -1) {
+          setActiveIndex(targetIdx);
+          setProgress(0);
+        }
+      }
+    };
+    window.addEventListener("select-portfolio-project", handleSelectProject);
+    return () => window.removeEventListener("select-portfolio-project", handleSelectProject);
+  }, []);
+
   // Keyboard navigation for document viewer
   useEffect(() => {
     if (!viewerProject) return;

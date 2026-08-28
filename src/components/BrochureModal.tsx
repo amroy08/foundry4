@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, BookOpen } from "lucide-react";
+import { X, BookOpen, Download } from "lucide-react";
 
 export default function BrochureModal() {
   const [isOpen, setIsOpen] = useState(false);
@@ -54,13 +54,28 @@ export default function BrochureModal() {
                   <span className="text-[10px] text-slate-400 font-medium mt-1 block">Foundry4 — Digital Agency Profile 2026</span>
                 </div>
               </div>
-              <button
-                onClick={() => setIsOpen(false)}
-                className="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
-                aria-label="Close brochure"
-              >
-                <X className="h-5 w-5" />
-              </button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    const iframe = document.querySelector("iframe[title='Foundry4 Company Brochure']") as HTMLIFrameElement;
+                    if (iframe && iframe.contentWindow) {
+                      iframe.contentWindow.print();
+                    }
+                  }}
+                  className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 transition-colors pointer-events-auto cursor-pointer"
+                  title="Download / Print PDF"
+                >
+                  <Download className="h-3.5 w-3.5" />
+                  <span>Download PDF</span>
+                </button>
+                <button
+                  onClick={() => setIsOpen(false)}
+                  className="p-2 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors pointer-events-auto"
+                  aria-label="Close brochure"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
             </div>
 
             {/* Iframe embed */}

@@ -37,6 +37,63 @@
     .dot:hover:not(.active){background:rgba(255,255,255,.35)}
     #key-hint{font-size:9.5px;font-weight:600;color:#334155;letter-spacing:1.5px;text-transform:uppercase;min-width:60px;text-align:right}
 
+    /* ─── PRINT STYLES ─── */
+    @media print {
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
+      html, body {
+        background: #060B18 !important;
+        height: auto !important;
+        overflow: visible !important;
+      }
+      #viewer {
+        position: static !important;
+        background: none !important;
+        height: auto !important;
+        padding: 0 !important;
+      }
+      .nav-btn, #bottom-bar {
+        display: none !important;
+      }
+      #page-wrap {
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+      }
+      #pages {
+        position: static !important;
+        width: 210mm !important;
+        height: auto !important;
+        transform: none !important;
+        box-shadow: none !important;
+        display: block !important;
+        border-radius: 0 !important;
+        border: none !important;
+      }
+      .page {
+        position: relative !important;
+        transform: none !important;
+        opacity: 1 !important;
+        display: block !important;
+        pointer-events: auto !important;
+        width: 210mm !important;
+        height: 297mm !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        overflow: hidden !important;
+        box-shadow: none !important;
+        border: none !important;
+        margin: 0 !important;
+      }
+      * {
+        -webkit-print-color-adjust: exact !important;
+        color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+    }
+
     /* ══════════════════════════════════════════════════════════
        BROCHURE PAGE STYLES
     ══════════════════════════════════════════════════════════ */
@@ -762,7 +819,13 @@
 
   <!-- Bottom Bar -->
   <div id="bottom-bar">
-    <div id="page-counter">PAGE 1 OF 6</div>
+    <div style="display:flex;align-items:center;gap:12px">
+      <div id="page-counter">PAGE 1 OF 6</div>
+      <button id="btn-download" style="background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;padding:6px 14px;border-radius:20px;font-size:10.5px;font-weight:700;display:flex;align-items:center;gap:6px;cursor:pointer;transition:all .2s;" onmouseover="this.style.background='rgba(108,62,255,.35)';this.style.borderColor='rgba(108,62,255,.5)';" onmouseout="this.style.background='rgba(255,255,255,.06)';this.style.borderColor='rgba(255,255,255,.12)';">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PDF
+      </button>
+    </div>
     <div id="dots">
       <div class="dot active" data-idx="0"></div>
       <div class="dot" data-idx="1"></div>
@@ -781,8 +844,15 @@
   const counter = document.getElementById('page-counter');
   const btnPrev = document.getElementById('btn-prev');
   const btnNext = document.getElementById('btn-next');
+  const btnDownload = document.getElementById('btn-download');
   const TOTAL = pages.length;
   let current = 0;
+
+  if (btnDownload) {
+    btnDownload.addEventListener('click', () => {
+      window.print();
+    });
+  }
 
   function goTo(idx) {
     if (idx < 0 || idx >= TOTAL) return;

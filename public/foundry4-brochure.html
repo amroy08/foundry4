@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foundry4 — Company Brochure 2026</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #0B1120;
+      --navy-mid: #131D33;
+      --blue: #2563EB;
+      --blue-light: #3B82F6;
+      --blue-glow: rgba(37,99,235,0.15);
+      --accent: #60A5FA;
+      --gold: #F59E0B;
+      --white: #FFFFFF;
+      --off-white: #F8FAFC;
+      --slate: #94A3B8;
+      --slate-light: #CBD5E1;
+      --slate-dark: #1E293B;
+    }
+
+    html, body {
+      font-family: 'Inter', sans-serif;
+      background: #E5E7EB;
+    }
+
+    /* ── PAGE SETUP ── */
+    @page {
+      size: A4 portrait;
+      margin: 0;
+    }
+
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      background: white;
+      position: relative;
+      overflow: hidden;
+      page-break-after: always;
+      page-break-inside: avoid;
+    }
+
+    /* Screen preview spacing */
+    @media screen {
+      .page {
+        margin: 20px auto;
+        box-shadow: 0 20px 60px rgba(0,0,0,0.18);
+        border-radius: 4px;
+      }
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* PAGE 1 — COVER                                         */
+    /* ────────────────────────────────────────────────────── */
+    .cover {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 0;
+    }
+
+    .cover-bg-pattern {
+      position: absolute;
+      inset: 0;
+      opacity: 0.07;
+      background-image:
+        radial-gradient(circle at 20% 40%, #2563EB 0%, transparent 55%),
+        radial-gradient(circle at 80% 70%, #3B82F6 0%, transparent 50%),
+        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(37,99,235,0.4) 40px),
+        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(37,99,235,0.4) 40px);
+    }
+
+    .cover-content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 14mm 14mm 10mm 14mm;
+    }
+
+    .cover-top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-bottom: 10mm;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      margin-bottom: 14mm;
+    }
+
+    .cover-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo-icon {
+      width: 42px;
+      height: 42px;
+      background: linear-gradient(135deg, #2563EB, #1D4ED8);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Outfit', sans-serif;
+      font-weight: 900;
+      font-size: 20px;
+      color: white;
+      letter-spacing: -1px;
+      box-shadow: 0 4px 20px rgba(37,99,235,0.5);
+    }
+
+    .logo-text {
+      font-family: 'Outfit', sans-serif;
+      font-size: 28px;
+      font-weight: 800;
+      color: white;
+      letter-spacing: -0.5px;
+    }
+
+    .logo-text span {
+      color: #3B82F6;
+    }
+
+    .cover-year-badge {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--slate);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.1);
+      padding: 6px 14px;
+      border-radius: 20px;
+    }
+
+    .cover-main {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 8mm 0;
+    }
+
+    .cover-category-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.35);
+      border-radius: 24px;
+      padding: 7px 16px;
+      margin-bottom: 10mm;
+      width: fit-content;
+    }
+
+    .cover-category-pill span {
+      font-size: 10px;
+      font-weight: 700;
+      color: #93C5FD;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+    }
+
+    .cover-pulse {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #3B82F6;
+      box-shadow: 0 0 0 2px rgba(59,130,246,0.3);
+    }
+
+    .cover-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 52px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.05;
+      letter-spacing: -1.5px;
+      margin-bottom: 7mm;
+    }
+
+    .cover-headline .hl-blue { color: #3B82F6; }
+
+    .cover-sub {
+      font-size: 14px;
+      color: var(--slate);
+      line-height: 1.7;
+      max-width: 120mm;
+      margin-bottom: 12mm;
+    }
+
+    .cover-services-strip {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .service-pill {
+      font-size: 10px;
+      font-weight: 600;
+      color: white;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 20px;
+      padding: 6px 14px;
+      letter-spacing: 0.5px;
+    }
+
+    .cover-divider-line {
+      height: 1px;
+      background: linear-gradient(to right, #2563EB, transparent);
+      margin: 10mm 0 8mm 0;
+    }
+
+    .cover-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .cover-contact-block {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .cover-contact-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--slate);
+    }
+
+    .cover-contact-row strong { color: white; }
+
+    .cover-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: #2563EB;
+      flex-shrink: 0;
+    }
+
+    .cover-tagline-right {
+      text-align: right;
+    }
+
+    .cover-tagline-right p {
+      font-size: 10px;
+      font-weight: 600;
+      color: var(--slate);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      line-height: 1.8;
+    }
+
+    /* Big decorative blue line accent */
+    .cover-blue-bar {
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, #3B82F6, #1D4ED8, transparent);
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* SHARED LAYOUT HELPERS                                  */
+    /* ────────────────────────────────────────────────────── */
+    .inner {
+      padding: 12mm 14mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 9mm;
+      padding-bottom: 6mm;
+      border-bottom: 1.5px solid #E2E8F0;
+    }
+
+    .page-header-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .page-number {
+      width: 28px;
+      height: 28px;
+      background: #2563EB;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 800;
+      color: white;
+      flex-shrink: 0;
+    }
+
+    .page-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 12px;
+      font-weight: 700;
+      color: #2563EB;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    .page-logo-small {
+      font-family: 'Outfit', sans-serif;
+      font-size: 14px;
+      font-weight: 800;
+      color: #0B1120;
+      letter-spacing: -0.5px;
+    }
+
+    .page-logo-small span { color: #2563EB; }
+
+    .section-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 26px;
+      font-weight: 800;
+      color: #0B1120;
+      letter-spacing: -0.5px;
+      line-height: 1.15;
+      margin-bottom: 4mm;
+    }
+
+    .section-title .blue { color: #2563EB; }
+
+    .section-lead {
+      font-size: 12px;
+      color: #475569;
+      line-height: 1.75;
+      margin-bottom: 7mm;
+    }
+
+    .section-divider {
+      height: 3px;
+      width: 40px;
+      background: linear-gradient(to right, #2563EB, #3B82F6);
+      border-radius: 2px;
+      margin-bottom: 6mm;
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* PAGE 2 — WHO WE ARE                                    */
+    /* ────────────────────────────────────────────────────── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6mm;
+      margin-bottom: 7mm;
+    }
+
+    .about-stat-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 12px;
+      padding: 5mm 5mm;
+      text-align: center;
+    }
+
+    .about-stat-number {
+      font-family: 'Outfit', sans-serif;
+      font-size: 30px;
+      font-weight: 900;
+      color: #2563EB;
+      line-height: 1;
+      margin-bottom: 3px;
+    }
+
+    .about-stat-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .about-mission {
+      background: linear-gradient(135deg, #0B1120 0%, #1E293B 100%);
+      border-radius: 14px;
+      padding: 7mm;
+      margin-bottom: 7mm;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-mission::before {
+      content: '"';
+      position: absolute;
+      top: -5mm;
+      left: 6mm;
+      font-size: 80px;
+      color: rgba(37,99,235,0.2);
+      font-family: Georgia, serif;
+      line-height: 1;
+    }
+
+    .about-mission p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.88);
+      line-height: 1.8;
+      font-style: italic;
+      position: relative;
+      z-index: 2;
+    }
+
+    .about-mission-author {
+      font-size: 10px;
+      font-weight: 700;
+      color: #60A5FA;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-top: 4mm;
+      position: relative;
+      z-index: 2;
+    }
+
+    .industries-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .industry-tag {
+      font-size: 10px;
+      font-weight: 600;
+      color: #2563EB;
+      background: rgba(37,99,235,0.07);
+      border: 1px solid rgba(37,99,235,0.2);
+      border-radius: 20px;
+      padding: 5px 12px;
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* SERVICE PAGES — 3, 4, 5                               */
+    /* ────────────────────────────────────────────────────── */
+    .service-hero {
+      background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 100%);
+      border-radius: 14px;
+      padding: 6mm 7mm;
+      margin-bottom: 6mm;
+      color: white;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-hero::after {
+      content: '';
+      position: absolute;
+      right: -10mm;
+      top: -10mm;
+      width: 50mm;
+      height: 50mm;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.06);
+    }
+
+    .service-hero-icon {
+      font-size: 24px;
+      margin-bottom: 3mm;
+    }
+
+    .service-hero h2 {
+      font-family: 'Outfit', sans-serif;
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 2mm;
+    }
+
+    .service-hero p {
+      font-size: 11px;
+      opacity: 0.85;
+      line-height: 1.65;
+    }
+
+    .sub-services-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+      margin-bottom: 5mm;
+    }
+
+    .sub-service-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+      padding: 4mm;
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 10px;
+    }
+
+    .sub-service-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: #2563EB;
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .sub-service-text {
+      font-size: 11px;
+      font-weight: 500;
+      color: #334155;
+      line-height: 1.4;
+    }
+
+    .service-group-heading {
+      font-size: 10px;
+      font-weight: 700;
+      color: #2563EB;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 4mm 0 2mm 0;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .service-group-heading::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: #E2E8F0;
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* PAGE 6 — OUR WORK                                      */
+    /* ────────────────────────────────────────────────────── */
+    .case-study-card {
+      border: 1.5px solid #E2E8F0;
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 5mm;
+    }
+
+    .case-study-header {
+      background: linear-gradient(135deg, #0B1120, #1E293B);
+      padding: 5mm 6mm;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .case-study-badge {
+      font-size: 9px;
+      font-weight: 700;
+      color: #2563EB;
+      background: rgba(37,99,235,0.15);
+      border: 1px solid rgba(37,99,235,0.3);
+      border-radius: 20px;
+      padding: 4px 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .case-study-title {
+      font-family: 'Outfit', sans-serif;
+      font-size: 16px;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 2mm;
+    }
+
+    .case-study-category {
+      font-size: 10px;
+      color: #64748B;
+      font-weight: 500;
+    }
+
+    .case-study-body {
+      padding: 5mm 6mm;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+    }
+
+    .case-metric {
+      background: #F8FAFC;
+      border-radius: 10px;
+      padding: 4mm;
+      border: 1px solid #E2E8F0;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-family: 'Outfit', sans-serif;
+      font-size: 18px;
+      font-weight: 900;
+      color: #2563EB;
+      line-height: 1;
+      margin-bottom: 2px;
+    }
+
+    .metric-label {
+      font-size: 9px;
+      font-weight: 600;
+      color: #64748B;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .case-features {
+      grid-column: span 2;
+    }
+
+    .case-features-list {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+    }
+
+    .case-feature {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      color: #475569;
+      font-weight: 500;
+      padding: 2px 0;
+    }
+
+    .check-icon {
+      width: 14px;
+      height: 14px;
+      background: rgba(37,99,235,0.1);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      color: #2563EB;
+      font-size: 8px;
+      font-weight: 900;
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* PAGE 7 — WHY FOUNDRY4 + PROCESS                        */
+    /* ────────────────────────────────────────────────────── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3mm;
+      margin-bottom: 6mm;
+    }
+
+    .why-card {
+      background: #F8FAFC;
+      border: 1px solid #E2E8F0;
+      border-radius: 11px;
+      padding: 4mm;
+      border-left: 3px solid #2563EB;
+    }
+
+    .why-card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: #0B1120;
+      margin-bottom: 3px;
+    }
+
+    .why-card-desc {
+      font-size: 9.5px;
+      color: #64748B;
+      line-height: 1.55;
+    }
+
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 3mm;
+    }
+
+    .process-step {
+      background: linear-gradient(135deg, #0B1120, #1E293B);
+      border-radius: 11px;
+      padding: 4mm;
+      text-align: center;
+      position: relative;
+    }
+
+    .process-step-num {
+      font-family: 'Outfit', sans-serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: rgba(37,99,235,0.4);
+      line-height: 1;
+      margin-bottom: 2mm;
+    }
+
+    .process-step-title {
+      font-size: 10px;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 2px;
+    }
+
+    .process-step-desc {
+      font-size: 9px;
+      color: #64748B;
+      line-height: 1.5;
+    }
+
+    /* ────────────────────────────────────────────────────── */
+    /* PAGE 8 — BACK COVER / CTA                              */
+    /* ────────────────────────────────────────────────────── */
+    .back-cover {
+      background: var(--navy);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .back-cover-content {
+      position: relative;
+      z-index: 2;
+      padding: 14mm 14mm;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .back-top-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14mm;
+    }
+
+    .cta-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .cta-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      color: #60A5FA;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      margin-bottom: 5mm;
+    }
+
+    .cta-headline {
+      font-family: 'Outfit', sans-serif;
+      font-size: 38px;
+      font-weight: 900;
+      color: white;
+      line-height: 1.1;
+      letter-spacing: -1px;
+      margin-bottom: 5mm;
+    }
+
+    .cta-headline .blue { color: #3B82F6; }
+
+    .cta-sub {
+      font-size: 13px;
+      color: #94A3B8;
+      line-height: 1.7;
+      max-width: 110mm;
+      margin-bottom: 9mm;
+    }
+
+    .cta-contacts {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4mm;
+      width: 100%;
+      margin-bottom: 10mm;
+    }
+
+    .contact-card {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 12px;
+      padding: 5mm;
+    }
+
+    .contact-card-label {
+      font-size: 9px;
+      font-weight: 700;
+      color: #60A5FA;
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin-bottom: 3px;
+    }
+
+    .contact-card-value {
+      font-size: 12px;
+      font-weight: 600;
+      color: white;
+    }
+
+    .contact-card-sub {
+      font-size: 10px;
+      color: #64748B;
+      margin-top: 2px;
+    }
+
+    .back-footer {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      padding-top: 6mm;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .qr-block {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .qr-block img {
+      width: 65px;
+      height: 65px;
+      background: white;
+      padding: 4px;
+      border-radius: 8px;
+      display: block;
+    }
+
+    .qr-label {
+      font-size: 8px;
+      font-weight: 600;
+      color: #64748B;
+      text-align: center;
+      letter-spacing: 0.5px;
+    }
+
+    .back-address {
+      font-size: 10px;
+      color: #475569;
+      line-height: 1.7;
+      max-width: 90mm;
+    }
+
+    .back-address strong { color: #94A3B8; font-weight: 600; }
+
+    .social-row {
+      display: flex;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .social-pill {
+      font-size: 9px;
+      font-weight: 600;
+      color: #60A5FA;
+      border: 1px solid rgba(96,165,250,0.25);
+      border-radius: 14px;
+      padding: 3px 10px;
+    }
+
+    .back-cover-bg {
+      position: absolute;
+      inset: 0;
+      opacity: 0.05;
+      background:
+        radial-gradient(ellipse at 85% 15%, #3B82F6 0%, transparent 55%),
+        radial-gradient(ellipse at 10% 85%, #1D4ED8 0%, transparent 50%),
+        repeating-linear-gradient(45deg, rgba(37,99,235,0.6) 0px, rgba(37,99,235,0.6) 1px, transparent 1px, transparent 30px);
+    }
+
+    /* ── Print utilities ── */
+    @media print {
+      body { background: white; }
+      .page { margin: 0; box-shadow: none; border-radius: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 1 — COVER                                       ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page cover">
+  <div class="cover-bg-pattern"></div>
+  <div class="cover-blue-bar"></div>
+
+  <div class="cover-content">
+    <!-- Top Bar -->
+    <div class="cover-top-bar">
+      <div class="cover-logo">
+        <div class="logo-icon">F4</div>
+        <div class="logo-text">Foundry<span>4</span></div>
+      </div>
+      <div class="cover-year-badge">Company Profile 2026</div>
+    </div>
+
+    <!-- Main Hero -->
+    <div class="cover-main">
+      <div class="cover-category-pill">
+        <div class="cover-pulse"></div>
+        <span>Next-Gen Digital Agency — Mumbai, India</span>
+      </div>
+
+      <h1 class="cover-headline">
+        Technology.<br/>
+        Creativity.<br/>
+        <span class="hl-blue">Data &amp;</span><br/>
+        Marketing.
+      </h1>
+
+      <p class="cover-sub">
+        We design, build, and scale custom digital products, powerful visual content, data-driven intelligence dashboards, and high-performance marketing campaigns — built around your business.
+      </p>
+
+      <div class="cover-services-strip">
+        <div class="service-pill">Software & Web Development</div>
+        <div class="service-pill">Creative Media</div>
+        <div class="service-pill">Data Analysis</div>
+        <div class="service-pill">AI Automation</div>
+        <div class="service-pill">Digital Marketing</div>
+      </div>
+    </div>
+
+    <!-- Divider -->
+    <div class="cover-divider-line"></div>
+
+    <!-- Bottom -->
+    <div class="cover-bottom">
+      <div class="cover-contact-block">
+        <div class="cover-contact-row">
+          <div class="cover-dot"></div>
+          <span>📞 <strong>+91 8433568078</strong></span>
+        </div>
+        <div class="cover-contact-row">
+          <div class="cover-dot"></div>
+          <span>✉ <strong>info@foundry4.in</strong></span>
+        </div>
+        <div class="cover-contact-row">
+          <div class="cover-dot"></div>
+          <span>🌐 <strong>foundry4.in</strong></span>
+        </div>
+      </div>
+      <div class="cover-tagline-right">
+        <p>Building Digital Experiences</p>
+        <p>That Move Businesses Forward</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 2 — WHO WE ARE                                  ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">02</div>
+        <div class="page-title">Who We Are</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Building the <span class="blue">Future</span> of Business, Digitally.</div>
+    <p class="section-lead">
+      Foundry4 is a Mumbai-based technology, creative, data, and digital marketing company helping businesses across India turn ambitious ideas into practical, high-impact digital solutions. Our work spans live ERP systems, corporate websites, editorial design, and AI-powered business automation.
+    </p>
+
+    <!-- Stats -->
+    <div class="about-grid" style="grid-template-columns: 1fr 1fr 1fr 1fr; margin-bottom: 6mm;">
+      <div class="about-stat-card">
+        <div class="about-stat-number">6+</div>
+        <div class="about-stat-label">Live Projects Delivered</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-stat-number">600+</div>
+        <div class="about-stat-label">Students on ERP</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-stat-number">₹4.1Cr+</div>
+        <div class="about-stat-label">Fees Tracked Live</div>
+      </div>
+      <div class="about-stat-card">
+        <div class="about-stat-number">4</div>
+        <div class="about-stat-label">Core Service Pillars</div>
+      </div>
+    </div>
+
+    <!-- Mission Quote -->
+    <div class="about-mission">
+      <p>
+        "We bridge the gap between creative visual artistry, deep data analytics, and robust software engineering — delivering business solutions that are not just beautiful, but genuinely effective and measurable."
+      </p>
+      <div class="about-mission-author">— Foundry4, Core Mission</div>
+    </div>
+
+    <!-- Industries -->
+    <div class="section-title" style="font-size: 16px; margin-bottom: 4mm;">Industries We Serve</div>
+    <div class="industries-grid">
+      <div class="industry-tag">🎓 Education &amp; Academics</div>
+      <div class="industry-tag">🛍️ E-commerce &amp; Retail</div>
+      <div class="industry-tag">🌐 Export &amp; Logistics</div>
+      <div class="industry-tag">🚀 Tech Startups</div>
+      <div class="industry-tag">🎭 Events &amp; Entertainment</div>
+      <div class="industry-tag">💼 Professional Services</div>
+      <div class="industry-tag">🏪 Small &amp; Medium Businesses</div>
+      <div class="industry-tag">📦 Merchandising &amp; B2B</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 3 — SOFTWARE & WEB DEVELOPMENT                  ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">03</div>
+        <div class="page-title">Services</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="service-hero">
+      <div class="service-hero-icon">💻</div>
+      <h2>Software &amp; Web Development</h2>
+      <p>Custom-built, secure, scalable, and fully responsive websites, mobile applications, software platforms, and business systems — designed precisely around each client's operational requirements and technical goals.</p>
+    </div>
+
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Custom Website Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Business Website Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Ecommerce Website Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Custom Software Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Mobile App Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Web Application Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">SaaS Product Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">ERP and CRM Systems</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Business Management Systems</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">API Development &amp; Integration</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Website Redesign</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot"></div><div class="sub-service-text">Website Maintenance &amp; Support</div></div>
+    </div>
+
+    <!-- Tech stack pills -->
+    <div class="service-group-heading">Technologies We Use</div>
+    <div class="cover-services-strip">
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">Next.js</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">React</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">TypeScript</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">PHP</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">PostgreSQL</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">MySQL</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">Tailwind CSS</div>
+      <div class="service-pill" style="background: rgba(37,99,235,0.07); border-color: rgba(37,99,235,0.2); color: #2563EB;">React Native</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 4 — CREATIVE MEDIA & DIGITAL MARKETING          ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">04</div>
+        <div class="page-title">Services</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="service-hero" style="background: linear-gradient(135deg, #7C3AED 0%, #5B21B6 100%);">
+      <div class="service-hero-icon">🎨</div>
+      <h2>Creative Media &amp; Digital Marketing</h2>
+      <p>Creative design, professional video production, performance-driven ad campaigns, and social media growth strategies — helping businesses build their brand, attract loyal audiences, and generate measurable leads online.</p>
+    </div>
+
+    <div class="service-group-heading">Creative Design</div>
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Graphic Design</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Social Media Post Design</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Poster &amp; Brochure Design</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Logo &amp; Brand Identity</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Business Card Design</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#7C3AED"></div><div class="sub-service-text">Advertisement Creatives</div></div>
+    </div>
+
+    <div class="service-group-heading">Video &amp; Animation</div>
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#F59E0B"></div><div class="sub-service-text">Video Editing</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#F59E0B"></div><div class="sub-service-text">Reels &amp; Short-Form Videos</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#F59E0B"></div><div class="sub-service-text">Motion Graphics &amp; Animation</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#F59E0B"></div><div class="sub-service-text">Corporate &amp; Product Videos</div></div>
+    </div>
+
+    <div class="service-group-heading">Digital Marketing</div>
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#10B981"></div><div class="sub-service-text">Meta Ads (Facebook &amp; Instagram)</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#10B981"></div><div class="sub-service-text">Google Ads &amp; Campaign Management</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#10B981"></div><div class="sub-service-text">Social Media Marketing</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#10B981"></div><div class="sub-service-text">Lead Generation</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 5 — DATA & AI AUTOMATION                        ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">05</div>
+        <div class="page-title">Services</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="service-hero" style="background: linear-gradient(135deg, #0F766E 0%, #064E3B 100%);">
+      <div class="service-hero-icon">📊</div>
+      <h2>Data Analysis &amp; Business Intelligence</h2>
+      <p>Interactive dashboards, automated reporting, and business intelligence solutions that transform raw operational data into meaningful insights — helping leadership teams make faster, smarter, and more confident decisions.</p>
+    </div>
+
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">Data Analysis &amp; Cleaning</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">Interactive Dashboard Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">Power BI Dashboard Development</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">Excel &amp; Automated Reporting</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">KPI Tracking &amp; Sales Analysis</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#0F766E"></div><div class="sub-service-text">Data Visualization &amp; BI Solutions</div></div>
+    </div>
+
+    <div class="service-hero" style="background: linear-gradient(135deg, #1E3A5F 0%, #0B1120 100%); margin-top: 4mm;">
+      <div class="service-hero-icon">🤖</div>
+      <h2>AI Automation &amp; Business Solutions</h2>
+      <p>AI-powered tools, intelligent chatbots, and automated workflows designed to reduce repetitive work, improve customer service, and speed up business processes across every operational layer.</p>
+    </div>
+
+    <div class="sub-services-grid">
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">AI Chatbots &amp; Website Assistants</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">WhatsApp Automation</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">Business Workflow Automation</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">Lead Follow-Up &amp; Email Automation</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">Document &amp; Invoice Processing</div></div>
+      <div class="sub-service-item"><div class="sub-service-dot" style="background:#60A5FA"></div><div class="sub-service-text">API &amp; Third-Party Integrations</div></div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 6 — OUR WORK (CASE STUDIES)                     ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">06</div>
+        <div class="page-title">Our Work</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Real Clients. <span class="blue">Real Results.</span></div>
+    <p class="section-lead" style="margin-bottom: 5mm;">Every project we deliver is custom-built, measurable, and designed to make a real operational impact for the businesses and institutions we work with.</p>
+
+    <!-- Case 1: MVHS ERP -->
+    <div class="case-study-card">
+      <div class="case-study-header">
+        <div>
+          <div class="case-study-title">🏫 M.V. High School — ERP System</div>
+          <div class="case-study-category">School ERP and Management Software — Mumbai, India</div>
+        </div>
+        <div class="case-study-badge">Live</div>
+      </div>
+      <div class="case-study-body">
+        <div class="case-metric"><div class="metric-value">600+</div><div class="metric-label">Students Managed</div></div>
+        <div class="case-metric"><div class="metric-value">₹4.1Cr+</div><div class="metric-label">Fees Tracked</div></div>
+        <div class="case-metric"><div class="metric-value">17</div><div class="metric-label">Classes on System</div></div>
+        <div class="case-metric"><div class="metric-value">12+</div><div class="metric-label">ERP Modules</div></div>
+        <div class="case-features">
+          <div class="case-features-list">
+            <div class="case-feature"><div class="check-icon">✓</div>Attendance marking &amp; daily reports</div>
+            <div class="case-feature"><div class="check-icon">✓</div>Automated WhatsApp fee reminders</div>
+            <div class="case-feature"><div class="check-icon">✓</div>Role-based admin &amp; staff access</div>
+            <div class="case-feature"><div class="check-icon">✓</div>Payroll &amp; daily accounts ledger</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 2: Bodals -->
+    <div class="case-study-card">
+      <div class="case-study-header">
+        <div>
+          <div class="case-study-title">🌍 Bodal's International — Corporate Website</div>
+          <div class="case-study-category">Export Business and Corporate Website — India</div>
+        </div>
+        <div class="case-study-badge">Live</div>
+      </div>
+      <div class="case-study-body">
+        <div class="case-metric"><div class="metric-value">5+</div><div class="metric-label">Product Verticals</div></div>
+        <div class="case-metric"><div class="metric-value">Global</div><div class="metric-label">B2B Buyer Focus</div></div>
+        <div class="case-features">
+          <div class="case-features-list">
+            <div class="case-feature"><div class="check-icon">✓</div>Premium corporate design &amp; layout</div>
+            <div class="case-feature"><div class="check-icon">✓</div>Seafood, textiles, agriculture, coffee</div>
+            <div class="case-feature"><div class="check-icon">✓</div>International buyer enquiry form</div>
+            <div class="case-feature"><div class="check-icon">✓</div>Analytics &amp; SEO-ready structure</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Case 3: Print Design -->
+    <div class="case-study-card" style="border-color: rgba(124,58,237,0.2);">
+      <div class="case-study-header" style="background: linear-gradient(135deg, #2D1B69, #1E1040);">
+        <div>
+          <div class="case-study-title">📰 Sakhi Darpan — Festive Magazine Design</div>
+          <div class="case-study-category">Magazine Design and Print Media — Mumbai, India</div>
+        </div>
+        <div class="case-study-badge" style="color: #A78BFA; border-color: rgba(167,139,250,0.3);">Print</div>
+      </div>
+      <div class="case-study-body" style="padding: 4mm 6mm;">
+        <div class="case-metric"><div class="metric-value" style="color: #7C3AED;">27</div><div class="metric-label">Pages Designed</div></div>
+        <div class="case-metric"><div class="metric-value" style="color: #7C3AED;">10+</div><div class="metric-label">Editorial Sections</div></div>
+        <div class="case-features">
+          <div class="case-features-list">
+            <div class="case-feature"><div class="check-icon" style="background:rgba(124,58,237,0.1); color:#7C3AED">✓</div>Bilingual content (Hindi &amp; English)</div>
+            <div class="case-feature"><div class="check-icon" style="background:rgba(124,58,237,0.1); color:#7C3AED">✓</div>High-resolution print-ready PDF</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 7 — WHY FOUNDRY4 + PROCESS                      ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page">
+  <div class="inner">
+    <div class="page-header">
+      <div class="page-header-left">
+        <div class="page-number">07</div>
+        <div class="page-title">Why Foundry4</div>
+      </div>
+      <div class="page-logo-small">Foundry<span>4</span></div>
+    </div>
+
+    <div class="section-divider"></div>
+    <div class="section-title">Why Businesses <span class="blue">Choose Us</span></div>
+    <p class="section-lead" style="margin-bottom: 5mm;">We don't deliver generic solutions — we build everything from scratch, aligned precisely with your brand, your operations, and your growth targets.</p>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-card-title">🔧 Custom Solutions</div>
+        <div class="why-card-desc">No templates. Every line of code and layout is custom-built for your exact workflow and brand values.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">✨ Modern UI/UX</div>
+        <div class="why-card-desc">Layouts that look stunning, load fast, and provide smooth interactions for exceptional user engagement.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">💬 Transparent Communication</div>
+        <div class="why-card-desc">Clear updates, shared access, and collaborative milestones at every phase of the project.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">📈 Scalable Development</div>
+        <div class="why-card-desc">Architectures built to grow alongside your customer base without bottlenecking performance.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">🛡️ Reliable Support</div>
+        <div class="why-card-desc">Technical support, optimization advice, and proactive server maintenance whenever you need it.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">⚡ Fast &amp; Responsive Delivery</div>
+        <div class="why-card-desc">Pages hand-crafted and highly optimized to load fast on desktop, tablet, and mobile browsers.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">🎨 Creative &amp; Technical Expertise</div>
+        <div class="why-card-desc">We bridge creative visual artistry, deep data analytics, and robust software engineering.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-card-title">💼 Business-Focused Approach</div>
+        <div class="why-card-desc">We prioritize features that directly impact your bottom line, sales, and operational efficiency.</div>
+      </div>
+    </div>
+
+    <div class="section-title" style="font-size: 16px; margin-bottom: 4mm;">Our 6-Step Delivery Process</div>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="process-step-num">01</div>
+        <div class="process-step-title">Discovery &amp; Analysis</div>
+        <div class="process-step-desc">We understand your objectives, target audience, and business processes in detail.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">02</div>
+        <div class="process-step-title">Planning &amp; Strategy</div>
+        <div class="process-step-desc">We design an execution roadmap and align on project architecture and tech stack.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">03</div>
+        <div class="process-step-title">Design &amp; Development</div>
+        <div class="process-step-desc">We build intuitive interfaces and write clean, scalable code matching global standards.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">04</div>
+        <div class="process-step-title">Review &amp; Testing</div>
+        <div class="process-step-desc">Rigorous quality control, cross-browser audits, and accessibility validations.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">05</div>
+        <div class="process-step-title">Launch &amp; Delivery</div>
+        <div class="process-step-desc">We deploy to production environments securely and perform final validations.</div>
+      </div>
+      <div class="process-step">
+        <div class="process-step-num">06</div>
+        <div class="process-step-title">Support &amp; Growth</div>
+        <div class="process-step-desc">We monitor performance and optimize your systems for continuous organic growth.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ╔══════════════════════════════════════════════════════╗ -->
+<!-- ║  PAGE 8 — BACK COVER / CTA                            ║ -->
+<!-- ╚══════════════════════════════════════════════════════╝ -->
+<div class="page back-cover">
+  <div class="back-cover-bg"></div>
+  <div class="cover-blue-bar"></div>
+
+  <div class="back-cover-content">
+    <!-- Logo -->
+    <div class="back-top-logo">
+      <div class="logo-icon">F4</div>
+      <div class="logo-text">Foundry<span>4</span></div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta-section">
+      <div class="cta-eyebrow">✦ Ready to Build Something Great?</div>
+      <h2 class="cta-headline">
+        Let's Turn Your<br/>
+        Vision into a<br/>
+        <span class="blue">Digital Reality.</span>
+      </h2>
+      <p class="cta-sub">
+        Whether you need a powerful custom website, a data dashboard, a brand identity, or end-to-end digital marketing — our team is ready to build it, launch it, and grow it with you.
+      </p>
+
+      <div class="cta-contacts">
+        <div class="contact-card">
+          <div class="contact-card-label">📞 Phone / WhatsApp</div>
+          <div class="contact-card-value">+91 8433568078</div>
+          <div class="contact-card-sub">Available for calls &amp; messages</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-label">✉ Email</div>
+          <div class="contact-card-value">info@foundry4.in</div>
+          <div class="contact-card-sub">We respond within 24 hours</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-label">🌐 Website</div>
+          <div class="contact-card-value">foundry4.in</div>
+          <div class="contact-card-sub">View portfolio &amp; services</div>
+        </div>
+        <div class="contact-card">
+          <div class="contact-card-label">📍 Office</div>
+          <div class="contact-card-value">Mumbai, India</div>
+          <div class="contact-card-sub">House No 625 Bhoiwada, Parel</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="back-footer">
+      <div>
+        <div class="back-address">
+          <strong>Foundry4 Digital Agency</strong><br/>
+          House No 625 Bhoiwada Village, GD Ambekar Road,<br/>
+          Near Jan Mandir, Parel, Mumbai – 400012<br/>
+          Maharashtra, India
+        </div>
+        <div class="social-row" style="margin-top: 8px;">
+          <div class="social-pill">LinkedIn</div>
+          <div class="social-pill">Instagram</div>
+          <div class="social-pill">Facebook</div>
+        </div>
+        <div style="font-size: 9px; color: #334155; margin-top: 8px;">© 2026 Foundry4. All rights reserved. | foundry4.in</div>
+      </div>
+      <div class="qr-block">
+        <img
+          src="https://api.qrserver.com/v1/create-qr-code/?size=160x160&data=https://foundry4.in&bgcolor=FFFFFF&color=0B1120&margin=5"
+          alt="Scan to visit foundry4.in"
+          width="65"
+          height="65"
+        />
+        <div class="qr-label">Scan to visit<br/>foundry4.in</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

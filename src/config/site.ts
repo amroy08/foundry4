@@ -22,6 +22,7 @@ export interface ProjectItem {
   location: string;
   isLive: boolean;
   pdfUrl?: string;
+  pages?: string[];
 }
 
 export interface SiteConfig {
@@ -275,7 +276,8 @@ export const siteConfig: SiteConfig = {
       technologies: ["Adobe InDesign", "Adobe Photoshop", "Adobe Illustrator", "Print Design"],
       location: "Mumbai, India",
       isLive: false,
-      pdfUrl: "/pdfs/sakhi_darpan.pdf"
+      pdfUrl: "/pdfs/sakhi_darpan.pdf",
+      pages: Array.from({ length: 27 }, (_, i) => `/images/pdf_pages/sakhi_p${String(i + 1).padStart(2, '0')}.png`)
     },
     {
       id: "grc",
@@ -295,7 +297,8 @@ export const siteConfig: SiteConfig = {
       technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
       location: "India",
       isLive: false,
-      pdfUrl: "/pdfs/grc_bizcard.pdf"
+      pdfUrl: "/pdfs/grc_bizcard.pdf",
+      pages: ["/images/pdf_pages/grc_p01.png", "/images/pdf_pages/grc_p02.png"]
     },
     {
       id: "bodals-print",
@@ -315,7 +318,12 @@ export const siteConfig: SiteConfig = {
       technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
       location: "India",
       isLive: false,
-      pdfUrl: "/pdfs/bodals_brochure.pdf"
+      pdfUrl: "/pdfs/bodals_brochure.pdf",
+      pages: [
+        ...Array.from({ length: 11 }, (_, i) => `/images/pdf_pages/bodals_brochure_p${String(i + 1).padStart(2, '0')}.png`),
+        "/images/pdf_pages/bodals_biz_p01.png",
+        "/images/pdf_pages/bodals_biz_p02.png"
+      ]
     }
   ],
   processSteps: [

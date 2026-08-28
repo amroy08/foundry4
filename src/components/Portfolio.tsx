@@ -2,13 +2,15 @@
 
 import React, { useEffect, useRef } from "react";
 import { siteConfig } from "@/config/site";
-import { ExternalLink, Check, Globe, ChevronLeft, ChevronRight } from "lucide-react";
+import { ExternalLink, Check, Globe, ChevronLeft, ChevronRight, X, Download } from "lucide-react";
 import Image from "next/image";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 
 export default function Portfolio() {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const [progress, setProgress] = React.useState(0);
+  const [viewerProject, setViewerProject] = React.useState<any>(null);
+  const [viewerPageIndex, setViewerPageIndex] = React.useState(0);
   const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const shouldReduceMotion = useReducedMotion();
   const SLIDE_DURATION = 5000;
@@ -43,6 +45,32 @@ export default function Portfolio() {
     raf = requestAnimationFrame(step);
     return () => { done = true; cancelAnimationFrame(raf); };
   }, [activeIndex, handleNext, shouldReduceMotion]);
+
+  // Keyboard navigation for document viewer
+  useEffect(() => {
+    if (!viewerProject) return;
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") {
+        setViewerPageIndex((prev) => (prev === (viewerProject.pages?.length || 1) - 1 ? 0 : prev + 1));
+      } else if (e.key === "ArrowLeft") {
+        setViewerPageIndex((prev) => (prev === 0 ? (viewerProject.pages?.length || 1) - 1 : prev - 1));
+      } else if (e.key === "Escape") {
+        setViewerProject(null);
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [viewerProject]);
+
+  // Scroll block for document viewer
+  useEffect(() => {
+    if (viewerProject) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+    return () => { document.body.style.overflow = "unset"; };
+  }, [viewerProject]);
 
   const project = siteConfig.projects[activeIndex];
 
@@ -154,13 +182,26 @@ export default function Portfolio() {
                   </ul>
                 </div>
                 <div className="flex flex-wrap gap-4 pt-4">
-                  {project.isLive ? (
+                  {project.pages && project.pages.length > 0 ? (
+                    <motion.button
+                      onClick={() => {
+                        setViewerProject(project);
+                        setViewerPageIndex(0);
+                      }}
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-primary text-white hover:bg-brand-primary/95 text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+                      whileHover={{ scale: 1.03, boxShadow: "0 8px 20px -4px rgba(37,99,235,0.3)" }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      Open Interactive Booklet
+                      <Globe className="ml-2 h-3.5 w-3.5" />
+                    </motion.button>
+                  ) : project.isLive ? (
                     <motion.a
                       href={project.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
-                      whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-primary text-white hover:bg-brand-primary/95 text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+                      whileHover={{ scale: 1.03, boxShadow: "0 8px 20px -4px rgba(37,99,235,0.3)" }}
                       whileTap={{ scale: 0.97 }}
                     >
                       View Live Website
@@ -172,17 +213,31 @@ export default function Portfolio() {
                     </span>
                   )}
 
+                  {project.isLive && project.liveUrl !== "#" && (
+                    <motion.a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
+                      whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      View Live Website
+                      <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                    </motion.a>
+                  )}
+
                   {project.pdfUrl && (
                     <motion.a
                       href={project.pdfUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-primary text-white hover:bg-brand-primary/95 text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
-                      whileHover={{ scale: 1.03, boxShadow: "0 8px 20px -4px rgba(37,99,235,0.3)" }}
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
+                      whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
                       whileTap={{ scale: 0.97 }}
                     >
-                      View Full PDF (All Pages)
-                      <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                      Download PDF Document
+                      <Download className="ml-2 h-3.5 w-3.5" />
                     </motion.a>
                   )}
                 </div>
@@ -215,6 +270,103 @@ export default function Portfolio() {
           )}
         </div>
       </div>
+
+      {/* Document Booklet Modal Viewer */}
+      <AnimatePresence>
+        {viewerProject && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-slate-950/95 flex flex-col justify-between p-4 md:p-6 select-none"
+          >
+            {/* Top Bar */}
+            <div className="flex items-center justify-between text-white border-b border-white/10 pb-4 relative z-10">
+              <div className="flex items-center space-x-3">
+                <span className="text-xs md:text-sm font-bold tracking-wide uppercase bg-brand-primary/20 text-blue-400 border border-blue-500/30 px-2.5 py-1 rounded">
+                  Doc Viewer
+                </span>
+                <h4 className="text-sm md:text-base font-semibold truncate max-w-[200px] sm:max-w-md">
+                  {viewerProject.title} (Page {viewerPageIndex + 1} of {viewerProject.pages?.length || 0})
+                </h4>
+              </div>
+              <div className="flex items-center space-x-3">
+                {viewerProject.pdfUrl && (
+                  <a
+                    href={viewerProject.pdfUrl}
+                    download
+                    className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
+                    title="Download original PDF"
+                  >
+                    <Download className="h-5 w-5" />
+                  </a>
+                )}
+                <button
+                  onClick={() => setViewerProject(null)}
+                  className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
+                  title="Close viewer"
+                >
+                  <X className="h-5 w-5" />
+                </button>
+              </div>
+            </div>
+
+            {/* Viewer Stage */}
+            <div className="flex-1 flex items-center justify-between relative py-6">
+              {/* Left Navigation */}
+              <button
+                onClick={() => setViewerPageIndex((prev) => (prev === 0 ? (viewerProject.pages?.length || 1) - 1 : prev - 1))}
+                className="absolute left-2 md:left-4 z-20 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary active:scale-95"
+              >
+                <ChevronLeft className="h-6 w-6" />
+              </button>
+
+              {/* Central Page Container */}
+              <div className="w-full h-full flex items-center justify-center relative">
+                <div className="relative w-full h-full max-w-4xl max-h-[72vh] flex items-center justify-center">
+                  <Image
+                    src={viewerProject.pages?.[viewerPageIndex] || ""}
+                    alt={`Page ${viewerPageIndex + 1}`}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 800px"
+                    className="object-contain"
+                    priority
+                  />
+                </div>
+              </div>
+
+              {/* Right Navigation */}
+              <button
+                onClick={() => setViewerPageIndex((prev) => (prev === (viewerProject.pages?.length || 1) - 1 ? 0 : prev + 1))}
+                className="absolute right-2 md:right-4 z-20 p-3 rounded-full bg-white/5 hover:bg-white/10 text-white border border-white/10 backdrop-blur-sm transition-all focus:outline-none focus:ring-2 focus:ring-brand-primary active:scale-95"
+              >
+                <ChevronRight className="h-6 w-6" />
+              </button>
+            </div>
+
+            {/* Footer / Info */}
+            <div className="flex flex-col items-center justify-center space-y-4 pt-4 border-t border-white/10 relative z-10 text-center">
+              <span className="text-[10px] font-mono tracking-widest text-slate-400 uppercase hidden md:inline-block">
+                USE LEFT/RIGHT KEYBOARD ARROWS TO NAVIGATE
+              </span>
+              
+              {/* Pagination Dots */}
+              <div className="flex flex-wrap items-center justify-center gap-1.5 max-w-lg">
+                {(viewerProject.pages || []).map((_: string, i: number) => (
+                  <button
+                    key={i}
+                    onClick={() => setViewerPageIndex(i)}
+                    className={`h-2.5 rounded-full transition-all duration-300 ${
+                      i === viewerPageIndex ? "w-6 bg-brand-primary" : "w-2.5 bg-slate-700 hover:bg-slate-500"
+                    }`}
+                    aria-label={`Go to page ${i + 1}`}
+                  />
+                ))}
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

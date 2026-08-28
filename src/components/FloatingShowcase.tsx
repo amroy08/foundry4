@@ -16,31 +16,31 @@ const projects: ShowcaseProject[] = [
     title: "M.V. High School ERP",
     category: "Custom School Administration System",
     metric: "600+ students, ₹4.1Cr+ fees & automated WhatsApp reminders live",
-    icon: <GraduationCap className="h-5 w-5 text-blue-650" />
+    icon: <GraduationCap className="h-6 w-6 text-blue-650" />
   },
   {
     title: "Bodal's International",
     category: "Global Export Merchant Platform",
     metric: "Full-scale logistics, product catalog & international enquiries live",
-    icon: <Globe className="h-5 w-5 text-emerald-600" />
+    icon: <Globe className="h-6 w-6 text-emerald-600" />
   },
   {
     title: "Sakhi Darpan Magazine",
     category: "Festive Editorial Publication Design",
     metric: "27 high-resolution designed pages, custom Hindi typography live",
-    icon: <BookOpen className="h-5 w-5 text-purple-650" />
+    icon: <BookOpen className="h-6 w-6 text-purple-650" />
   },
   {
     title: "GRC Residency Branding",
     category: "Luxury Property Identity Design",
     metric: "Gold-accent business card design and luxury branding suite live",
-    icon: <Building className="h-5 w-5 text-amber-650" />
+    icon: <Building className="h-6 w-6 text-amber-650" />
   },
   {
     title: "M.V. High School Portal",
     category: "School Website and Admissions System",
     metric: "Full online admission registrations & monthly circulars system live",
-    icon: <GraduationCap className="h-5 w-5 text-indigo-650" />
+    icon: <GraduationCap className="h-6 w-6 text-indigo-650" />
   }
 ];
 
@@ -75,17 +75,17 @@ export default function FloatingShowcase() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 30, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 350, damping: 26 }}
-          className="fixed bottom-6 left-6 z-[48] w-[350px] max-w-[calc(100vw-3rem)] bg-white/95 border border-slate-200/80 backdrop-blur-md rounded-2xl p-5 shadow-2xl shadow-slate-100 flex flex-col justify-between overflow-hidden group select-none pointer-events-auto"
+          className="fixed bottom-6 left-6 z-[48] w-[440px] max-w-[calc(100vw-2.5rem)] bg-white/95 border border-slate-200/80 backdrop-blur-md rounded-2xl p-6 md:p-7 shadow-2xl shadow-slate-100 flex flex-col justify-between overflow-hidden group select-none pointer-events-auto"
         >
           {/* Header */}
-          <div className="flex items-center justify-between mb-3.5 pb-2.5 border-b border-slate-100 relative z-10">
+          <div className="flex items-center justify-between mb-4 pb-3 border-b border-slate-100 relative z-10">
             <div className="flex items-center space-x-2">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-600"></span>
               </span>
-              <span className="text-[10px] font-bold tracking-widest text-slate-400 uppercase flex items-center">
-                <Sparkles className="h-3 w-3 text-brand-primary mr-1" />
+              <span className="text-[11px] font-bold tracking-widest text-slate-400 uppercase flex items-center">
+                <Sparkles className="h-3.5 w-3.5 text-brand-primary mr-1" />
                 Work in Action
               </span>
             </div>
@@ -94,12 +94,12 @@ export default function FloatingShowcase() {
               className="p-1 rounded-full text-slate-400 hover:text-slate-600 hover:bg-slate-50 transition-colors"
               aria-label="Dismiss announcement"
             >
-              <X className="h-3.5 w-3.5" />
+              <X className="h-4 w-4" />
             </button>
           </div>
 
           {/* Project Details Stage */}
-          <div className="relative min-h-[90px] flex flex-col justify-center py-1">
+          <div className="relative min-h-[110px] flex flex-col justify-center py-1">
             <AnimatePresence mode="wait">
               <motion.div
                 key={activeIndex}
@@ -107,27 +107,27 @@ export default function FloatingShowcase() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -15 }}
                 transition={{ duration: 0.35, ease: "easeOut" }}
-                className="flex items-start space-x-4"
+                className="flex items-start space-x-4.5"
               >
                 {/* Icon Box */}
-                <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 flex-shrink-0 shadow-sm relative group-hover:scale-105 transition-transform duration-300">
+                <div className="p-3.5 rounded-xl bg-slate-50 border border-slate-100 flex-shrink-0 shadow-sm relative group-hover:scale-105 transition-transform duration-300">
                   {activeProject.icon}
                 </div>
 
                 {/* Content */}
                 <div className="flex-1 min-w-0 text-left">
-                  <div className="flex items-center space-x-2">
-                    <h5 className="text-sm font-extrabold text-slate-900 truncate">
+                  <div className="flex items-center space-x-2.5">
+                    <h5 className="text-base md:text-lg font-black text-slate-900 truncate">
                       {activeProject.title}
                     </h5>
-                    <span className="inline-flex items-center px-1.5 py-0.5 rounded text-[8px] font-bold bg-blue-50 text-blue-700 uppercase tracking-wide border border-blue-100 shrink-0">
+                    <span className="inline-flex items-center px-2 py-0.5 rounded text-[9px] font-extrabold bg-blue-50 text-blue-700 uppercase tracking-wide border border-blue-100 shrink-0">
                       Delivered
                     </span>
                   </div>
-                  <p className="text-[10px] font-semibold text-slate-450 uppercase tracking-wider mt-0.5 truncate">
+                  <p className="text-xs font-bold text-slate-450 uppercase tracking-wider mt-1 truncate">
                     {activeProject.category}
                   </p>
-                  <p className="text-xs text-slate-600 leading-relaxed mt-2 font-medium">
+                  <p className="text-xs md:text-sm text-slate-650 leading-relaxed mt-2.5 font-medium">
                     {activeProject.metric}
                   </p>
                 </div>

@@ -448,7 +448,7 @@ export default function EnquiryForm() {
                     disabled={status === "loading"}
                   />
                   <label htmlFor="consent" className="text-xs text-slate-600 leading-relaxed cursor-pointer select-none">
-                    I consent to Foundry4 processing my data and contacting me regarding this project enquiry according to their Privacy Policy. <span className="text-red-500">*</span>
+                    I consent to Foundry4 processing my data and contacting me regarding this project enquiry according to their <a href="#privacy" onClick={(e) => { e.preventDefault(); window.dispatchEvent(new CustomEvent("open-privacy-policy")); }} className="text-brand-primary hover:underline font-semibold cursor-pointer">Privacy Policy</a>. <span className="text-red-500">*</span>
                   </label>
                 </div>
                 {errors.consent && (

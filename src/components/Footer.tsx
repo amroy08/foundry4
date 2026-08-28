@@ -150,8 +150,26 @@ export default function Footer() {
             <span>© {new Date().getFullYear()} {siteConfig.name}. All rights reserved.</span>
             <div className="hidden md:block h-3 w-px bg-slate-200" />
             <div className="flex space-x-4">
-              <a href="#" className="hover:text-brand-primary transition-colors">Privacy Policy</a>
-              <a href="#" className="hover:text-brand-primary transition-colors">Terms & Conditions</a>
+              <a
+                href="#privacy"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent("open-privacy-policy"));
+                }}
+                className="hover:text-brand-primary transition-colors cursor-pointer"
+              >
+                Privacy Policy
+              </a>
+              <a
+                href="#terms"
+                onClick={(e) => {
+                  e.preventDefault();
+                  window.dispatchEvent(new CustomEvent("open-terms-conditions"));
+                }}
+                className="hover:text-brand-primary transition-colors cursor-pointer"
+              >
+                Terms & Conditions
+              </a>
             </div>
           </div>
           <div className="text-xs text-slate-500 flex items-center space-x-1.5">

@@ -6,6 +6,7 @@ import Cursor from "@/components/Cursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import FloatingActions from "@/components/FloatingActions";
 import FloatingShowcase from "@/components/FloatingShowcase";
+import LegalModal from "@/components/LegalModal";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <ScrollProgress />
         <FloatingActions />
         <FloatingShowcase />
+        <LegalModal />
         {children}
       </body>
     </html>

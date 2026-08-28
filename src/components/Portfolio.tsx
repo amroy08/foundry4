@@ -69,7 +69,7 @@ export default function Portfolio() {
         </motion.div>
 
         {/* Carousel */}
-        <div className="relative min-h-[460px]">
+        <div className="relative min-h-0 md:min-h-[460px]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeIndex}

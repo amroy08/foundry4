@@ -145,7 +145,7 @@ export default function Process() {
                         <div className={`absolute top-4 right-4 text-[10px] font-mono font-bold px-2 py-0.5 rounded lg:hidden transition-colors duration-500 ${isActive ? "bg-blue-600 text-white" : "bg-slate-100 text-slate-500 border border-slate-200"}`}>
                           STEP {step.step}
                         </div>
-                        <h3 className={`text-base font-bold mb-2 tracking-wide transition-colors duration-500 ${isActive ? "text-blue-600" : "text-slate-900"}`}>{step.title}</h3>
+                        <h3 className={`text-base font-bold mb-2 tracking-wide transition-colors duration-500 pr-14 lg:pr-0 ${isActive ? "text-blue-600" : "text-slate-900"}`}>{step.title}</h3>
                         <p className="text-xs text-slate-600 leading-relaxed">{step.description}</p>
                       </div>
                     </motion.div>

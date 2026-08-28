@@ -82,7 +82,7 @@ export default function About() {
               <div className="my-auto py-4 relative z-10 flex flex-col items-center space-y-3">
                 {/* Node 1 */}
                 <motion.div
-                  className="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl p-3 w-[260px] shadow-sm"
+                  className="flex items-center space-x-3 bg-slate-50 border border-slate-200 rounded-xl p-3 w-full max-w-[260px] shadow-sm"
                   initial={shouldReduceMotion ? false : { opacity: 0, x: -20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -106,7 +106,7 @@ export default function About() {
 
                 {/* Node 2 */}
                 <motion.div
-                  className="flex items-center space-x-3 bg-slate-900 border border-slate-800 rounded-xl p-3 w-[260px] shadow-md"
+                  className="flex items-center space-x-3 bg-slate-900 border border-slate-800 rounded-xl p-3 w-full max-w-[260px] shadow-md"
                   initial={shouldReduceMotion ? false : { opacity: 0, x: 20 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
@@ -120,7 +120,7 @@ export default function About() {
                 </motion.div>
 
                 {/* Branch connector */}
-                <div className="w-[180px] h-3.5 relative flex justify-between">
+                <div className="w-full max-w-[180px] h-3.5 relative flex justify-between">
                   <div className="absolute left-0 top-0 bottom-0 w-0.5 bg-slate-200" />
                   <div className="absolute left-1/2 top-0 bottom-0 w-0.5 bg-slate-200" />
                   <div className="absolute right-0 top-0 bottom-0 w-0.5 bg-slate-200" />

@@ -103,7 +103,7 @@ export default function Hero() {
 
       <div className="max-w-7xl mx-auto px-6 md:px-12 w-full relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
         {/* Left Copy */}
-        <div className="lg:col-span-7 flex flex-col space-y-8 text-left">
+        <div className="lg:col-span-7 flex flex-col space-y-5 md:space-y-8 text-left">
           {/* Badge — typewriter style */}
           <motion.div
             initial={shouldReduceMotion ? false : { opacity: 0, scale: 0.85 }}
@@ -149,7 +149,7 @@ export default function Hero() {
           >
             <motion.button
               onClick={() => handleScrollTo("contact")}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 bg-brand-primary text-white hover:bg-brand-primary/95 shadow-md shadow-blue-100 active:scale-[0.98]"
+              className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 bg-brand-primary text-white hover:bg-brand-primary/95 shadow-md shadow-blue-100 active:scale-[0.98]"
               whileHover={{ scale: 1.04, boxShadow: "0 8px 24px -4px rgba(37,99,235,0.35)" }}
               whileTap={{ scale: 0.97 }}
             >
@@ -158,7 +158,7 @@ export default function Hero() {
             </motion.button>
             <motion.button
               onClick={() => handleScrollTo("services")}
-              className="inline-flex items-center justify-center px-8 py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 active:scale-[0.98]"
+              className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 rounded-full text-sm font-semibold tracking-wide uppercase transition-all duration-300 border border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300 active:scale-[0.98]"
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
             >
@@ -174,7 +174,7 @@ export default function Hero() {
             transition={{ duration: 0.5, delay: 0.9 }}
             className="pt-10 border-t border-slate-100"
           >
-            <div className="bg-slate-50/60 border border-slate-100 rounded-2xl p-6 relative overflow-hidden max-w-xl shadow-sm">
+            <div className="bg-slate-50/60 border border-slate-100 rounded-2xl p-4 md:p-6 relative overflow-hidden max-w-xl shadow-sm">
               {/* shimmer sweep */}
               <div className="absolute inset-0 shimmer-sweep pointer-events-none" />
               <div className="absolute top-0 right-0 p-4 opacity-5 pointer-events-none">

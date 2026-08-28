@@ -7,766 +7,629 @@
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
   <style>
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-    html,body{font-family:'Inter',sans-serif;background:#111827}
-    @page{size:A4 portrait;margin:0}
-    .page{width:210mm;min-height:297mm;position:relative;overflow:hidden;page-break-after:always;page-break-inside:avoid}
-    @media screen{.page{margin:16px auto;box-shadow:0 28px 80px rgba(0,0,0,0.45);border-radius:8px}}
-    @media print{body{background:white}.page{margin:0;box-shadow:none;border-radius:0}}
+    html,body{font-family:'Inter',sans-serif;background:#060B18;height:100%;overflow:hidden;user-select:none}
 
-    /* ─── COVER PAGE ─── */
+    /* ─── VIEWER SHELL ─── */
+    #viewer{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(ellipse at 60% 40%,rgba(108,62,255,.12) 0%,transparent 55%),radial-gradient(ellipse at 20% 80%,rgba(37,99,235,.08) 0%,transparent 50%),#060B18}
+    #page-wrap{position:relative;width:210mm;height:calc(100vh - 90px);display:flex;align-items:center;justify-content:center}
+    /* pages container */
+    #pages{position:relative;width:210mm;height:297mm;max-height:calc(100vh - 90px);overflow:hidden;border-radius:8px;box-shadow:0 28px 80px rgba(0,0,0,.65),0 0 0 1px rgba(255,255,255,.06)}
+
+    /* individual page */
+    .page{position:absolute;inset:0;width:100%;height:100%;overflow:hidden;transition:transform .45s cubic-bezier(.77,0,.18,1),opacity .45s ease;transform:translateX(100%);opacity:0;pointer-events:none}
+    .page.active{transform:translateX(0);opacity:1;pointer-events:auto}
+    .page.prev{transform:translateX(-100%);opacity:0}
+
+    /* ─── NAV ARROWS ─── */
+    .nav-btn{position:fixed;top:50%;transform:translateY(-50%);width:48px;height:48px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);color:white;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:all .2s;z-index:100;backdrop-filter:blur(10px);flex-shrink:0}
+    .nav-btn:hover{background:rgba(108,62,255,.35);border-color:rgba(108,62,255,.6);box-shadow:0 0 20px rgba(108,62,255,.3)}
+    .nav-btn:active{transform:translateY(-50%) scale(.93)}
+    .nav-btn.disabled{opacity:.25;cursor:default;pointer-events:none}
+    #btn-prev{left:calc(50% - 105mm - 68px)}
+    #btn-next{right:calc(50% - 105mm - 68px)}
+
+    /* ─── BOTTOM BAR ─── */
+    #bottom-bar{position:fixed;bottom:0;left:0;right:0;height:72px;display:flex;align-items:center;justify-content:center;gap:24px;background:rgba(6,11,24,.8);border-top:1px solid rgba(255,255,255,.05);backdrop-filter:blur(12px);z-index:100;flex-shrink:0}
+    #page-counter{font-size:11px;font-weight:700;color:#64748B;letter-spacing:1.5px;text-transform:uppercase;min-width:60px}
+    #dots{display:flex;align-items:center;gap:8px}
+    .dot{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.15);cursor:pointer;transition:all .25s}
+    .dot.active{background:#6C3EFF;box-shadow:0 0 10px rgba(108,62,255,.6);width:20px;border-radius:10px}
+    .dot:hover:not(.active){background:rgba(255,255,255,.35)}
+    #key-hint{font-size:9.5px;font-weight:600;color:#334155;letter-spacing:1.5px;text-transform:uppercase;min-width:60px;text-align:right}
+
+    /* ─── SCALE TO FIT ─── */
+    @media (max-height: 760px){
+      #pages{transform-origin:top center;transform:scale(0.85)}
+    }
+    @media (max-height: 650px){
+      #pages{transform:scale(0.72)}
+    }
+
+    /* ══════════════════════════════════════════════════════════
+       BROCHURE PAGE STYLES
+    ══════════════════════════════════════════════════════════ */
+    :root{--navy:#060B18;--blue:#2563EB;--purple:#6C3EFF;--teal:#0F766E;--white:#fff}
+
+    /* ─── PAGE 1 — COVER ─── */
     .pg-cover{background:linear-gradient(145deg,#060B18 0%,#0D1B3E 40%,#130A2A 75%,#060B18 100%)}
-    .cover-orb1{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(99,44,255,0.35) 0%,transparent 65%);top:-80px;right:-60px}
-    .cover-orb2{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,0.3) 0%,transparent 65%);bottom:40px;left:-60px}
-    .cover-orb3{position:absolute;width:180px;height:180px;border-radius:50%;background:radial-gradient(circle,rgba(0,212,255,0.2) 0%,transparent 65%);top:45%;right:20px}
-    .cover-grid-bg{position:absolute;inset:0;opacity:.07;background-image:repeating-linear-gradient(0deg,transparent,transparent 44px,rgba(99,44,255,.8) 45px),repeating-linear-gradient(90deg,transparent,transparent 44px,rgba(99,44,255,.8) 45px)}
-    .cover-inner{position:relative;z-index:2;padding:14mm 13mm 12mm 14mm;display:flex;flex-direction:column;min-height:297mm}
-    /* top bar */
-    .cv-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:10mm}
+    .cover-orb1{position:absolute;width:380px;height:380px;border-radius:50%;background:radial-gradient(circle,rgba(108,62,255,.3) 0%,transparent 65%);top:-80px;right:-60px;pointer-events:none}
+    .cover-orb2{position:absolute;width:260px;height:260px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.25) 0%,transparent 65%);bottom:40px;left:-60px;pointer-events:none}
+    .cover-grid{position:absolute;inset:0;opacity:.06;background-image:repeating-linear-gradient(0deg,transparent,transparent 44px,rgba(108,62,255,.7) 45px),repeating-linear-gradient(90deg,transparent,transparent 44px,rgba(108,62,255,.7) 45px);pointer-events:none}
+    .left-bar{position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,#818CF8,#6C3EFF,#3B82F6,#14B8A6);pointer-events:none}
+    .cover-inner{position:relative;z-index:2;padding:13mm 13mm 11mm 15mm;display:flex;flex-direction:column;height:100%}
     .logo-wrap{display:flex;align-items:center;gap:10px}
-    .logo-sq{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,#6C3EFF,#2563EB);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:20px;color:white;box-shadow:0 4px 24px rgba(108,62,255,.55),0 0 0 1px rgba(255,255,255,0.1)}
+    .logo-sq{width:44px;height:44px;border-radius:13px;background:linear-gradient(135deg,#6C3EFF,#2563EB);display:flex;align-items:center;justify-content:center;font-family:'Outfit',sans-serif;font-weight:900;font-size:19px;color:white;box-shadow:0 4px 24px rgba(108,62,255,.5)}
     .logo-txt{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;color:white;letter-spacing:-.5px}
     .logo-txt span{color:#818CF8}
-    .cv-badge{font-size:10px;font-weight:700;color:#6B7DB8;letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);padding:6px 14px;border-radius:20px}
-    /* hero */
-    .cv-hero{flex:1;display:flex;gap:8mm;align-items:flex-start;padding-top:4mm}
+    .cv-badge{font-size:10px;font-weight:700;color:#64748B;letter-spacing:3px;text-transform:uppercase;border:1px solid rgba(255,255,255,.08);padding:6px 14px;border-radius:20px}
+    .cv-top{display:flex;align-items:center;justify-content:space-between;padding-bottom:8mm;border-bottom:1px solid rgba(255,255,255,.06);margin-bottom:10mm}
+    .cv-hero{flex:1;display:flex;gap:7mm;align-items:flex-start;padding-top:3mm}
     .cv-left{flex:1}
-    .cv-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(99,44,255,.15);border:1px solid rgba(99,44,255,.4);border-radius:24px;padding:6px 16px;margin-bottom:7mm}
-    .cv-pill-dot{width:7px;height:7px;border-radius:50%;background:#818CF8;box-shadow:0 0 0 3px rgba(129,140,248,.25);flex-shrink:0}
-    .cv-pill span{font-size:10px;font-weight:700;color:#A5B4FC;letter-spacing:2px;text-transform:uppercase}
-    .cv-h1{font-family:'Outfit',sans-serif;font-size:50px;font-weight:900;color:white;line-height:1.04;letter-spacing:-2px;margin-bottom:6mm}
+    .cv-pill{display:inline-flex;align-items:center;gap:8px;background:rgba(108,62,255,.12);border:1px solid rgba(108,62,255,.35);border-radius:24px;padding:6px 15px;margin-bottom:6mm}
+    .cv-pill-dot{width:7px;height:7px;border-radius:50%;background:#818CF8;box-shadow:0 0 0 3px rgba(129,140,248,.2);flex-shrink:0}
+    .cv-pill span{font-size:9.5px;font-weight:700;color:#A5B4FC;letter-spacing:2px;text-transform:uppercase}
+    .cv-h1{font-family:'Outfit',sans-serif;font-size:48px;font-weight:900;color:white;line-height:1.04;letter-spacing:-2px;margin-bottom:5mm}
     .cv-h1 .hl{background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
     .cv-h1 .hl2{background:linear-gradient(135deg,#C084FC,#818CF8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .cv-desc{font-size:12px;color:#94A3B8;line-height:1.75;max-width:105mm;margin-bottom:9mm}
-    .cv-tags{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10mm}
-    .cv-tag{font-size:9.5px;font-weight:700;padding:5px 13px;border-radius:20px;border:1px solid;letter-spacing:.3px}
-    .ct-blue{color:#60A5FA;border-color:rgba(96,165,250,.35);background:rgba(96,165,250,.08)}
-    .ct-purple{color:#A78BFA;border-color:rgba(167,139,250,.35);background:rgba(167,139,250,.08)}
-    .ct-teal{color:#34D399;border-color:rgba(52,211,153,.35);background:rgba(52,211,153,.08)}
-    .ct-pink{color:#F472B6;border-color:rgba(244,114,182,.35);background:rgba(244,114,182,.08)}
-    .ct-amber{color:#FCD34D;border-color:rgba(252,211,77,.35);background:rgba(252,211,77,.08)}
+    .cv-desc{font-size:11.5px;color:#64748B;line-height:1.75;max-width:100mm;margin-bottom:8mm}
+    .cv-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9mm}
+    .cv-tag{font-size:9.5px;font-weight:700;padding:5px 12px;border-radius:20px;border:1px solid}
+    .ct-blue{color:#60A5FA;border-color:rgba(96,165,250,.3);background:rgba(96,165,250,.07)}
+    .ct-purple{color:#A78BFA;border-color:rgba(167,139,250,.3);background:rgba(167,139,250,.07)}
+    .ct-teal{color:#34D399;border-color:rgba(52,211,153,.3);background:rgba(52,211,153,.07)}
+    .ct-pink{color:#F472B6;border-color:rgba(244,114,182,.3);background:rgba(244,114,182,.07)}
+    .ct-amber{color:#FCD34D;border-color:rgba(252,211,77,.3);background:rgba(252,211,77,.07)}
     .cv-contacts{display:flex;flex-direction:column;gap:5px}
-    .cv-cline{display:flex;align-items:center;gap:8px;font-size:11px;color:#64748B}
+    .cv-cline{display:flex;align-items:center;gap:8px;font-size:10.5px;color:#64748B}
     .cv-cline strong{color:#E2E8F0}
     .cv-cline-dot{width:4px;height:4px;border-radius:50%;background:#6C3EFF;flex-shrink:0}
-    /* Right illustration */
-    .cv-right{width:75mm;flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5mm}
-    .robot-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:20px;padding:5mm;backdrop-filter:blur(10px);width:100%}
-    .robot-svg-wrap{display:flex;justify-content:center;margin-bottom:3mm}
-    .robot-label{font-size:9px;font-weight:700;color:#6B7DB8;text-align:center;letter-spacing:1.5px;text-transform:uppercase}
-    .stat-mini-row{display:grid;grid-template-columns:1fr 1fr;gap:3mm;width:100%}
-    .stat-mini{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:3.5mm;text-align:center}
-    .stat-mini-n{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;line-height:1;margin-bottom:2px}
-    .stat-mini-l{font-size:8.5px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:.5px}
-    .cv-divider{height:1px;background:linear-gradient(to right,rgba(108,62,255,.6),rgba(37,99,235,.4),transparent);margin:9mm 0 8mm}
+    .cv-right{width:70mm;flex-shrink:0;display:flex;flex-direction:column;gap:4mm}
+    .robot-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);border-radius:18px;padding:5mm;text-align:center}
+    .robot-lbl{font-size:9px;font-weight:700;color:#64748B;letter-spacing:1.5px;text-transform:uppercase;margin-top:3mm}
+    .stat-mini-row{display:grid;grid-template-columns:1fr 1fr;gap:3mm}
+    .stat-mini{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:3.5mm;text-align:center}
+    .stat-mini-n{font-family:'Outfit',sans-serif;font-size:19px;font-weight:900;line-height:1;margin-bottom:2px}
+    .stat-mini-l{font-size:8px;font-weight:600;color:#475569;text-transform:uppercase;letter-spacing:.5px}
+    .cv-divider{height:1px;background:linear-gradient(to right,rgba(108,62,255,.5),rgba(37,99,235,.35),transparent);margin:8mm 0 7mm}
     .cv-foot{display:flex;align-items:flex-end;justify-content:space-between}
-    .cv-tagline{text-align:right;font-size:9.5px;font-weight:600;color:#334155;letter-spacing:1.5px;text-transform:uppercase;line-height:2}
+    .cv-tagline{text-align:right;font-size:9px;font-weight:600;color:#334155;letter-spacing:1.5px;text-transform:uppercase;line-height:2}
 
     /* ─── SHARED ─── */
-    .pg-white{background:#FFFFFF}
-    .pg-dark{background:linear-gradient(145deg,#060B18,#0D1B3E)}
-    .pg-mid{background:linear-gradient(145deg,#F8FAFC,#EFF6FF)}
-    .inner{padding:11mm 13mm;display:flex;flex-direction:column;min-height:297mm}
-    .page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:7mm;padding-bottom:5mm;border-bottom:1.5px solid rgba(0,0,0,.07)}
-    .page-hdr-dark{border-color:rgba(255,255,255,.07)}
+    .inner{padding:10mm 12mm;display:flex;flex-direction:column;height:100%}
+    .page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6mm;padding-bottom:5mm}
     .ph-l{display:flex;align-items:center;gap:9px}
-    .pn{width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white}
+    .pn{width:29px;height:29px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white}
     .pn-blue{background:linear-gradient(135deg,#2563EB,#1D4ED8)}
     .pn-purple{background:linear-gradient(135deg,#7C3AED,#5B21B6)}
     .pn-teal{background:linear-gradient(135deg,#0F766E,#065F46)}
-    .pn-dark{background:linear-gradient(135deg,#1E293B,#0F172A)}
     .pt{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}
-    .pt-blue{color:#2563EB}.pt-purple{color:#7C3AED}.pt-teal{color:#0F766E}.pt-white{color:#60A5FA}
+    .pt-blue{color:#2563EB}.pt-purple{color:#7C3AED}.pt-white{color:#60A5FA}
     .p-logo{font-family:'Outfit',sans-serif;font-size:13px;font-weight:900;color:#0B1120}
     .p-logo span{color:#2563EB}
     .p-logo-w{color:white}.p-logo-w span{color:#818CF8}
-    .sec-title{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;line-height:1.12;letter-spacing:-.5px;margin-bottom:2mm}
-    .sec-title .bl{color:#2563EB}.sec-title .pu{color:#7C3AED}.sec-title .te{color:#0F766E}.sec-title .wh{color:white}
-    .sec-lead{font-size:11px;color:#64748B;line-height:1.75;margin-bottom:5mm}
+    .border-b-light{border-bottom:1.5px solid #E2E8F0}
+    .border-b-dark{border-bottom:1px solid rgba(255,255,255,.07)}
+    .sec-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;line-height:1.12;letter-spacing:-.5px;margin-bottom:2mm}
+    .sec-lead{font-size:11px;color:#64748B;line-height:1.7;margin-bottom:4mm}
     .sec-lead-w{color:#94A3B8}
-    .divbar{width:44px;height:3px;border-radius:2px;margin-bottom:5mm}
+    .divbar{width:40px;height:3px;border-radius:2px;margin-bottom:4mm}
     .divbar-blue{background:linear-gradient(to right,#2563EB,#60A5FA)}
     .divbar-purple{background:linear-gradient(to right,#7C3AED,#C084FC)}
 
-    /* ─── ABOUT PAGE ─── */
-    .about-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-bottom:6mm}
-    .astat{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:14px;padding:4mm 3mm;text-align:center}
-    .astat-n{font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#2563EB;line-height:1;margin-bottom:2px}
-    .astat-l{font-size:9px;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:.8px}
-    .mission-dark{background:linear-gradient(135deg,#0B1120,#1E293B);border-radius:16px;padding:6mm;margin-bottom:5mm;position:relative;overflow:hidden;border:1px solid rgba(99,102,241,.15)}
-    .mission-dark::before{content:'"';position:absolute;top:-3mm;left:5mm;font-size:90px;color:rgba(99,102,241,.12);font-family:Georgia,serif;line-height:1;pointer-events:none}
-    .mission-dark p{font-size:12px;color:rgba(255,255,255,.85);line-height:1.8;font-style:italic;position:relative;z-index:2}
-    .mission-author{font-size:9.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-top:3mm;position:relative;z-index:2}
-    .ind-row{display:flex;flex-wrap:wrap;gap:6px}
-    .ind-tag{font-size:10px;font-weight:600;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.2);border-radius:20px;padding:5px 12px}
-    .about-grid-2col{display:grid;grid-template-columns:1fr 260px;gap:6mm;margin-bottom:5mm;align-items:start}
-    .person-card{background:linear-gradient(135deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:16px;padding:5mm;text-align:center}
-    .person-avatar{margin:0 auto 4mm;width:60px;height:60px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:26px;border:3px solid white;box-shadow:0 4px 16px rgba(37,99,235,.25)}
-    .person-name{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:#1E3A5F;margin-bottom:1px}
-    .person-role{font-size:9px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1px;margin-bottom:3mm}
-    .person-quote{font-size:10px;color:#475569;line-height:1.6;font-style:italic}
+    /* ─── PG 2: ABOUT ─── */
+    .pg-white{background:#fff}
+    .about-g2{display:grid;grid-template-columns:1fr 220px;gap:5mm;margin-bottom:4mm;align-items:start}
+    .astat-grid{display:grid;grid-template-columns:1fr 1fr;gap:3mm;margin-bottom:5mm}
+    .astat{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:12px;padding:3.5mm;text-align:center}
+    .astat-n{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:#2563EB;line-height:1;margin-bottom:2px}
+    .astat-l{font-size:8.5px;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:.7px}
+    .person-card{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:14px;padding:4.5mm;text-align:center;margin-bottom:3mm}
+    .person-av{margin:0 auto 3mm;width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:22px;border:3px solid white;box-shadow:0 4px 14px rgba(37,99,235,.2)}
+    .person-name{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;color:#1E3A5F;margin-bottom:1px}
+    .person-role{font-size:8.5px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1px;margin-bottom:2.5mm}
+    .person-q{font-size:9.5px;color:#475569;line-height:1.6;font-style:italic}
+    .mission-dark{background:linear-gradient(135deg,#0B1120,#1E293B);border-radius:14px;padding:5mm;margin-bottom:4mm;position:relative;overflow:hidden;border:1px solid rgba(99,102,241,.12)}
+    .mission-dark::before{content:'"';position:absolute;top:-3mm;left:4mm;font-size:80px;color:rgba(99,102,241,.12);font-family:Georgia,serif;line-height:1;pointer-events:none}
+    .mission-dark p{font-size:11.5px;color:rgba(255,255,255,.85);line-height:1.75;font-style:italic;position:relative;z-index:2}
+    .mission-author{font-size:9px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-top:2.5mm;position:relative;z-index:2}
+    .ind-row{display:flex;flex-wrap:wrap;gap:5px}
+    .ind-tag{font-size:9.5px;font-weight:600;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.18);border-radius:20px;padding:4px 11px}
+    .tech-strip{display:flex;flex-wrap:wrap;gap:4px;margin-top:3mm}
+    .tech-chip{font-size:8.5px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:7px;padding:2.5px 8px}
 
-    /* ─── SERVICES PAGE (2×2) ─── */
-    .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;flex:1}
-    .svc-card{border-radius:16px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 12px rgba(0,0,0,.06)}
-    .svc-hd{padding:5mm;display:flex;flex-direction:column;gap:3mm;position:relative;overflow:hidden;min-height:42mm}
-    .svc-hd::before{content:'';position:absolute;right:-15mm;top:-15mm;width:55mm;height:55mm;border-radius:50%;background:rgba(255,255,255,.06)}
-    .svc-hd::after{content:'';position:absolute;right:5mm;bottom:-10mm;width:35mm;height:35mm;border-radius:50%;background:rgba(255,255,255,.04)}
+    /* ─── PG 3: SERVICES ─── */
+    .pg-mid{background:linear-gradient(145deg,#F8FAFC,#EFF6FF)}
+    .svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm;flex:1}
+    .svc-card{border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+    .svc-hd{padding:4.5mm 5mm;display:flex;flex-direction:column;gap:2.5mm;position:relative;overflow:hidden;min-height:38mm}
+    .svc-hd::before{content:'';position:absolute;right:-12mm;top:-12mm;width:50mm;height:50mm;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
     .svc-hd-blue{background:linear-gradient(145deg,#1D4ED8,#2563EB,#3B82F6)}
     .svc-hd-purple{background:linear-gradient(145deg,#5B21B6,#7C3AED,#8B5CF6)}
     .svc-hd-teal{background:linear-gradient(145deg,#065F46,#0F766E,#14B8A6)}
     .svc-hd-navy{background:linear-gradient(145deg,#0B1120,#1E3A5F,#1E40AF)}
-    .svc-icon{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2}
-    .svc-htitle{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:white;line-height:1.2;position:relative;z-index:2}
-    .svc-hdesc{font-size:9.5px;color:rgba(255,255,255,.7);line-height:1.55;position:relative;z-index:2}
-    .svc-body{background:#F8FAFC;padding:4mm 5mm;flex:1;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 16px 16px}
+    .svc-icon{width:38px;height:38px;border-radius:11px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2}
+    .svc-htitle{font-family:'Outfit',sans-serif;font-size:12.5px;font-weight:800;color:white;line-height:1.2;position:relative;z-index:2}
+    .svc-hdesc{font-size:9px;color:rgba(255,255,255,.7);line-height:1.5;position:relative;z-index:2}
+    .svc-body{background:#F8FAFC;padding:3.5mm 4mm;flex:1;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 14px 14px}
     .svc-lst{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-    .svc-it{display:flex;align-items:flex-start;gap:6px;padding:2.5px 0}
-    .svc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:5px}
-    .svc-tx{font-size:9.5px;font-weight:500;color:#334155;line-height:1.4}
-    .svc-subhead{font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:3px 0 2px}
+    .svc-it{display:flex;align-items:flex-start;gap:5px;padding:2px 0}
+    .svc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
+    .svc-tx{font-size:9px;font-weight:500;color:#334155;line-height:1.4}
+    .svc-subhead{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:3px 0 2px}
     .sh-purple{color:#7C3AED}.sh-amber{color:#D97706}.sh-green{color:#059669}
 
-    /* ─── WORK PAGE ─── */
-    .cs-card{border:1.5px solid #E2E8F0;border-radius:16px;overflow:hidden;margin-bottom:4mm}
-    .cs-hd{padding:4mm 5mm;display:flex;justify-content:space-between;align-items:flex-start}
-    .cs-hd-blue{background:linear-gradient(135deg,#0B1120,#1E293B)}
-    .cs-hd-purple{background:linear-gradient(135deg,#1E1040,#2D1B69)}
-    .cs-badge{font-size:8.5px;font-weight:700;border-radius:20px;padding:3px 10px;flex-shrink:0}
+    /* ─── PG 4: WORK ─── */
+    .cs-card{border:1.5px solid #E2E8F0;border-radius:14px;overflow:hidden;margin-bottom:3.5mm}
+    .cs-hd{padding:3.5mm 5mm;display:flex;justify-content:space-between;align-items:flex-start;background:linear-gradient(135deg,#0B1120,#1E293B)}
+    .cs-hd-p{background:linear-gradient(135deg,#1E1040,#2D1B69)}
+    .cs-badge{font-size:8px;font-weight:700;border-radius:20px;padding:3px 9px;flex-shrink:0}
     .cb-live{color:#34D399;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3)}
     .cb-print{color:#A78BFA;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3)}
-    .cs-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:1px}
-    .cs-cat{font-size:9.5px;color:#64748B}
-    .cs-body{padding:4mm 5mm;display:grid;gap:3mm}
-    .cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm}
-    .cs-met{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:10px;padding:3mm;text-align:center}
-    .cs-mval{font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;color:#2563EB;line-height:1;margin-bottom:1px}
-    .cs-mlbl{font-size:8px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.5px}
-    .cs-feats{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-    .cs-ft{display:flex;align-items:center;gap:5px;font-size:9.5px;color:#475569;font-weight:500}
-    .cs-ck{width:13px;height:13px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;font-weight:900}
-    .ck-blue{background:rgba(37,99,235,.1);color:#2563EB}
-    .ck-purple{background:rgba(124,58,237,.1);color:#7C3AED}
-    .tech-row{display:flex;flex-wrap:wrap;gap:5px;margin-top:1mm}
-    .tech-tag{font-size:8.5px;font-weight:700;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.15);border-radius:10px;padding:3px 8px}
+    .cs-title{font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:white;margin-bottom:1px}
+    .cs-cat{font-size:9px;color:#64748B}
+    .cs-body{padding:3.5mm 5mm}
+    .cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm;margin-bottom:2.5mm}
+    .cs-met{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:3mm;text-align:center}
+    .cs-mval{font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;color:#2563EB;line-height:1;margin-bottom:1px}
+    .cs-mval-p{color:#7C3AED}
+    .cs-mlbl{font-size:8px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.4px}
+    .cs-feats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2mm}
+    .cs-ft{display:flex;align-items:center;gap:5px;font-size:9px;color:#475569;font-weight:500}
+    .cs-ck{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;font-weight:900}
+    .ck-b{background:rgba(37,99,235,.1);color:#2563EB}
+    .ck-p{background:rgba(124,58,237,.1);color:#7C3AED}
+    .t-row{display:flex;flex-wrap:wrap;gap:4px}
+    .t-tag{font-size:8px;font-weight:700;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.14);border-radius:8px;padding:2.5px 7px}
+    .t-tag-p{color:#7C3AED;background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.18)}
 
-    /* ─── WHY + PROCESS (dark bg) ─── */
+    /* ─── PG 5: WHY (DARK) ─── */
     .pg-why{background:linear-gradient(155deg,#060B18,#0D1B3E 50%,#130A2A)}
-    .why-orb{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(108,62,255,.2) 0%,transparent 65%);top:-60px;right:-60px}
-    .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3.5mm;margin-bottom:6mm}
-    .why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:4mm;border-top:3px solid}
-    .wc-blue{border-top-color:#3B82F6}
-    .wc-purple{border-top-color:#8B5CF6}
-    .wc-teal{border-top-color:#14B8A6}
-    .wc-pink{border-top-color:#EC4899}
-    .why-icon{font-size:20px;margin-bottom:2.5mm}
+    .why-orb{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(108,62,255,.18) 0%,transparent 65%);top:-60px;right:-60px;pointer-events:none}
+    .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-bottom:5mm}
+    .why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:3.5mm;border-top:3px solid}
+    .wc-blue{border-top-color:#3B82F6}.wc-purple{border-top-color:#8B5CF6}.wc-teal{border-top-color:#14B8A6}.wc-pink{border-top-color:#EC4899}
+    .why-ic{font-size:18px;margin-bottom:2mm}
     .why-t{font-size:10px;font-weight:800;color:white;margin-bottom:2px}
     .why-d{font-size:8.5px;color:#64748B;line-height:1.5}
-    .proc-row{display:grid;grid-template-columns:repeat(6,1fr);gap:3mm}
-    .proc-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:11px;padding:4mm;text-align:center;position:relative}
-    .proc-step::after{content:'→';position:absolute;right:-6px;top:50%;transform:translateY(-50%);color:rgba(99,102,241,.4);font-size:12px;font-weight:900}
+    .proc-row{display:grid;grid-template-columns:repeat(6,1fr);gap:2.5mm}
+    .proc-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:3.5mm;text-align:center;position:relative}
+    .proc-step::after{content:'›';position:absolute;right:-5px;top:50%;transform:translateY(-50%);color:rgba(108,62,255,.5);font-size:16px;font-weight:900}
     .proc-step:last-child::after{display:none}
-    .proc-n{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;color:rgba(99,102,241,.35);line-height:1;margin-bottom:2mm}
-    .proc-t{font-size:9px;font-weight:700;color:white;margin-bottom:2px}
+    .proc-n{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:rgba(108,62,255,.35);line-height:1;margin-bottom:2px}
+    .proc-t{font-size:8.5px;font-weight:700;color:white;margin-bottom:2px}
     .proc-d{font-size:7.5px;color:#475569;line-height:1.45}
 
-    /* ─── BACK COVER ─── */
+    /* ─── PG 6: BACK COVER ─── */
     .pg-back{background:linear-gradient(155deg,#060B18 0%,#0D1B3E 45%,#130A2A 75%,#060B18 100%)}
-    .back-orb1{position:absolute;width:350px;height:350px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.2) 0%,transparent 65%);top:-80px;right:-80px}
-    .back-orb2{position:absolute;width:250px;height:250px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.18) 0%,transparent 65%);bottom:40px;left:-60px}
-    .back-grid-bg{position:absolute;inset:0;opacity:.04;background:repeating-linear-gradient(45deg,rgba(255,255,255,.6) 0px,rgba(255,255,255,.6) 1px,transparent 1px,transparent 32px)}
-    .back-inner{position:relative;z-index:2;padding:13mm 13mm 12mm 14mm;display:flex;flex-direction:column;min-height:297mm;justify-content:space-between}
-    .back-logo{display:flex;align-items:center;gap:10px;margin-bottom:12mm}
-    .cta-eyebrow{font-size:10px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:3px;margin-bottom:4mm;display:flex;align-items:center;gap:8px}
-    .cta-eyebrow::before{content:'';width:24px;height:2px;background:linear-gradient(to right,#6C3EFF,#60A5FA);border-radius:2px;flex-shrink:0}
-    .cta-h2{font-family:'Outfit',sans-serif;font-size:38px;font-weight:900;color:white;line-height:1.08;letter-spacing:-1px;margin-bottom:4mm}
+    .back-orb1{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 65%);top:-70px;right:-70px;pointer-events:none}
+    .back-orb2{position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 65%);bottom:40px;left:-50px;pointer-events:none}
+    .back-grid{position:absolute;inset:0;opacity:.03;background:repeating-linear-gradient(45deg,rgba(255,255,255,.7) 0px,rgba(255,255,255,.7) 1px,transparent 1px,transparent 30px);pointer-events:none}
+    .back-inner{position:relative;z-index:2;padding:12mm 13mm 11mm 15mm;display:flex;flex-direction:column;height:100%;justify-content:space-between}
+    .back-logo{display:flex;align-items:center;gap:10px;margin-bottom:10mm}
+    .cta-eyebrow{font-size:9.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:3px;margin-bottom:3.5mm;display:flex;align-items:center;gap:8px}
+    .cta-eyebrow::before{content:'';width:22px;height:2px;background:linear-gradient(to right,#6C3EFF,#60A5FA);border-radius:2px;flex-shrink:0}
+    .cta-h2{font-family:'Outfit',sans-serif;font-size:34px;font-weight:900;color:white;line-height:1.08;letter-spacing:-1px;margin-bottom:4mm}
     .cta-h2 .bl{background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .cta-sub{font-size:12px;color:#64748B;line-height:1.75;max-width:115mm;margin-bottom:9mm}
-    .cta-cards{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:10mm}
-    .cta-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:5mm;transition:.2s}
-    .cta-lbl{font-size:8.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px}
-    .cta-val{font-size:12.5px;font-weight:700;color:white}
+    .cta-sub{font-size:11.5px;color:#64748B;line-height:1.75;max-width:115mm;margin-bottom:8mm}
+    .cta-cards{display:grid;grid-template-columns:1fr 1fr;gap:3.5mm;margin-bottom:8mm}
+    .cta-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:4mm}
+    .cta-lbl{font-size:8.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:2px}
+    .cta-val{font-size:12px;font-weight:700;color:white}
     .cta-sub2{font-size:9px;color:#475569;margin-top:2px}
-    .back-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:6mm;border-top:1px solid rgba(255,255,255,.06)}
-    .back-addr{font-size:9.5px;color:#475569;line-height:1.8}
+    .back-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:5mm;border-top:1px solid rgba(255,255,255,.06)}
+    .back-addr{font-size:9px;color:#475569;line-height:1.8}
     .back-addr strong{color:#94A3B8;font-weight:600}
-    .socs{display:flex;gap:6px;margin-top:6px}
-    .soc{font-size:9px;font-weight:600;color:#818CF8;border:1px solid rgba(129,140,248,.25);border-radius:14px;padding:3px 10px}
-    .copy{font-size:8px;color:#334155;margin-top:6px}
+    .socs{display:flex;gap:5px;margin-top:5px}
+    .soc{font-size:8.5px;font-weight:600;color:#818CF8;border:1px solid rgba(129,140,248,.22);border-radius:13px;padding:3px 9px}
+    .copy{font-size:7.5px;color:#334155;margin-top:5px}
     .qr-block{display:flex;flex-direction:column;align-items:center;gap:5px}
-    .qr-block img{width:72px;height:72px;background:white;padding:5px;border-radius:12px;display:block}
+    .qr-block img{width:72px;height:72px;background:white;padding:5px;border-radius:10px;display:block}
     .qr-lbl{font-size:7.5px;font-weight:600;color:#475569;text-align:center}
   </style>
 </head>
 <body>
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 1 — COVER                                 -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-cover">
-  <div class="cover-orb1"></div>
-  <div class="cover-orb2"></div>
-  <div class="cover-orb3"></div>
-  <div class="cover-grid-bg"></div>
-  <!-- left accent bar -->
-  <div style="position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,#818CF8,#6C3EFF,#3B82F6,#14B8A6)"></div>
+<!-- ════════════ VIEWER SHELL ════════════ -->
+<div id="viewer">
+  <!-- Left Arrow -->
+  <button class="nav-btn disabled" id="btn-prev" aria-label="Previous page">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
 
-  <div class="cover-inner">
-    <!-- Top bar -->
-    <div class="cv-top">
-      <div class="logo-wrap">
-        <div class="logo-sq">F4</div>
-        <div class="logo-txt">Foundry<span>4</span></div>
+  <!-- Pages -->
+  <div id="page-wrap">
+    <div id="pages">
+
+      <!-- ══ PAGE 1: COVER ══ -->
+      <div class="page pg-cover active" data-page="0">
+        <div class="cover-orb1"></div><div class="cover-orb2"></div><div class="cover-grid"></div><div class="left-bar"></div>
+        <div class="cover-inner">
+          <div class="cv-top">
+            <div class="logo-wrap"><div class="logo-sq">F4</div><div class="logo-txt">Foundry<span>4</span></div></div>
+            <div class="cv-badge">Company Profile 2026</div>
+          </div>
+          <div class="cv-hero">
+            <div class="cv-left">
+              <div class="cv-pill"><div class="cv-pill-dot"></div><span>Next-Gen Digital Agency — Mumbai, India</span></div>
+              <h1 class="cv-h1"><span class="hl">Technology.</span><br/><span class="hl2">Creativity.</span><br/>Data &amp;<br/>Marketing.</h1>
+              <p class="cv-desc">We design, build, and scale custom digital products, visual content, data intelligence solutions, and high-performance marketing campaigns — built for your business.</p>
+              <div class="cv-tags">
+                <div class="cv-tag ct-blue">💻 Software &amp; Web</div>
+                <div class="cv-tag ct-purple">🎨 Creative Media</div>
+                <div class="cv-tag ct-teal">📊 Data &amp; BI</div>
+                <div class="cv-tag ct-pink">🤖 AI Automation</div>
+                <div class="cv-tag ct-amber">📣 Digital Marketing</div>
+              </div>
+              <div class="cv-contacts">
+                <div class="cv-cline"><div class="cv-cline-dot"></div><span>📞 <strong>+91 8433568078</strong></span></div>
+                <div class="cv-cline"><div class="cv-cline-dot"></div><span>✉ <strong>info@foundry4.in</strong></span></div>
+                <div class="cv-cline"><div class="cv-cline-dot"></div><span>🌐 <strong>foundry4.in</strong></span></div>
+              </div>
+            </div>
+            <div class="cv-right">
+              <div class="robot-card">
+                <svg width="100" height="100" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="55" cy="55" r="50" fill="rgba(108,62,255,0.07)" stroke="rgba(108,62,255,0.2)" stroke-width="1"/>
+                  <rect x="40" y="32" width="30" height="28" rx="10" fill="rgba(99,102,241,0.18)" stroke="#818CF8" stroke-width="1.5"/>
+                  <circle cx="48" cy="43" r="4" fill="#6C3EFF"/><circle cx="62" cy="43" r="4" fill="#6C3EFF"/>
+                  <circle cx="49.5" cy="41.5" r="1.5" fill="white"/><circle cx="63.5" cy="41.5" r="1.5" fill="white"/>
+                  <path d="M48 51 Q55 56 62 51" stroke="#818CF8" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+                  <line x1="55" y1="32" x2="55" y2="24" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
+                  <circle cx="55" cy="22" r="3" fill="#60A5FA"/>
+                  <rect x="45" y="60" width="20" height="13" rx="5" fill="rgba(99,102,241,0.12)" stroke="#818CF8" stroke-width="1.2"/>
+                  <line x1="29" y1="43" x2="40" y2="43" stroke="rgba(129,140,248,0.35)" stroke-width="1" stroke-dasharray="2 2"/>
+                  <line x1="70" y1="43" x2="81" y2="43" stroke="rgba(129,140,248,0.35)" stroke-width="1" stroke-dasharray="2 2"/>
+                  <circle cx="27" cy="43" r="3" fill="rgba(96,165,250,0.35)" stroke="#60A5FA" stroke-width="1"/>
+                  <circle cx="83" cy="43" r="3" fill="rgba(96,165,250,0.35)" stroke="#60A5FA" stroke-width="1"/>
+                  <circle cx="25" cy="28" r="2" fill="rgba(167,139,250,0.5)"/><circle cx="85" cy="65" r="2" fill="rgba(52,211,153,0.5)"/>
+                  <circle cx="20" cy="68" r="1.5" fill="rgba(244,114,182,0.5)"/><circle cx="90" cy="30" r="1.5" fill="rgba(251,191,36,0.5)"/>
+                </svg>
+                <div class="robot-lbl">AI-Powered Solutions</div>
+              </div>
+              <div class="stat-mini-row">
+                <div class="stat-mini"><div class="stat-mini-n" style="color:#818CF8">6+</div><div class="stat-mini-l">Live Projects</div></div>
+                <div class="stat-mini"><div class="stat-mini-n" style="color:#60A5FA">600+</div><div class="stat-mini-l">Students ERP</div></div>
+                <div class="stat-mini"><div class="stat-mini-n" style="color:#34D399">4</div><div class="stat-mini-l">Pillars</div></div>
+                <div class="stat-mini"><div class="stat-mini-n" style="color:#F472B6">∞</div><div class="stat-mini-l">Growth</div></div>
+              </div>
+            </div>
+          </div>
+          <div class="cv-divider"></div>
+          <div class="cv-foot">
+            <div style="font-size:8.5px;color:#334155">Mumbai, India · foundry4.in · info@foundry4.in</div>
+            <div class="cv-tagline"><div>Building Digital Experiences</div><div>That Move Businesses Forward</div></div>
+          </div>
+        </div>
       </div>
-      <div class="cv-badge">Company Profile 2026</div>
+
+      <!-- ══ PAGE 2: WHO WE ARE ══ -->
+      <div class="page pg-white" data-page="1">
+        <div class="inner">
+          <div class="page-hdr border-b-light">
+            <div class="ph-l"><div class="pn pn-blue">02</div><div class="pt pt-blue">Who We Are</div></div>
+            <div class="p-logo">Foundry<span>4</span></div>
+          </div>
+          <div class="divbar divbar-blue"></div>
+          <div class="about-g2">
+            <div>
+              <div class="sec-title" style="color:#0B1120">Building the <span style="color:#2563EB">Future</span> of Business, <span style="color:#2563EB">Digitally.</span></div>
+              <p class="sec-lead">Foundry4 is a Mumbai-based technology, creative, data, and digital marketing company. We help businesses turn ambitious ideas into practical, high-impact digital solutions — spanning live ERP systems, corporate websites, editorial design, and AI-powered automation.</p>
+              <div class="astat-grid">
+                <div class="astat"><div class="astat-n">6+</div><div class="astat-l">Live Projects</div></div>
+                <div class="astat"><div class="astat-n">600+</div><div class="astat-l">Students on ERP</div></div>
+                <div class="astat"><div class="astat-n">₹4.1Cr+</div><div class="astat-l">Fees Tracked</div></div>
+                <div class="astat"><div class="astat-n">4</div><div class="astat-l">Core Service Pillars</div></div>
+              </div>
+            </div>
+            <div>
+              <div class="person-card">
+                <div class="person-av">👨‍💻</div>
+                <div class="person-name">Foundry4 Team</div>
+                <div class="person-role">Technology · Creative · Data · Marketing</div>
+                <div class="person-q">"We build solutions that work — beautifully crafted, technically robust, and designed to grow your business."</div>
+              </div>
+              <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:11px;padding:3.5mm">
+                <div style="font-size:8.5px;font-weight:800;color:#2563EB;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:2.5mm">Tech Stack</div>
+                <div class="tech-strip"><span class="tech-chip">Next.js</span><span class="tech-chip">React</span><span class="tech-chip">TypeScript</span><span class="tech-chip">PHP</span><span class="tech-chip">PostgreSQL</span><span class="tech-chip">Power BI</span><span class="tech-chip">Adobe Suite</span></div>
+              </div>
+            </div>
+          </div>
+          <div class="mission-dark">
+            <p>"We bridge the gap between creative visual artistry, deep data analytics, and robust software engineering — delivering business solutions that are not just beautiful, but genuinely effective and measurable."</p>
+            <div class="mission-author">— Foundry4, Core Mission Statement</div>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:13px;font-weight:800;color:#0B1120;margin-bottom:3.5mm">Industries We Serve</div>
+          <div class="ind-row">
+            <div class="ind-tag">🎓 Education</div><div class="ind-tag">🛍️ E-commerce</div><div class="ind-tag">🌐 Export &amp; Logistics</div>
+            <div class="ind-tag">🚀 Tech Startups</div><div class="ind-tag">🎭 Events &amp; Entertainment</div><div class="ind-tag">💼 Professional Services</div>
+            <div class="ind-tag">🏪 SME &amp; B2B</div><div class="ind-tag">📦 Manufacturing</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 3: ALL 4 SERVICES ══ -->
+      <div class="page pg-mid" data-page="2">
+        <div class="inner">
+          <div class="page-hdr border-b-light">
+            <div class="ph-l"><div class="pn pn-purple">03</div><div class="pt pt-purple">Our Services</div></div>
+            <div class="p-logo">Foundry<span>4</span></div>
+          </div>
+          <div class="divbar divbar-purple"></div>
+          <div class="sec-title" style="color:#0B1120;margin-bottom:2mm">What We <span style="color:#7C3AED">Build</span> &amp; <span style="color:#2563EB">Deliver</span></div>
+          <p class="sec-lead" style="margin-bottom:4mm">Four integrated service pillars — each outcome-driven and built to move your business forward.</p>
+          <div class="svc-grid">
+            <!-- Software -->
+            <div class="svc-card">
+              <div class="svc-hd svc-hd-blue">
+                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                <div class="svc-htitle">💻 Software &amp; Web Development</div>
+                <div class="svc-hdesc">Custom websites, apps, ERP/CRM, SaaS — built for your exact workflow.</div>
+              </div>
+              <div class="svc-body">
+                <div class="svc-lst">
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Custom Website Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Business Website Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Ecommerce Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Mobile App Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">SaaS Product Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">ERP &amp; CRM Systems</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Web Application Dev</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">API Development</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Custom Software</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Maintenance &amp; Support</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Creative -->
+            <div class="svc-card">
+              <div class="svc-hd svc-hd-purple">
+                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="white"/></svg></div>
+                <div class="svc-htitle">🎨 Creative Media &amp; Marketing</div>
+                <div class="svc-hdesc">Design, video &amp; performance ad campaigns for brand growth.</div>
+              </div>
+              <div class="svc-body">
+                <div class="svc-subhead sh-purple">Creative Design</div>
+                <div class="svc-lst" style="margin-bottom:3px">
+                  <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Logo &amp; Brand Identity</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Poster &amp; Graphic Design</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Brochure &amp; Business Cards</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Social Media Post Design</div></div>
+                </div>
+                <div class="svc-subhead sh-amber">Video &amp; Animation</div>
+                <div class="svc-lst" style="margin-bottom:3px">
+                  <div class="svc-it"><div class="svc-dot" style="background:#F59E0B"></div><div class="svc-tx">Video Editing &amp; Reels</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#F59E0B"></div><div class="svc-tx">Motion Graphics</div></div>
+                </div>
+                <div class="svc-subhead sh-green">Digital Marketing</div>
+                <div class="svc-lst">
+                  <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Meta Ads (FB + Instagram)</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Google Ads &amp; Campaigns</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Social Media Marketing</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Lead Generation</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- Data -->
+            <div class="svc-card">
+              <div class="svc-hd svc-hd-teal">
+                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+                <div class="svc-htitle">📊 Data Analysis &amp; Business Intelligence</div>
+                <div class="svc-hdesc">Dashboards &amp; BI that turn raw data into smart decisions.</div>
+              </div>
+              <div class="svc-body">
+                <div class="svc-lst">
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Analysis &amp; Cleaning</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Interactive Dashboards</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Power BI Dashboards</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Excel &amp; Auto Reports</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">KPI &amp; Perf. Tracking</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Sales &amp; Customer Analysis</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Visualization</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">BI Solutions</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Decision Support</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Transformation</div></div>
+                </div>
+              </div>
+            </div>
+            <!-- AI -->
+            <div class="svc-card">
+              <div class="svc-hd svc-hd-navy">
+                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div>
+                <div class="svc-htitle">🤖 AI Automation &amp; Business Solutions</div>
+                <div class="svc-hdesc">Smart chatbots &amp; workflows to reduce manual work.</div>
+              </div>
+              <div class="svc-body">
+                <div class="svc-lst">
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">AI Chatbots &amp; Assistants</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Website Chatbot Integration</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">WhatsApp Automation</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Support Automation</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Workflow Automation</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Lead Follow-Up Automation</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Email Automation</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Document Processing</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">API &amp; Integrations</div></div>
+                  <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">AI Consultation</div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 4: OUR WORK ══ -->
+      <div class="page pg-white" data-page="3">
+        <div class="inner">
+          <div class="page-hdr border-b-light">
+            <div class="ph-l"><div class="pn pn-blue">04</div><div class="pt pt-blue">Our Work</div></div>
+            <div class="p-logo">Foundry<span>4</span></div>
+          </div>
+          <div class="divbar divbar-blue"></div>
+          <div class="sec-title" style="color:#0B1120">Real Clients. <span style="color:#2563EB">Real Results.</span></div>
+          <p class="sec-lead" style="margin-bottom:4mm">Custom-built, measurable solutions that make a real operational impact.</p>
+          <div class="cs-card">
+            <div class="cs-hd"><div><div class="cs-title">🏫 M.V. High School — Full ERP System</div><div class="cs-cat">School ERP &amp; Management Software · Mumbai, India · mvhighscoolerp.in</div></div><div class="cs-badge cb-live">🟢 Live</div></div>
+            <div class="cs-body">
+              <div class="cs-metrics"><div class="cs-met"><div class="cs-mval">600+</div><div class="cs-mlbl">Students</div></div><div class="cs-met"><div class="cs-mval">₹4.1Cr+</div><div class="cs-mlbl">Fees Tracked</div></div><div class="cs-met"><div class="cs-mval">17</div><div class="cs-mlbl">Classes</div></div><div class="cs-met"><div class="cs-mval">12+</div><div class="cs-mlbl">ERP Modules</div></div></div>
+              <div class="cs-feats"><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Live admin dashboard with real-time stats</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Automated WhatsApp fee reminders</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Role-based admin &amp; staff access control</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Payroll, ledger &amp; accounts management</div></div>
+              <div class="t-row"><span class="t-tag">Next.js</span><span class="t-tag">TypeScript</span><span class="t-tag">PostgreSQL</span><span class="t-tag">WhatsApp API</span></div>
+            </div>
+          </div>
+          <div class="cs-card">
+            <div class="cs-hd"><div><div class="cs-title">🌍 Bodal's International — Corporate Website</div><div class="cs-cat">Export Business &amp; Corporate Website · India · bodalsint.com</div></div><div class="cs-badge cb-live">🟢 Live</div></div>
+            <div class="cs-body">
+              <div class="cs-metrics"><div class="cs-met"><div class="cs-mval">5+</div><div class="cs-mlbl">Product Verticals</div></div><div class="cs-met"><div class="cs-mval">Global</div><div class="cs-mlbl">B2B Reach</div></div><div class="cs-met"><div class="cs-mval">100%</div><div class="cs-mlbl">Responsive</div></div><div class="cs-met"><div class="cs-mval">SEO</div><div class="cs-mlbl">Optimised</div></div></div>
+              <div class="cs-feats"><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Premium corporate design &amp; layout</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Seafood, textiles, agriculture, coffee verticals</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>International buyer enquiry form</div><div class="cs-ft"><div class="cs-ck ck-b">✓</div>Analytics &amp; performance tracking</div></div>
+              <div class="t-row"><span class="t-tag">PHP</span><span class="t-tag">JavaScript</span><span class="t-tag">MySQL</span><span class="t-tag">Tailwind CSS</span></div>
+            </div>
+          </div>
+          <div class="cs-card" style="border-color:rgba(124,58,237,.2)">
+            <div class="cs-hd cs-hd-p"><div><div class="cs-title">📰 Sakhi Darpan — Festive Magazine Design</div><div class="cs-cat">Magazine Design &amp; Print Media · Mumbai, India</div></div><div class="cs-badge cb-print">🖨 Print</div></div>
+            <div class="cs-body">
+              <div class="cs-metrics"><div class="cs-met"><div class="cs-mval cs-mval-p">27</div><div class="cs-mlbl">Pages</div></div><div class="cs-met"><div class="cs-mval cs-mval-p">10+</div><div class="cs-mlbl">Sections</div></div><div class="cs-met"><div class="cs-mval cs-mval-p">2</div><div class="cs-mlbl">Languages</div></div><div class="cs-met"><div class="cs-mval cs-mval-p">PDF</div><div class="cs-mlbl">Print-Ready</div></div></div>
+              <div class="cs-feats"><div class="cs-ft"><div class="cs-ck ck-p">✓</div>Ganesh Utsav festive special edition</div><div class="cs-ft"><div class="cs-ck ck-p">✓</div>High-resolution print-ready PDF output</div></div>
+              <div class="t-row"><span class="t-tag t-tag-p">Adobe InDesign</span><span class="t-tag t-tag-p">Adobe Photoshop</span><span class="t-tag t-tag-p">Illustrator</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 5: WHY FOUNDRY4 ══ -->
+      <div class="page pg-why" data-page="4">
+        <div class="why-orb"></div>
+        <div class="cover-grid"></div>
+        <div class="left-bar" style="background:linear-gradient(to bottom,#8B5CF6,#6C3EFF,#3B82F6)"></div>
+        <div class="inner">
+          <div class="page-hdr border-b-dark">
+            <div class="ph-l"><div class="pn pn-purple">05</div><div class="pt pt-white">Why Foundry4</div></div>
+            <div class="p-logo p-logo-w">Foundry<span>4</span></div>
+          </div>
+          <div class="divbar divbar-purple"></div>
+          <div class="sec-title" style="color:white;margin-bottom:2mm">Why Businesses <span style="background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Choose Us</span></div>
+          <p class="sec-lead sec-lead-w" style="margin-bottom:4mm">Custom-built, business-focused, and always outcome-driven — that's the Foundry4 difference.</p>
+          <div class="why-grid">
+            <div class="why-card wc-blue"><div class="why-ic">🔧</div><div class="why-t">Custom Solutions</div><div class="why-d">No generic templates. Every line of code built for your exact workflow and brand values.</div></div>
+            <div class="why-card wc-purple"><div class="why-ic">✨</div><div class="why-t">Modern UI/UX Design</div><div class="why-d">Stunning layouts that load fast and provide smooth interactions for great user engagement.</div></div>
+            <div class="why-card wc-teal"><div class="why-ic">💬</div><div class="why-t">Transparent Comm.</div><div class="why-d">Clear updates, shared access, and collaborative milestones at every project phase.</div></div>
+            <div class="why-card wc-pink"><div class="why-ic">📈</div><div class="why-t">Scalable Architecture</div><div class="why-d">Systems built to grow alongside your business without bottlenecking performance.</div></div>
+            <div class="why-card wc-blue"><div class="why-ic">🛡️</div><div class="why-t">Reliable Support</div><div class="why-d">Technical support, optimization advice, and proactive server maintenance.</div></div>
+            <div class="why-card wc-purple"><div class="why-ic">⚡</div><div class="why-t">Fast Delivery</div><div class="why-d">Pages hand-crafted and optimized to load fast across all devices.</div></div>
+            <div class="why-card wc-teal"><div class="why-ic">🎨</div><div class="why-t">Creative + Technical</div><div class="why-d">We bridge creative artistry, data analytics, and robust software engineering.</div></div>
+            <div class="why-card wc-pink"><div class="why-ic">💼</div><div class="why-t">Business-Focused</div><div class="why-d">We prioritize features that directly impact your bottom line and efficiency.</div></div>
+          </div>
+          <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:3.5mm">Our 6-Step Delivery Process</div>
+          <div class="proc-row">
+            <div class="proc-step"><div class="proc-n">01</div><div class="proc-t">Discovery</div><div class="proc-d">Understand goals, audience &amp; processes.</div></div>
+            <div class="proc-step"><div class="proc-n">02</div><div class="proc-t">Strategy</div><div class="proc-d">Design roadmap &amp; align on tech stack.</div></div>
+            <div class="proc-step"><div class="proc-n">03</div><div class="proc-t">Design &amp; Build</div><div class="proc-d">Build UI &amp; write clean, scalable code.</div></div>
+            <div class="proc-step"><div class="proc-n">04</div><div class="proc-t">Testing</div><div class="proc-d">Rigorous QC &amp; cross-browser audits.</div></div>
+            <div class="proc-step"><div class="proc-n">05</div><div class="proc-t">Launch</div><div class="proc-d">Secure production deployment.</div></div>
+            <div class="proc-step"><div class="proc-n">06</div><div class="proc-t">Support</div><div class="proc-d">Monitor &amp; optimize for growth.</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ══ PAGE 6: BACK COVER ══ -->
+      <div class="page pg-back" data-page="5">
+        <div class="back-orb1"></div><div class="back-orb2"></div><div class="back-grid"></div>
+        <div class="left-bar" style="background:linear-gradient(to bottom,#60A5FA,#6C3EFF,#C084FC,#34D399)"></div>
+        <div class="back-inner">
+          <div class="back-logo"><div class="logo-sq">F4</div><div class="logo-txt">Foundry<span>4</span></div></div>
+          <div>
+            <div class="cta-eyebrow">Ready to Build Something Great?</div>
+            <h2 class="cta-h2">Let's Turn Your Vision<br/>into a <span class="bl">Digital Reality.</span></h2>
+            <p class="cta-sub">Whether you need a powerful custom website, a data dashboard, a brand identity, or end-to-end digital marketing — our team is ready to build it, launch it, and grow it with you.</p>
+            <div class="cta-cards">
+              <div class="cta-card"><div class="cta-lbl">📞 Phone / WhatsApp</div><div class="cta-val">+91 8433568078</div><div class="cta-sub2">Available for calls &amp; messages</div></div>
+              <div class="cta-card"><div class="cta-lbl">✉ Email Us</div><div class="cta-val">info@foundry4.in</div><div class="cta-sub2">We respond within 24 hours</div></div>
+              <div class="cta-card"><div class="cta-lbl">🌐 Website</div><div class="cta-val">foundry4.in</div><div class="cta-sub2">View live portfolio &amp; services</div></div>
+              <div class="cta-card"><div class="cta-lbl">📍 Office Address</div><div class="cta-val">Mumbai, India</div><div class="cta-sub2">Bhoiwada, Parel — 400012</div></div>
+            </div>
+          </div>
+          <div class="back-foot">
+            <div>
+              <div class="back-addr"><strong>Foundry4 Digital Agency</strong><br/>House No 625, Bhoiwada Village, GD Ambekar Road,<br/>Near Jan Mandir, Parel, Mumbai – 400012, Maharashtra, India</div>
+              <div class="socs"><div class="soc">in LinkedIn</div><div class="soc">📸 Instagram</div><div class="soc">f Facebook</div></div>
+              <div class="copy">© 2026 Foundry4 Digital Agency. All rights reserved. | foundry4.in</div>
+            </div>
+            <div class="qr-block">
+              <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://foundry4.in&bgcolor=FFFFFF&color=0B1120&margin=8" alt="QR" width="72" height="72"/>
+              <div class="qr-lbl">Scan to visit<br/>foundry4.in</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /pages -->
+  </div><!-- /page-wrap -->
+
+  <!-- Right Arrow -->
+  <button class="nav-btn" id="btn-next" aria-label="Next page">
+    <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <!-- Bottom Bar -->
+  <div id="bottom-bar">
+    <div id="page-counter">PAGE 1 OF 6</div>
+    <div id="dots">
+      <div class="dot active" data-idx="0"></div>
+      <div class="dot" data-idx="1"></div>
+      <div class="dot" data-idx="2"></div>
+      <div class="dot" data-idx="3"></div>
+      <div class="dot" data-idx="4"></div>
+      <div class="dot" data-idx="5"></div>
     </div>
-
-    <!-- Hero -->
-    <div class="cv-hero">
-      <div class="cv-left">
-        <div class="cv-pill">
-          <div class="cv-pill-dot"></div>
-          <span>Next-Gen Digital Agency — Mumbai, India</span>
-        </div>
-        <h1 class="cv-h1">
-          <span class="hl">Technology.</span><br/>
-          <span class="hl2">Creativity.</span><br/>
-          Data &amp;<br/>
-          Marketing.
-        </h1>
-        <p class="cv-desc">We design, build, and scale custom digital products, powerful visual content, data intelligence solutions, and high-performance marketing campaigns — built precisely for your business.</p>
-        <div class="cv-tags">
-          <div class="cv-tag ct-blue">💻 Software &amp; Web Dev</div>
-          <div class="cv-tag ct-purple">🎨 Creative Media</div>
-          <div class="cv-tag ct-teal">📊 Data &amp; BI</div>
-          <div class="cv-tag ct-pink">🤖 AI Automation</div>
-          <div class="cv-tag ct-amber">📣 Digital Marketing</div>
-        </div>
-        <div class="cv-contacts">
-          <div class="cv-cline"><div class="cv-cline-dot"></div><span>📞 <strong>+91 8433568078</strong></span></div>
-          <div class="cv-cline"><div class="cv-cline-dot"></div><span>✉ <strong>info@foundry4.in</strong></span></div>
-          <div class="cv-cline"><div class="cv-cline-dot"></div><span>🌐 <strong>foundry4.in</strong></span></div>
-        </div>
-      </div>
-
-      <!-- Right side: visual cards -->
-      <div class="cv-right">
-        <!-- Robot/AI SVG illustration card -->
-        <div class="robot-card">
-          <div class="robot-svg-wrap">
-            <!-- Tech SVG Illustration -->
-            <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <circle cx="55" cy="55" r="50" fill="rgba(108,62,255,0.08)" stroke="rgba(108,62,255,0.25)" stroke-width="1"/>
-              <!-- Brain / circuit board style -->
-              <circle cx="55" cy="45" r="22" fill="rgba(37,99,235,0.12)" stroke="#6C3EFF" stroke-width="1.5"/>
-              <!-- AI head shape -->
-              <rect x="40" y="33" width="30" height="28" rx="10" fill="rgba(99,102,241,0.2)" stroke="#818CF8" stroke-width="1.5"/>
-              <!-- eyes -->
-              <circle cx="48" cy="44" r="4" fill="#6C3EFF"/>
-              <circle cx="62" cy="44" r="4" fill="#6C3EFF"/>
-              <circle cx="49.5" cy="42.5" r="1.5" fill="white"/>
-              <circle cx="63.5" cy="42.5" r="1.5" fill="white"/>
-              <!-- smile -->
-              <path d="M48 52 Q55 57 62 52" stroke="#818CF8" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-              <!-- antenna -->
-              <line x1="55" y1="33" x2="55" y2="25" stroke="#60A5FA" stroke-width="1.5" stroke-linecap="round"/>
-              <circle cx="55" cy="23" r="3" fill="#60A5FA"/>
-              <!-- body -->
-              <rect x="45" y="61" width="20" height="14" rx="5" fill="rgba(99,102,241,0.15)" stroke="#818CF8" stroke-width="1.2"/>
-              <!-- circuit lines -->
-              <line x1="30" y1="44" x2="40" y2="44" stroke="rgba(129,140,248,0.4)" stroke-width="1" stroke-dasharray="2 2"/>
-              <line x1="70" y1="44" x2="80" y2="44" stroke="rgba(129,140,248,0.4)" stroke-width="1" stroke-dasharray="2 2"/>
-              <line x1="55" y1="75" x2="55" y2="90" stroke="rgba(129,140,248,0.4)" stroke-width="1" stroke-dasharray="2 2"/>
-              <circle cx="28" cy="44" r="3" fill="rgba(96,165,250,0.4)" stroke="#60A5FA" stroke-width="1"/>
-              <circle cx="82" cy="44" r="3" fill="rgba(96,165,250,0.4)" stroke="#60A5FA" stroke-width="1"/>
-              <circle cx="55" cy="92" r="3" fill="rgba(52,211,153,0.4)" stroke="#34D399" stroke-width="1"/>
-              <!-- floating dots -->
-              <circle cx="25" cy="30" r="2" fill="rgba(167,139,250,0.5)"/>
-              <circle cx="85" cy="65" r="2" fill="rgba(52,211,153,0.5)"/>
-              <circle cx="20" cy="70" r="1.5" fill="rgba(244,114,182,0.5)"/>
-              <circle cx="90" cy="30" r="1.5" fill="rgba(251,191,36,0.5)"/>
-            </svg>
-          </div>
-          <div class="robot-label">AI-Powered Solutions</div>
-        </div>
-
-        <!-- Mini stats -->
-        <div class="stat-mini-row">
-          <div class="stat-mini">
-            <div class="stat-mini-n" style="color:#818CF8">6+</div>
-            <div class="stat-mini-l">Live Projects</div>
-          </div>
-          <div class="stat-mini">
-            <div class="stat-mini-n" style="color:#60A5FA">600+</div>
-            <div class="stat-mini-l">Students ERP</div>
-          </div>
-          <div class="stat-mini">
-            <div class="stat-mini-n" style="color:#34D399">4</div>
-            <div class="stat-mini-l">Pillars</div>
-          </div>
-          <div class="stat-mini">
-            <div class="stat-mini-n" style="color:#F472B6">∞</div>
-            <div class="stat-mini-l">Growth</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="cv-divider"></div>
-
-    <div class="cv-foot">
-      <div style="font-size:9px;color:#334155">Mumbai, India · foundry4.in · info@foundry4.in</div>
-      <div class="cv-tagline">
-        <div>Building Digital Experiences</div>
-        <div>That Move Businesses Forward</div>
-      </div>
-    </div>
+    <div id="key-hint">← → ARROW KEYS</div>
   </div>
 </div>
 
+<script>
+  const pages = document.querySelectorAll('.page');
+  const dots = document.querySelectorAll('.dot');
+  const counter = document.getElementById('page-counter');
+  const btnPrev = document.getElementById('btn-prev');
+  const btnNext = document.getElementById('btn-next');
+  const TOTAL = pages.length;
+  let current = 0;
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 2 — WHO WE ARE                            -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-white">
-  <div class="inner">
-    <div class="page-hdr">
-      <div class="ph-l"><div class="pn pn-blue">02</div><div class="pt pt-blue">Who We Are</div></div>
-      <div class="p-logo">Foundry<span>4</span></div>
-    </div>
-    <div class="divbar divbar-blue"></div>
-    <div class="about-grid-2col">
-      <div>
-        <div class="sec-title">Building the <span class="bl">Future</span> of Business, <span class="bl">Digitally.</span></div>
-        <p class="sec-lead">Foundry4 is a Mumbai-based technology, creative, data, and digital marketing company. We help businesses across India turn ambitious ideas into practical, high-impact digital solutions — spanning live ERP systems, corporate websites, editorial design, and AI-powered business automation.</p>
-        <div class="about-stats" style="grid-template-columns:repeat(2,1fr)">
-          <div class="astat">
-            <div class="astat-n">6+</div>
-            <div class="astat-l">Live Projects</div>
-          </div>
-          <div class="astat">
-            <div class="astat-n">600+</div>
-            <div class="astat-l">Students on ERP</div>
-          </div>
-          <div class="astat">
-            <div class="astat-n">₹4.1Cr+</div>
-            <div class="astat-l">Fees Tracked</div>
-          </div>
-          <div class="astat">
-            <div class="astat-n">4</div>
-            <div class="astat-l">Core Pillars</div>
-          </div>
-        </div>
-      </div>
-      <!-- Illustration + team card -->
-      <div style="display:flex;flex-direction:column;gap:4mm">
-        <div class="person-card">
-          <div class="person-avatar">👨‍💻</div>
-          <div class="person-name">Foundry4 Team</div>
-          <div class="person-role">Technology · Creative · Data · Marketing</div>
-          <div class="person-quote">"We build solutions that work — beautifully crafted, technically robust, and designed to grow your business."</div>
-        </div>
-        <!-- Tech stack mini -->
-        <div style="background:#F8FAFC;border:1px solid #E2E8F0;border-radius:12px;padding:4mm">
-          <div style="font-size:9px;font-weight:800;color:#2563EB;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3mm">Tech Stack</div>
-          <div style="display:flex;flex-wrap:wrap;gap:5px">
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">Next.js</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">React</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">TypeScript</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">PHP</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">PostgreSQL</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">Power BI</span>
-            <span style="font-size:9px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:8px;padding:3px 8px">Adobe Suite</span>
-          </div>
-        </div>
-      </div>
-    </div>
+  function goTo(idx) {
+    if (idx < 0 || idx >= TOTAL) return;
+    // outgoing
+    pages[current].classList.remove('active');
+    if (idx > current) pages[current].classList.add('prev');
+    else pages[current].classList.remove('prev');
 
-    <div class="mission-dark">
-      <p>"We bridge the gap between creative visual artistry, deep data analytics, and robust software engineering — delivering business solutions that are not just beautiful, but genuinely effective and measurable."</p>
-      <div class="mission-author">— Foundry4, Core Mission Statement</div>
-    </div>
+    dots[current].classList.remove('active');
+    current = idx;
 
-    <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:#0B1120;margin-bottom:4mm">Industries We Serve</div>
-    <div class="ind-row">
-      <div class="ind-tag">🎓 Education &amp; Academics</div>
-      <div class="ind-tag">🛍️ E-commerce &amp; Retail</div>
-      <div class="ind-tag">🌐 Export &amp; Logistics</div>
-      <div class="ind-tag">🚀 Tech Startups</div>
-      <div class="ind-tag">🎭 Events &amp; Entertainment</div>
-      <div class="ind-tag">💼 Professional Services</div>
-      <div class="ind-tag">🏪 SME &amp; B2B</div>
-      <div class="ind-tag">📦 Manufacturing &amp; Trade</div>
-    </div>
-  </div>
-</div>
+    // incoming
+    // reset prev state for all
+    pages.forEach((p, i) => { if (i !== current) p.classList.remove('prev'); });
+    pages[current].classList.remove('prev');
+    pages[current].classList.add('active');
+    dots[current].classList.add('active');
 
+    counter.textContent = `PAGE ${current + 1} OF ${TOTAL}`;
+    btnPrev.classList.toggle('disabled', current === 0);
+    btnNext.classList.toggle('disabled', current === TOTAL - 1);
+  }
 
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 3 — ALL 4 SERVICES (ONE PAGE)             -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-mid">
-  <div class="inner">
-    <div class="page-hdr">
-      <div class="ph-l"><div class="pn pn-purple">03</div><div class="pt pt-purple">Our Services</div></div>
-      <div class="p-logo">Foundry<span>4</span></div>
-    </div>
-    <div class="divbar divbar-purple"></div>
-    <div class="sec-title" style="margin-bottom:2mm">What We <span class="pu">Build</span> &amp; <span class="bl">Deliver</span></div>
-    <p class="sec-lead" style="margin-bottom:5mm">Four integrated service pillars — each crafted to move your business forward faster.</p>
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+  dots.forEach(d => d.addEventListener('click', () => goTo(+d.dataset.idx)));
 
-    <div class="svc-grid">
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') goTo(current + 1);
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') goTo(current - 1);
+  });
 
-      <!-- 1 Software & Web -->
-      <div class="svc-card">
-        <div class="svc-hd svc-hd-blue">
-          <div class="svc-icon">
-            <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <div class="svc-htitle">💻 Software &amp; Web Development</div>
-          <div class="svc-hdesc">Custom websites, apps, ERP/CRM, SaaS — built for your exact workflow and scale.</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-lst">
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Custom Website Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Business Website Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Ecommerce Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Mobile App Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">SaaS Product Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">ERP &amp; CRM Systems</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Web Application Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">API Development &amp; Integration</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Custom Software Development</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#3B82F6"></div><div class="svc-tx">Maintenance &amp; Support</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 2 Creative & Marketing -->
-      <div class="svc-card">
-        <div class="svc-hd svc-hd-purple">
-          <div class="svc-icon">
-            <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/><circle cx="12" cy="12" r="3" fill="white"/></svg>
-          </div>
-          <div class="svc-htitle">🎨 Creative Media &amp; Marketing</div>
-          <div class="svc-hdesc">Design, video, social media &amp; performance ad campaigns for measurable brand growth.</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-subhead sh-purple">Creative Design</div>
-          <div class="svc-lst" style="margin-bottom:3px">
-            <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Logo &amp; Brand Identity</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Poster &amp; Graphic Design</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Brochure &amp; Business Cards</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#8B5CF6"></div><div class="svc-tx">Social Media Post Design</div></div>
-          </div>
-          <div class="svc-subhead sh-amber">Video &amp; Animation</div>
-          <div class="svc-lst" style="margin-bottom:3px">
-            <div class="svc-it"><div class="svc-dot" style="background:#F59E0B"></div><div class="svc-tx">Video Editing &amp; Reels</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#F59E0B"></div><div class="svc-tx">Motion Graphics &amp; Animation</div></div>
-          </div>
-          <div class="svc-subhead sh-green">Digital Marketing</div>
-          <div class="svc-lst">
-            <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Meta Ads (FB + Instagram)</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Google Ads &amp; Campaigns</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Social Media Marketing</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#10B981"></div><div class="svc-tx">Lead Generation</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 3 Data & BI -->
-      <div class="svc-card">
-        <div class="svc-hd svc-hd-teal">
-          <div class="svc-icon">
-            <svg width="22" height="22" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg>
-          </div>
-          <div class="svc-htitle">📊 Data Analysis &amp; Business Intelligence</div>
-          <div class="svc-hdesc">Dashboards, BI, and analytics that turn raw data into confident business decisions.</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-lst">
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Analysis &amp; Cleaning</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Interactive Dashboard Dev</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Power BI Dashboards</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Excel &amp; Automated Reports</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">KPI &amp; Performance Tracking</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Sales &amp; Customer Analysis</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Visualization</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Business Intelligence Solutions</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Business Decision Support</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#14B8A6"></div><div class="svc-tx">Data Transformation</div></div>
-          </div>
-        </div>
-      </div>
-
-      <!-- 4 AI Automation -->
-      <div class="svc-card">
-        <div class="svc-hd svc-hd-navy">
-          <div class="svc-icon">
-            <svg width="22" height="22" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/><line x1="8" y1="16" x2="8" y2="16.01"/><line x1="16" y1="16" x2="16" y2="16.01"/></svg>
-          </div>
-          <div class="svc-htitle">🤖 AI Automation &amp; Business Solutions</div>
-          <div class="svc-hdesc">Smart AI tools, chatbots &amp; workflows that reduce manual work and boost efficiency.</div>
-        </div>
-        <div class="svc-body">
-          <div class="svc-lst">
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">AI Chatbots &amp; Assistants</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Website Chatbot Integration</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">WhatsApp Automation</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Customer Support Automation</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Workflow Automation</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Lead Follow-Up Automation</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Email Automation</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">Document &amp; Invoice Processing</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">API &amp; Third-Party Integrations</div></div>
-            <div class="svc-it"><div class="svc-dot" style="background:#60A5FA"></div><div class="svc-tx">AI Consultation &amp; Implementation</div></div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 4 — OUR WORK                             -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-white">
-  <div class="inner">
-    <div class="page-hdr">
-      <div class="ph-l"><div class="pn pn-blue">04</div><div class="pt pt-blue">Our Work</div></div>
-      <div class="p-logo">Foundry<span>4</span></div>
-    </div>
-    <div class="divbar divbar-blue"></div>
-    <div class="sec-title">Real Clients. <span class="bl">Real Results.</span></div>
-    <p class="sec-lead" style="margin-bottom:5mm">Custom-built, measurable solutions that make a real operational impact.</p>
-
-    <!-- MVHS ERP -->
-    <div class="cs-card">
-      <div class="cs-hd cs-hd-blue">
-        <div>
-          <div class="cs-title">🏫 M.V. High School — Full ERP System</div>
-          <div class="cs-cat">School ERP &amp; Management Software · Mumbai, India · mvhighscoolerp.in</div>
-        </div>
-        <div class="cs-badge cb-live">🟢 Live</div>
-      </div>
-      <div class="cs-body">
-        <div class="cs-metrics">
-          <div class="cs-met"><div class="cs-mval">600+</div><div class="cs-mlbl">Students</div></div>
-          <div class="cs-met"><div class="cs-mval">₹4.1Cr+</div><div class="cs-mlbl">Fees Tracked</div></div>
-          <div class="cs-met"><div class="cs-mval">17</div><div class="cs-mlbl">Classes</div></div>
-          <div class="cs-met"><div class="cs-mval">12+</div><div class="cs-mlbl">ERP Modules</div></div>
-        </div>
-        <div class="cs-feats">
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Live admin dashboard with real-time stats</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Automated WhatsApp fee reminders</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Role-based admin &amp; staff access control</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Payroll, ledger &amp; accounts management</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>8-module report center (CSV / PDF / Print)</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Stock, assets &amp; library management</div>
-        </div>
-        <div class="tech-row">
-          <span class="tech-tag">Next.js</span><span class="tech-tag">TypeScript</span><span class="tech-tag">PostgreSQL</span><span class="tech-tag">WhatsApp API</span><span class="tech-tag">Tailwind CSS</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Bodals -->
-    <div class="cs-card">
-      <div class="cs-hd cs-hd-blue">
-        <div>
-          <div class="cs-title">🌍 Bodal's International — Corporate Website</div>
-          <div class="cs-cat">Export Business &amp; Corporate Website · India · bodalsint.com</div>
-        </div>
-        <div class="cs-badge cb-live">🟢 Live</div>
-      </div>
-      <div class="cs-body">
-        <div class="cs-metrics">
-          <div class="cs-met"><div class="cs-mval">5+</div><div class="cs-mlbl">Product Verticals</div></div>
-          <div class="cs-met"><div class="cs-mval">Global</div><div class="cs-mlbl">B2B Reach</div></div>
-          <div class="cs-met"><div class="cs-mval">100%</div><div class="cs-mlbl">Responsive</div></div>
-          <div class="cs-met"><div class="cs-mval">SEO</div><div class="cs-mlbl">Optimised</div></div>
-        </div>
-        <div class="cs-feats">
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Premium corporate design &amp; layout</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Seafood, textiles, agriculture, coffee verticals</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>International buyer enquiry form</div>
-          <div class="cs-ft"><div class="cs-ck ck-blue">✓</div>Analytics, visitor &amp; performance tracking</div>
-        </div>
-        <div class="tech-row">
-          <span class="tech-tag">PHP</span><span class="tech-tag">JavaScript</span><span class="tech-tag">MySQL</span><span class="tech-tag">Tailwind CSS</span><span class="tech-tag">HTML5</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Sakhi Darpan -->
-    <div class="cs-card" style="border-color:rgba(124,58,237,.25)">
-      <div class="cs-hd cs-hd-purple">
-        <div>
-          <div class="cs-title">📰 Sakhi Darpan — Festive Magazine Design</div>
-          <div class="cs-cat">Magazine Design &amp; Print Media · Mumbai, India</div>
-        </div>
-        <div class="cs-badge cb-print">🖨 Print</div>
-      </div>
-      <div class="cs-body">
-        <div class="cs-metrics">
-          <div class="cs-met"><div class="cs-mval" style="color:#7C3AED">27</div><div class="cs-mlbl">Pages</div></div>
-          <div class="cs-met"><div class="cs-mval" style="color:#7C3AED">10+</div><div class="cs-mlbl">Sections</div></div>
-          <div class="cs-met"><div class="cs-mval" style="color:#7C3AED">2</div><div class="cs-mlbl">Languages</div></div>
-          <div class="cs-met"><div class="cs-mval" style="color:#7C3AED">PDF</div><div class="cs-mlbl">Print-Ready</div></div>
-        </div>
-        <div class="cs-feats">
-          <div class="cs-ft"><div class="cs-ck ck-purple">✓</div>Ganesh Utsav festive special edition</div>
-          <div class="cs-ft"><div class="cs-ck ck-purple">✓</div>High-resolution print-ready PDF output</div>
-        </div>
-        <div class="tech-row">
-          <span class="tech-tag" style="color:#7C3AED;border-color:rgba(124,58,237,.2)">Adobe InDesign</span>
-          <span class="tech-tag" style="color:#7C3AED;border-color:rgba(124,58,237,.2)">Adobe Photoshop</span>
-          <span class="tech-tag" style="color:#7C3AED;border-color:rgba(124,58,237,.2)">Illustrator</span>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 5 — WHY FOUNDRY4 + PROCESS (DARK)        -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-why">
-  <div class="why-orb"></div>
-  <div class="cover-grid-bg"></div>
-  <div style="position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,#8B5CF6,#6C3EFF,#3B82F6)"></div>
-  <div class="inner">
-    <div class="page-hdr page-hdr-dark">
-      <div class="ph-l"><div class="pn pn-purple">05</div><div class="pt pt-white">Why Foundry4</div></div>
-      <div class="p-logo p-logo-w">Foundry<span>4</span></div>
-    </div>
-    <div class="divbar divbar-purple"></div>
-    <div class="sec-title" style="color:white;margin-bottom:2mm">Why Businesses <span style="background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Choose Us</span></div>
-    <p class="sec-lead sec-lead-w" style="margin-bottom:5mm">Custom-built, business-focused, and always outcome-driven — that's the Foundry4 difference.</p>
-
-    <div class="why-grid">
-      <div class="why-card wc-blue">
-        <div class="why-icon">🔧</div>
-        <div class="why-t">Custom Solutions</div>
-        <div class="why-d">No generic templates. Every line of code &amp; layout built for your exact workflow and brand values.</div>
-      </div>
-      <div class="why-card wc-purple">
-        <div class="why-icon">✨</div>
-        <div class="why-t">Modern UI/UX Design</div>
-        <div class="why-d">Stunning layouts that load fast and provide smooth interactions for exceptional user engagement.</div>
-      </div>
-      <div class="why-card wc-teal">
-        <div class="why-icon">💬</div>
-        <div class="why-t">Transparent Communication</div>
-        <div class="why-d">Clear updates, shared access, and collaborative milestones at every project phase.</div>
-      </div>
-      <div class="why-card wc-pink">
-        <div class="why-icon">📈</div>
-        <div class="why-t">Scalable Architecture</div>
-        <div class="why-d">Systems built to grow alongside your business without bottlenecking performance.</div>
-      </div>
-      <div class="why-card wc-blue">
-        <div class="why-icon">🛡️</div>
-        <div class="why-t">Reliable Post-Launch Support</div>
-        <div class="why-d">Technical support, optimization advice, and proactive server maintenance when needed.</div>
-      </div>
-      <div class="why-card wc-purple">
-        <div class="why-icon">⚡</div>
-        <div class="why-t">Fast &amp; Responsive Delivery</div>
-        <div class="why-d">Pages hand-crafted and optimized to load fast across desktop, tablet, and mobile.</div>
-      </div>
-      <div class="why-card wc-teal">
-        <div class="why-icon">🎨</div>
-        <div class="why-t">Creative + Technical Expertise</div>
-        <div class="why-d">We bridge creative artistry, data analytics, and robust software engineering seamlessly.</div>
-      </div>
-      <div class="why-card wc-pink">
-        <div class="why-icon">💼</div>
-        <div class="why-t">Business-Focused Approach</div>
-        <div class="why-d">We prioritize features that directly impact your bottom line, sales, and operational efficiency.</div>
-      </div>
-    </div>
-
-    <div style="font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:white;margin-bottom:4mm">Our 6-Step Delivery Process</div>
-    <div class="proc-row">
-      <div class="proc-step"><div class="proc-n">01</div><div class="proc-t">Discovery &amp; Analysis</div><div class="proc-d">Understand goals, audience &amp; business processes in detail.</div></div>
-      <div class="proc-step"><div class="proc-n">02</div><div class="proc-t">Planning &amp; Strategy</div><div class="proc-d">Design roadmap and align on tech stack &amp; architecture.</div></div>
-      <div class="proc-step"><div class="proc-n">03</div><div class="proc-t">Design &amp; Build</div><div class="proc-d">Build intuitive UI &amp; write clean, scalable, global-standard code.</div></div>
-      <div class="proc-step"><div class="proc-n">04</div><div class="proc-t">Review &amp; Testing</div><div class="proc-d">Rigorous QC, cross-browser audits &amp; accessibility checks.</div></div>
-      <div class="proc-step"><div class="proc-n">05</div><div class="proc-t">Launch &amp; Delivery</div><div class="proc-d">Secure production deployment with final validation.</div></div>
-      <div class="proc-step"><div class="proc-n">06</div><div class="proc-t">Support &amp; Growth</div><div class="proc-d">Monitor performance &amp; optimize for continuous growth.</div></div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ══════════════════════════════════════════════ -->
-<!-- PAGE 6 — BACK COVER / CTA                     -->
-<!-- ══════════════════════════════════════════════ -->
-<div class="page pg-back">
-  <div class="back-orb1"></div>
-  <div class="back-orb2"></div>
-  <div class="back-grid-bg"></div>
-  <div style="position:absolute;left:0;top:0;bottom:0;width:5px;background:linear-gradient(to bottom,#60A5FA,#6C3EFF,#C084FC,#34D399)"></div>
-
-  <div class="back-inner">
-    <div class="back-logo">
-      <div class="logo-sq">F4</div>
-      <div class="logo-txt">Foundry<span>4</span></div>
-    </div>
-
-    <div>
-      <div class="cta-eyebrow">Ready to Build Something Great?</div>
-      <h2 class="cta-h2">Let's Turn Your Vision<br/>into a <span class="bl">Digital Reality.</span></h2>
-      <p class="cta-sub">Whether you need a powerful custom website, a data dashboard, a brand identity, or end-to-end digital marketing — our team is ready to build it, launch it, and grow it with you.</p>
-
-      <div class="cta-cards">
-        <div class="cta-card">
-          <div class="cta-lbl">📞 Phone / WhatsApp</div>
-          <div class="cta-val">+91 8433568078</div>
-          <div class="cta-sub2">Available for calls &amp; messages</div>
-        </div>
-        <div class="cta-card">
-          <div class="cta-lbl">✉ Email Us</div>
-          <div class="cta-val">info@foundry4.in</div>
-          <div class="cta-sub2">We respond within 24 hours</div>
-        </div>
-        <div class="cta-card">
-          <div class="cta-lbl">🌐 Website</div>
-          <div class="cta-val">foundry4.in</div>
-          <div class="cta-sub2">View live portfolio &amp; services</div>
-        </div>
-        <div class="cta-card">
-          <div class="cta-lbl">📍 Office Address</div>
-          <div class="cta-val">Mumbai, India</div>
-          <div class="cta-sub2">Bhoiwada, Parel — 400012</div>
-        </div>
-      </div>
-    </div>
-
-    <div class="back-foot">
-      <div>
-        <div class="back-addr">
-          <strong>Foundry4 Digital Agency</strong><br/>
-          House No 625, Bhoiwada Village, GD Ambekar Road,<br/>
-          Near Jan Mandir, Parel, Mumbai – 400012, Maharashtra, India
-        </div>
-        <div class="socs">
-          <div class="soc">in LinkedIn</div>
-          <div class="soc">📸 Instagram</div>
-          <div class="soc">f Facebook</div>
-        </div>
-        <div class="copy">© 2026 Foundry4 Digital Agency. All rights reserved. | foundry4.in</div>
-      </div>
-      <div class="qr-block">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=https://foundry4.in&bgcolor=FFFFFF&color=0B1120&margin=8&qzone=1" alt="QR code" width="72" height="72"/>
-        <div class="qr-lbl">Scan to visit<br/>foundry4.in</div>
-      </div>
-    </div>
-  </div>
-</div>
-
+  // Touch / swipe support
+  let touchStartX = 0;
+  document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  document.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  }, {passive:true});
+</script>
 </body>
 </html>

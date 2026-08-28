@@ -87,136 +87,137 @@
     .cv-tagline{text-align:right;font-size:9.5px;font-weight:600;color:#334155;letter-spacing:1.5px;text-transform:uppercase;line-height:2}
 
     /* ─── SHARED ─── */
-    .inner{padding:14mm 14mm;display:flex;flex-direction:column;height:100%;justify-content:space-between}
+    .inner{padding:16mm 16mm;display:flex;flex-direction:column;height:100%;justify-content:space-between}
     .page-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:6mm;padding-bottom:5mm}
-    .ph-l{display:flex;align-items:center;gap:9px}
-    .pn{width:29px;height:29px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;color:white}
+    .ph-l{display:flex;align-items:center;gap:12px}
+    .pn{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:900;color:white}
     .pn-blue{background:linear-gradient(135deg,#2563EB,#1D4ED8)}
     .pn-purple{background:linear-gradient(135deg,#7C3AED,#5B21B6)}
     .pn-teal{background:linear-gradient(135deg,#0F766E,#065F46)}
-    .pt{font-family:'Outfit',sans-serif;font-size:11px;font-weight:800;letter-spacing:2.5px;text-transform:uppercase}
+    .pt{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;letter-spacing:3px;text-transform:uppercase}
     .pt-blue{color:#2563EB}.pt-purple{color:#7C3AED}.pt-white{color:#60A5FA}
-    .p-logo{font-family:'Outfit',sans-serif;font-size:13px;font-weight:900;color:#0B1120}
+    .p-logo{font-family:'Outfit',sans-serif;font-size:16px;font-weight:900;color:#0B1120}
     .p-logo span{color:#2563EB}
     .p-logo-w{color:white}.p-logo-w span{color:#818CF8}
     .border-b-light{border-bottom:1.5px solid #E2E8F0}
     .border-b-dark{border-bottom:1px solid rgba(255,255,255,.07)}
-    .sec-title{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;line-height:1.12;letter-spacing:-.5px;margin-bottom:2mm}
-    .sec-lead{font-size:11px;color:#64748B;line-height:1.7;margin-bottom:4mm}
+    .sec-title{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;line-height:1.15;letter-spacing:-.8px;margin-bottom:3mm}
+    .sec-title .bl{color:#2563EB}.sec-title .pu{color:#7C3AED}.sec-title .te{color:#0F766E}.sec-title .wh{color:white}
+    .sec-lead{font-size:15px;color:#475569;line-height:1.75;margin-bottom:6mm}
     .sec-lead-w{color:#94A3B8}
-    .divbar{width:40px;height:3px;border-radius:2px;margin-bottom:4mm}
+    .divbar{width:50px;height:4px;border-radius:2px;margin-bottom:6mm}
     .divbar-blue{background:linear-gradient(to right,#2563EB,#60A5FA)}
     .divbar-purple{background:linear-gradient(to right,#7C3AED,#C084FC)}
 
     /* ─── PG 2: ABOUT ─── */
     .pg-white{background:#fff}
-    .about-g2{display:grid;grid-template-columns:1fr 220px;gap:6mm;margin-bottom:6mm;align-items:stretch}
+    .about-g2{display:grid;grid-template-columns:1fr 240px;gap:8mm;margin-bottom:6mm;align-items:stretch}
     .astat-grid{display:grid;grid-template-columns:1fr 1fr;gap:4mm;margin-bottom:6mm;flex:1}
-    .astat{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:12px;padding:5mm 4mm;text-align:center;display:flex;flex-direction:column;justify-content:center;height:100%}
-    .astat-n{font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;color:#2563EB;line-height:1.1;margin-bottom:4px}
-    .astat-l{font-size:9.5px;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:.8px;line-height:1.2}
-    .person-card{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:14px;padding:6mm 5mm;text-align:center;margin-bottom:4mm;height:calc(100% - 130px);display:flex;flex-direction:column;justify-content:center}
-    .person-av{margin:0 auto 3.5mm;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:24px;border:3px solid white;box-shadow:0 4px 14px rgba(37,99,235,.2)}
-    .person-name{font-family:'Outfit',sans-serif;font-size:12px;font-weight:800;color:#1E3A5F;margin-bottom:2px}
-    .person-role{font-size:9px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1px;margin-bottom:3mm}
-    .person-q{font-size:10px;color:#475569;line-height:1.65;font-style:italic}
-    .mission-dark{background:linear-gradient(135deg,#0B1120,#1E293B);border-radius:14px;padding:6.5mm;margin-bottom:6mm;position:relative;overflow:hidden;border:1px solid rgba(99,102,241,.12)}
-    .mission-dark::before{content:'"';position:absolute;top:-4mm;left:4mm;font-size:90px;color:rgba(99,102,241,.12);font-family:Georgia,serif;line-height:1;pointer-events:none}
-    .mission-dark p{font-size:12px;color:rgba(255,255,255,.85);line-height:1.8;font-style:italic;position:relative;z-index:2}
-    .mission-author{font-size:9.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-top:3mm;position:relative;z-index:2}
-    .ind-row{display:flex;flex-wrap:wrap;gap:5px}
-    .ind-tag{font-size:9.5px;font-weight:600;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.18);border-radius:20px;padding:4px 11px}
-    .tech-strip{display:flex;flex-wrap:wrap;gap:4px;margin-top:3mm}
-    .tech-chip{font-size:8.5px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:7px;padding:2.5px 8px}
+    .astat{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:12px;padding:6mm 4mm;text-align:center;display:flex;flex-direction:column;justify-content:center;height:100%}
+    .astat-n{font-family:'Outfit',sans-serif;font-size:32px;font-weight:900;color:#2563EB;line-height:1.1;margin-bottom:4px}
+    .astat-l{font-size:10.5px;font-weight:700;color:#3B82F6;text-transform:uppercase;letter-spacing:.8px;line-height:1.2}
+    .person-card{background:linear-gradient(145deg,#EFF6FF,#DBEAFE);border:1px solid #BFDBFE;border-radius:14px;padding:7mm 6mm;text-align:center;margin-bottom:4mm;height:calc(100% - 140px);display:flex;flex-direction:column;justify-content:center}
+    .person-av{margin:0 auto 4mm;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,#2563EB,#7C3AED);display:flex;align-items:center;justify-content:center;font-size:28px;border:3px solid white;box-shadow:0 4px 14px rgba(37,99,235,.2)}
+    .person-name{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;color:#1E3A5F;margin-bottom:2px}
+    .person-role{font-size:11px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:1px;margin-bottom:3.5mm}
+    .person-q{font-size:12px;color:#475569;line-height:1.7;font-style:italic}
+    .mission-dark{background:linear-gradient(135deg,#0B1120,#1E293B);border-radius:14px;padding:7mm;margin-bottom:6mm;position:relative;overflow:hidden;border:1px solid rgba(99,102,241,.12)}
+    .mission-dark::before{content:'"';position:absolute;top:-4mm;left:4mm;font-size:95px;color:rgba(99,102,241,.12);font-family:Georgia,serif;line-height:1;pointer-events:none}
+    .mission-dark p{font-size:15px;color:rgba(255,255,255,.85);line-height:1.8;font-style:italic;position:relative;z-index:2}
+    .mission-author{font-size:11px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-top:3mm;position:relative;z-index:2}
+    .ind-row{display:flex;flex-wrap:wrap;gap:6px}
+    .ind-tag{font-size:11.5px;font-weight:600;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.18);border-radius:20px;padding:5px 14px}
+    .tech-strip{display:flex;flex-wrap:wrap;gap:5px;margin-top:3mm}
+    .tech-chip{font-size:10px;font-weight:700;color:#334155;background:#E2E8F0;border-radius:7px;padding:3px 9px}
 
     /* ─── PG 3: SERVICES ─── */
     .pg-mid{background:linear-gradient(145deg,#F8FAFC,#EFF6FF)}
-    .svc-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:5mm;flex:1}
+    .svc-grid{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;gap:6mm;flex:1}
     .svc-card{border-radius:14px;overflow:hidden;display:flex;flex-direction:column;box-shadow:0 2px 10px rgba(0,0,0,.05);height:100%}
-    .svc-hd{padding:5.5mm 6mm;display:flex;flex-direction:column;gap:3mm;position:relative;overflow:hidden;min-height:42%}
+    .svc-hd{padding:6mm 7mm;display:flex;flex-direction:column;gap:3mm;position:relative;overflow:hidden;min-height:42%}
     .svc-hd::before{content:'';position:absolute;right:-12mm;top:-12mm;width:50mm;height:50mm;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
     .svc-hd-blue{background:linear-gradient(145deg,#1D4ED8,#2563EB,#3B82F6)}
     .svc-hd-purple{background:linear-gradient(145deg,#5B21B6,#7C3AED,#8B5CF6)}
     .svc-hd-teal{background:linear-gradient(145deg,#065F46,#0F766E,#14B8A6)}
     .svc-hd-navy{background:linear-gradient(145deg,#0B1120,#1E3A5F,#1E40AF)}
-    .svc-icon{width:40px;height:40px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2}
-    .svc-htitle{font-family:'Outfit',sans-serif;font-size:13.5px;font-weight:800;color:white;line-height:1.2;position:relative;z-index:2}
-    .svc-hdesc{font-size:9.5px;color:rgba(255,255,255,.7);line-height:1.5;position:relative;z-index:2}
-    .svc-body{background:#F8FAFC;padding:5mm 5.5mm;flex:1;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 14px 14px;display:flex;flex-direction:column;justify-content:space-between}
-    .svc-lst{display:grid;grid-template-columns:1fr 1fr;gap:2px}
-    .svc-it{display:flex;align-items:flex-start;gap:5px;padding:2px 0}
-    .svc-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0;margin-top:4px}
-    .svc-tx{font-size:9px;font-weight:500;color:#334155;line-height:1.4}
-    .svc-subhead{font-size:7.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:3px 0 2px}
+    .svc-icon{width:46px;height:46px;border-radius:12px;background:rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;flex-shrink:0;position:relative;z-index:2}
+    .svc-htitle{font-family:'Outfit',sans-serif;font-size:16.5px;font-weight:800;color:white;line-height:1.2;position:relative;z-index:2}
+    .svc-hdesc{font-size:11.5px;color:rgba(255,255,255,.7);line-height:1.5;position:relative;z-index:2}
+    .svc-body{background:#F8FAFC;padding:6mm 7mm;flex:1;border:1px solid #E2E8F0;border-top:none;border-radius:0 0 14px 14px;display:flex;flex-direction:column;justify-content:space-between}
+    .svc-lst{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+    .svc-it{display:flex;align-items:flex-start;gap:6px;padding:3px 0}
+    .svc-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
+    .svc-tx{font-size:11.5px;font-weight:500;color:#334155;line-height:1.4}
+    .svc-subhead{font-size:9.5px;font-weight:800;text-transform:uppercase;letter-spacing:1.5px;margin:4px 0 3px}
     .sh-purple{color:#7C3AED}.sh-amber{color:#D97706}.sh-green{color:#059669}
 
     /* ─── PG 4: WORK ─── */
     .cs-card{border:1.5px solid #E2E8F0;border-radius:14px;overflow:hidden;margin-bottom:5mm;flex:1;display:flex;flex-direction:column}
-    .cs-hd{padding:4.5mm 5.5mm;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0B1120,#1E293B)}
+    .cs-hd{padding:5mm 6mm;display:flex;justify-content:space-between;align-items:center;background:linear-gradient(135deg,#0B1120,#1E293B)}
     .cs-hd-p{background:linear-gradient(135deg,#1E1040,#2D1B69)}
-    .cs-badge{font-size:8.5px;font-weight:700;border-radius:20px;padding:3px 9px;flex-shrink:0}
+    .cs-badge{font-size:9.5px;font-weight:700;border-radius:20px;padding:3px 10px;flex-shrink:0}
     .cb-live{color:#34D399;background:rgba(52,211,153,.12);border:1px solid rgba(52,211,153,.3)}
     .cb-print{color:#A78BFA;background:rgba(167,139,250,.12);border:1px solid rgba(167,139,250,.3)}
-    .cs-title{font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:1px}
-    .cs-cat{font-size:9.5px;color:#64748B}
-    .cs-body{padding:4.5mm 5.5mm;flex:1;display:flex;flex-direction:column;justify-content:space-between}
-    .cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:2.5mm;margin-bottom:2.5mm}
-    .cs-met{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:3mm;text-align:center}
-    .cs-mval{font-family:'Outfit',sans-serif;font-size:15px;font-weight:900;color:#2563EB;line-height:1;margin-bottom:1px}
+    .cs-title{font-family:'Outfit',sans-serif;font-size:16px;font-weight:800;color:white;margin-bottom:1px}
+    .cs-cat{font-size:11px;color:#64748B}
+    .cs-body{padding:5mm 6mm;flex:1;display:flex;flex-direction:column;justify-content:space-between}
+    .cs-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;margin-bottom:3mm}
+    .cs-met{background:#F8FAFC;border:1px solid #E2E8F0;border-radius:9px;padding:4mm;text-align:center}
+    .cs-mval{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:#2563EB;line-height:1.1;margin-bottom:2px}
     .cs-mval-p{color:#7C3AED}
-    .cs-mlbl{font-size:8px;font-weight:600;color:#64748B;text-transform:uppercase;letter-spacing:.4px}
-    .cs-feats{display:grid;grid-template-columns:1fr 1fr;gap:2px;margin-bottom:2mm}
-    .cs-ft{display:flex;align-items:center;gap:5px;font-size:9px;color:#475569;font-weight:500}
-    .cs-ck{width:12px;height:12px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:7px;font-weight:900}
+    .cs-mlbl{font-size:10px;font-weight:700;color:#64748B;text-transform:uppercase;letter-spacing:.5px}
+    .cs-feats{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:3mm}
+    .cs-ft{display:flex;align-items:center;gap:6px;font-size:12px;color:#475569;font-weight:500}
+    .cs-ck{width:14px;height:14px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:8px;font-weight:900}
     .ck-b{background:rgba(37,99,235,.1);color:#2563EB}
     .ck-p{background:rgba(124,58,237,.1);color:#7C3AED}
-    .t-row{display:flex;flex-wrap:wrap;gap:4px}
-    .t-tag{font-size:8px;font-weight:700;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.14);border-radius:8px;padding:2.5px 7px}
+    .t-row{display:flex;flex-wrap:wrap;gap:5px}
+    .t-tag{font-size:10px;font-weight:700;color:#2563EB;background:rgba(37,99,235,.07);border:1px solid rgba(37,99,235,.14);border-radius:8px;padding:3px 9px}
     .t-tag-p{color:#7C3AED;background:rgba(124,58,237,.07);border-color:rgba(124,58,237,.18)}
 
     /* ─── PG 5: WHY (DARK) ─── */
     .pg-why{background:linear-gradient(155deg,#060B18,#0D1B3E 50%,#130A2A)}
     .why-orb{position:absolute;width:280px;height:280px;border-radius:50%;background:radial-gradient(circle,rgba(108,62,255,.18) 0%,transparent 65%);top:-60px;right:-60px;pointer-events:none}
     .why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:4mm;margin-bottom:6mm;flex:1}
-    .why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:4.5mm 4mm;border-top:3px solid;display:flex;flex-direction:column;justify-content:center}
+    .why-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:11px;padding:6mm 5mm;border-top:3px solid;display:flex;flex-direction:column;justify-content:center}
     .wc-blue{border-top-color:#3B82F6}.wc-purple{border-top-color:#8B5CF6}.wc-teal{border-top-color:#14B8A6}.wc-pink{border-top-color:#EC4899}
-    .why-ic{font-size:22px;margin-bottom:3mm}
-    .why-t{font-size:10.5px;font-weight:800;color:white;margin-bottom:2px}
-    .why-d{font-size:9px;color:#64748B;line-height:1.55}
-    .proc-row{display:grid;grid-template-columns:repeat(6,1fr);gap:2.5mm}
-    .proc-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:3.5mm;text-align:center;position:relative}
-    .proc-step::after{content:'›';position:absolute;right:-5px;top:50%;transform:translateY(-50%);color:rgba(108,62,255,.5);font-size:16px;font-weight:900}
+    .why-ic{font-size:26px;margin-bottom:4mm}
+    .why-t{font-size:14.5px;font-weight:800;color:white;margin-bottom:3px}
+    .why-d{font-size:12px;color:#94A3B8;line-height:1.6}
+    .proc-row{display:grid;grid-template-columns:repeat(6,1fr);gap:3mm}
+    .proc-step{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);border-radius:10px;padding:4.5mm;text-align:center;position:relative}
+    .proc-step::after{content:'›';position:absolute;right:-5px;top:50%;transform:translateY(-50%);color:rgba(108,62,255,.5);font-size:18px;font-weight:900}
     .proc-step:last-child::after{display:none}
-    .proc-n{font-family:'Outfit',sans-serif;font-size:20px;font-weight:900;color:rgba(108,62,255,.35);line-height:1;margin-bottom:2px}
-    .proc-t{font-size:8.5px;font-weight:700;color:white;margin-bottom:2px}
-    .proc-d{font-size:7.5px;color:#475569;line-height:1.45}
+    .proc-n{font-family:'Outfit',sans-serif;font-size:24px;font-weight:900;color:rgba(108,62,255,.35);line-height:1;margin-bottom:2.5mm}
+    .proc-t{font-size:11.5px;font-weight:700;color:white;margin-bottom:2px}
+    .proc-d{font-size:9.5px;color:#475569;line-height:1.45}
 
     /* ─── PG 6: BACK COVER ─── */
     .pg-back{background:linear-gradient(155deg,#060B18 0%,#0D1B3E 45%,#130A2A 75%,#060B18 100%)}
     .back-orb1{position:absolute;width:320px;height:320px;border-radius:50%;background:radial-gradient(circle,rgba(37,99,235,.18) 0%,transparent 65%);top:-70px;right:-70px;pointer-events:none}
     .back-orb2{position:absolute;width:230px;height:230px;border-radius:50%;background:radial-gradient(circle,rgba(124,58,237,.15) 0%,transparent 65%);bottom:40px;left:-50px;pointer-events:none}
     .back-grid{position:absolute;inset:0;opacity:.03;background:repeating-linear-gradient(45deg,rgba(255,255,255,.7) 0px,rgba(255,255,255,.7) 1px,transparent 1px,transparent 30px);pointer-events:none}
-    .back-inner{position:relative;z-index:2;padding:12mm 13mm 11mm 15mm;display:flex;flex-direction:column;height:100%;justify-content:space-between}
-    .back-logo{display:flex;align-items:center;gap:10px;margin-bottom:10mm}
-    .cta-eyebrow{font-size:9.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:3px;margin-bottom:3.5mm;display:flex;align-items:center;gap:8px}
-    .cta-eyebrow::before{content:'';width:22px;height:2px;background:linear-gradient(to right,#6C3EFF,#60A5FA);border-radius:2px;flex-shrink:0}
-    .cta-h2{font-family:'Outfit',sans-serif;font-size:34px;font-weight:900;color:white;line-height:1.08;letter-spacing:-1px;margin-bottom:4mm}
+    .back-inner{position:relative;z-index:2;padding:14mm 16mm;display:flex;flex-direction:column;height:100%;justify-content:space-between}
+    .back-logo{display:flex;align-items:center;gap:12px;margin-bottom:10mm}
+    .cta-eyebrow{font-size:12.5px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:3px;margin-bottom:4mm;display:flex;align-items:center;gap:8px}
+    .cta-eyebrow::before{content:'';width:24px;height:2px;background:linear-gradient(to right,#6C3EFF,#60A5FA);border-radius:2px;flex-shrink:0}
+    .cta-h2{font-family:'Outfit',sans-serif;font-size:42px;font-weight:900;color:white;line-height:1.08;letter-spacing:-1px;margin-bottom:5mm}
     .cta-h2 .bl{background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-    .cta-sub{font-size:11.5px;color:#64748B;line-height:1.75;max-width:115mm;margin-bottom:8mm}
+    .cta-sub{font-size:14.5px;color:#94A3B8;line-height:1.8;max-width:115mm;margin-bottom:10mm}
     .cta-cards{display:grid;grid-template-columns:1fr 1fr;gap:4.5mm;margin-bottom:10mm;flex:1}
-    .cta-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:5mm;display:flex;flex-direction:column;justify-content:center}
-    .cta-lbl{font-size:9px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:3px}
-    .cta-val{font-size:13px;font-weight:700;color:white}
-    .cta-sub2{font-size:9.5px;color:#475569;margin-top:2px}
-    .back-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:5mm;border-top:1px solid rgba(255,255,255,.06)}
-    .back-addr{font-size:9px;color:#475569;line-height:1.8}
+    .cta-card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:12px;padding:5.5mm 5mm;display:flex;flex-direction:column;justify-content:center}
+    .cta-lbl{font-size:11px;font-weight:700;color:#818CF8;text-transform:uppercase;letter-spacing:1.5px;margin-bottom:4px}
+    .cta-val{font-size:15px;font-weight:700;color:white}
+    .cta-sub2{font-size:11px;color:#475569;margin-top:2px}
+    .back-foot{display:flex;align-items:flex-end;justify-content:space-between;padding-top:6mm;border-top:1px solid rgba(255,255,255,.06)}
+    .back-addr{font-size:11px;color:#475569;line-height:1.8}
     .back-addr strong{color:#94A3B8;font-weight:600}
-    .socs{display:flex;gap:5px;margin-top:5px}
-    .soc{font-size:8.5px;font-weight:600;color:#818CF8;border:1px solid rgba(129,140,248,.22);border-radius:13px;padding:3px 9px}
-    .copy{font-size:7.5px;color:#334155;margin-top:5px}
-    .qr-block{display:flex;flex-direction:column;align-items:center;gap:5px}
-    .qr-block img{width:72px;height:72px;background:white;padding:5px;border-radius:10px;display:block}
-    .qr-lbl{font-size:7.5px;font-weight:600;color:#475569;text-align:center}
+    .socs{display:flex;gap:6px;margin-top:6px}
+    .soc{font-size:11px;font-weight:600;color:#818CF8;border:1px solid rgba(129,140,248,.22);border-radius:13px;padding:3.5px 10px}
+    .copy{font-size:9.5px;color:#334155;margin-top:6px}
+    .qr-block{display:flex;flex-direction:column;align-items:center;gap:6px}
+    .qr-block img{width:80px;height:80px;background:white;padding:5px;border-radius:10px;display:block}
+    .qr-lbl{font-size:9px;font-weight:600;color:#475569;text-align:center}
   </style>
 </head>
 <body>
@@ -315,7 +316,14 @@
             </div>
             <div>
               <div class="person-card">
-                <div class="person-av">👨‍💻</div>
+                <div class="person-av">
+                  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                    <polyline points="16 11 18 13 16 15" />
+                    <polyline points="8 11 6 13 8 15" />
+                  </svg>
+                </div>
                 <div class="person-name">Foundry4 Team</div>
                 <div class="person-role">Technology · Creative · Data · Marketing</div>
                 <div class="person-q">"We build solutions that work — beautifully crafted, technically robust, and designed to grow your business."</div>
@@ -353,7 +361,7 @@
             <!-- Software -->
             <div class="svc-card">
               <div class="svc-hd svc-hd-blue">
-                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+                <div class="svc-icon"><svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
                 <div class="svc-htitle">💻 Software &amp; Web Development</div>
                 <div class="svc-hdesc">Custom websites, apps, ERP/CRM, SaaS — built for your exact workflow.</div>
               </div>
@@ -375,7 +383,14 @@
             <!-- Creative -->
             <div class="svc-card">
               <div class="svc-hd svc-hd-purple">
-                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="3" fill="white"/></svg></div>
+                <div class="svc-icon">
+                  <svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+                    <path d="M12 22C17.5228 22 22 17.5228 22 12C22 9 20 6.5 17.5 6.5c-1.5 0-2.5 1-2.5 2.5 0 2-2 3.5-4.5 3.5C7.5 12.5 5.5 11 5.5 9c0-3.5 3-7 6.5-7 5.5 0 10 4.5 10 10a10 10 0 0 1-10 10c-5.5 0-10-4.5-10-10H2a10 10 0 0 0 10 10z"/>
+                    <circle cx="7.5" cy="10.5" r="1.5" fill="white"/>
+                    <circle cx="11.5" cy="7.5" r="1.5" fill="white"/>
+                    <circle cx="16.5" cy="9.5" r="1.5" fill="white"/>
+                  </svg>
+                </div>
                 <div class="svc-htitle">🎨 Creative Media &amp; Marketing</div>
                 <div class="svc-hdesc">Design, video &amp; performance ad campaigns for brand growth.</div>
               </div>
@@ -404,7 +419,7 @@
             <!-- Data -->
             <div class="svc-card">
               <div class="svc-hd svc-hd-teal">
-                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
+                <div class="svc-icon"><svg width="24" height="24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/><line x1="2" y1="20" x2="22" y2="20"/></svg></div>
                 <div class="svc-htitle">📊 Data Analysis &amp; Business Intelligence</div>
                 <div class="svc-hdesc">Dashboards &amp; BI that turn raw data into smart decisions.</div>
               </div>
@@ -426,7 +441,7 @@
             <!-- AI -->
             <div class="svc-card">
               <div class="svc-hd svc-hd-navy">
-                <div class="svc-icon"><svg width="20" height="20" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div>
+                <div class="svc-icon"><svg width="24" height="24" fill="none" stroke="#60A5FA" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4"/></svg></div>
                 <div class="svc-htitle">🤖 AI Automation &amp; Business Solutions</div>
                 <div class="svc-hdesc">Smart chatbots &amp; workflows to reduce manual work.</div>
               </div>
@@ -500,14 +515,85 @@
           <div class="sec-title" style="color:white;margin-bottom:2mm">Why Businesses <span style="background:linear-gradient(135deg,#818CF8,#60A5FA);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text">Choose Us</span></div>
           <p class="sec-lead sec-lead-w" style="margin-bottom:4mm">Custom-built, business-focused, and always outcome-driven — that's the Foundry4 difference.</p>
           <div class="why-grid">
-            <div class="why-card wc-blue"><div class="why-ic">🔧</div><div class="why-t">Custom Solutions</div><div class="why-d">No generic templates. Every line of code built for your exact workflow and brand values.</div></div>
-            <div class="why-card wc-purple"><div class="why-ic">✨</div><div class="why-t">Modern UI/UX Design</div><div class="why-d">Stunning layouts that load fast and provide smooth interactions for great user engagement.</div></div>
-            <div class="why-card wc-teal"><div class="why-ic">💬</div><div class="why-t">Transparent Comm.</div><div class="why-d">Clear updates, shared access, and collaborative milestones at every project phase.</div></div>
-            <div class="why-card wc-pink"><div class="why-ic">📈</div><div class="why-t">Scalable Architecture</div><div class="why-d">Systems built to grow alongside your business without bottlenecking performance.</div></div>
-            <div class="why-card wc-blue"><div class="why-ic">🛡️</div><div class="why-t">Reliable Support</div><div class="why-d">Technical support, optimization advice, and proactive server maintenance.</div></div>
-            <div class="why-card wc-purple"><div class="why-ic">⚡</div><div class="why-t">Fast Delivery</div><div class="why-d">Pages hand-crafted and optimized to load fast across all devices.</div></div>
-            <div class="why-card wc-teal"><div class="why-ic">🎨</div><div class="why-t">Creative + Technical</div><div class="why-d">We bridge creative artistry, data analytics, and robust software engineering.</div></div>
-            <div class="why-card wc-pink"><div class="why-ic">💼</div><div class="why-t">Business-Focused</div><div class="why-d">We prioritize features that directly impact your bottom line and efficiency.</div></div>
+            <div class="why-card wc-blue">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z" />
+                </svg>
+              </div>
+              <div class="why-t">Custom Solutions</div>
+              <div class="why-d">No generic templates. Every line of code built for your exact workflow and brand values.</div>
+            </div>
+            <div class="why-card wc-purple">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                  <path d="M21 9H3M21 15H3M12 3v18" />
+                </svg>
+              </div>
+              <div class="why-t">Modern UI/UX Design</div>
+              <div class="why-d">Stunning layouts that load fast and provide smooth interactions for great user engagement.</div>
+            </div>
+            <div class="why-card wc-teal">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+                </svg>
+              </div>
+              <div class="why-t">Transparent Comm.</div>
+              <div class="why-d">Clear updates, shared access, and collaborative milestones at every project phase.</div>
+            </div>
+            <div class="why-card wc-pink">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F472B6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="8" rx="2" />
+                  <rect x="2" y="14" width="20" height="8" rx="2" />
+                  <line x1="6" y1="6" x2="6" y2="6" stroke-width="3" />
+                  <line x1="6" y1="18" x2="6" y2="18" stroke-width="3" />
+                  <path d="M12 10v4" />
+                </svg>
+              </div>
+              <div class="why-t">Scalable Architecture</div>
+              <div class="why-d">Systems built to grow alongside your business without bottlenecking performance.</div>
+            </div>
+            <div class="why-card wc-blue">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#60A5FA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                </svg>
+              </div>
+              <div class="why-t">Reliable Support</div>
+              <div class="why-d">Technical support, optimization advice, and proactive server maintenance.</div>
+            </div>
+            <div class="why-card wc-purple">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#A78BFA" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2" />
+                </svg>
+              </div>
+              <div class="why-t">Fast Delivery</div>
+              <div class="why-d">Pages hand-crafted and optimized to load fast across all devices.</div>
+            </div>
+            <div class="why-card wc-teal">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#34D399" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" />
+                  <path d="M12 8v8M8 12h8" />
+                </svg>
+              </div>
+              <div class="why-t">Creative + Technical</div>
+              <div class="why-d">We bridge creative artistry, data analytics, and robust software engineering.</div>
+            </div>
+            <div class="why-card wc-pink">
+              <div class="why-ic">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#F472B6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="7" width="20" height="14" rx="2" ry="2" />
+                  <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16" />
+                </svg>
+              </div>
+              <div class="why-t">Business-Focused</div>
+              <div class="why-d">We prioritize features that directly impact your bottom line and efficiency.</div>
+            </div>
           </div>
           <div style="font-family:'Outfit',sans-serif;font-size:14px;font-weight:800;color:white;margin-bottom:3.5mm">Our 6-Step Delivery Process</div>
           <div class="proc-row">

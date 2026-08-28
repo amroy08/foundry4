@@ -227,19 +227,6 @@ export default function Portfolio() {
                     </motion.a>
                   )}
 
-                  {project.pdfUrl && (
-                    <motion.a
-                      href={project.pdfUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
-                      whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
-                      whileTap={{ scale: 0.97 }}
-                    >
-                      Download PDF Document
-                      <Download className="ml-2 h-3.5 w-3.5" />
-                    </motion.a>
-                  )}
                 </div>
               </motion.div>
             </motion.div>
@@ -291,16 +278,6 @@ export default function Portfolio() {
                 </h4>
               </div>
               <div className="flex items-center space-x-3">
-                {viewerProject.pdfUrl && (
-                  <a
-                    href={viewerProject.pdfUrl}
-                    download
-                    className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"
-                    title="Download original PDF"
-                  >
-                    <Download className="h-5 w-5" />
-                  </a>
-                )}
                 <button
                   onClick={() => setViewerProject(null)}
                   className="p-2.5 rounded-full bg-white/5 hover:bg-white/10 text-white transition-colors"

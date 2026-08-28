@@ -174,7 +174,7 @@ export default function Footer() {
             exit={shouldReduceMotion ? undefined : { opacity: 0, scale: 0.7, y: 20 }}
             transition={{ type: "spring", stiffness: 380, damping: 24 }}
             onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="fixed bottom-6 right-6 z-50 p-3 rounded-full bg-brand-primary text-white shadow-lg shadow-blue-200 hover:bg-brand-primary/90 focus-visible:ring-2 focus-visible:ring-brand-primary"
+            className="fixed bottom-[152px] right-6 z-50 p-3 rounded-full bg-brand-primary text-white shadow-lg shadow-blue-200 hover:bg-brand-primary/90 focus-visible:ring-2 focus-visible:ring-brand-primary"
             aria-label="Back to top"
             whileHover={{ scale: 1.1, y: -2 }}
             whileTap={{ scale: 0.92 }}

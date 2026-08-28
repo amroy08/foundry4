@@ -100,7 +100,15 @@ export default function Portfolio() {
                   {/* Screenshot */}
                   <div className="aspect-[16/10] w-full overflow-hidden relative">
                     <Image
-                      src={project.id === "mvhs" ? "/images/mvhs.webp" : project.id === "mvhs-erp" ? "/images/mvhs_erp.webp" : "/images/bodals.webp"}
+                      src={
+                        project.id === "mvhs" ? "/images/mvhs.webp"
+                        : project.id === "mvhs-erp" ? "/images/mvhs_erp.webp"
+                        : project.id === "bodals" ? "/images/bodals.webp"
+                        : project.id === "sakhi-darpan" ? "/images/sakhi_darpan.webp"
+                        : project.id === "grc" ? "/images/grc_bizcard.webp"
+                        : project.id === "bodals-print" ? "/images/bodals_brochure.webp"
+                        : "/images/bodals.webp"
+                      }
                       alt={project.title}
                       fill
                       sizes="(max-width: 768px) 100vw, 500px"
@@ -120,7 +128,9 @@ export default function Portfolio() {
                 transition={{ duration: 0.5, delay: 0.18, ease: "easeOut" }}
               >
                 <div className="flex flex-wrap gap-3">
-                  <span className="px-3 py-1 rounded-full bg-blue-50 border border-blue-200 text-brand-primary text-xs font-bold tracking-wider uppercase">Live Project</span>
+                  <span className={`px-3 py-1 rounded-full border text-xs font-bold tracking-wider uppercase ${project.isLive ? "bg-blue-50 border-blue-200 text-brand-primary" : "bg-purple-50 border-purple-200 text-purple-700"}`}>
+                    {project.isLive ? "Live Project" : "Creative Design"}
+                  </span>
                   <span className="px-3 py-1 rounded-full bg-slate-50 border border-slate-200 text-slate-600 text-xs font-medium">📍 {project.location}</span>
                 </div>
                 <h3 className="text-2xl font-bold text-slate-900 leading-tight">{project.title}</h3>
@@ -144,17 +154,23 @@ export default function Portfolio() {
                   </ul>
                 </div>
                 <div className="pt-4">
-                  <motion.a
-                    href={project.liveUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
-                    whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
-                    whileTap={{ scale: 0.97 }}
-                  >
-                    View Live Website
-                    <ExternalLink className="ml-2 h-3.5 w-3.5" />
-                  </motion.a>
+                  {project.isLive ? (
+                    <motion.a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-slate-50 hover:bg-slate-100 border border-slate-200 text-xs font-semibold tracking-wider text-slate-700 hover:text-brand-primary transition-all"
+                      whileHover={{ scale: 1.03, borderColor: "#2563eb" }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      View Live Website
+                      <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                    </motion.a>
+                  ) : (
+                    <span className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-100 text-xs font-semibold tracking-wider text-brand-primary">
+                      Print Design Delivered ✓
+                    </span>
+                  )}
                 </div>
               </motion.div>
             </motion.div>

@@ -252,6 +252,66 @@ export const siteConfig: SiteConfig = {
       technologies: ["Next.js", "TypeScript", "PostgreSQL", "Tailwind CSS", "WhatsApp API"],
       location: "Mumbai, India",
       isLive: true
+    },
+    {
+      id: "sakhi-darpan",
+      title: "Sakhi Darpan — Festive Magazine Design",
+      category: "Magazine Design and Print Media",
+      liveUrl: "#",
+      description: "A beautifully crafted festive edition magazine designed for Sakhi Darpan, a Ganesh Utsav special publication. The design features rich traditional aesthetics, vibrant layouts, and editorial sections covering beauty, health, recipes, careers, and lifestyle topics.",
+      keyFeatures: [
+        "Festive Ganesh Utsav special edition design",
+        "Multi-section editorial layout (10+ columns)",
+        "Traditional Indian design aesthetic",
+        "Beauty & fashion, health, recipe sections",
+        "Gen Z special career and skills feature",
+        "Poetry, stories & home decor sections",
+        "Expert advice and women empowerment columns",
+        "High-resolution print-ready PDF output",
+        "Custom typography and floral design elements",
+        "Bilingual content (Hindi and English)"
+      ],
+      technologies: ["Adobe InDesign", "Adobe Photoshop", "Adobe Illustrator", "Print Design"],
+      location: "Mumbai, India",
+      isLive: false
+    },
+    {
+      id: "grc",
+      title: "GRC Residency — Luxury Branding",
+      category: "Real Estate Branding and Identity Design",
+      liveUrl: "#",
+      description: "Premium brand identity and business card design for GRC Residency, a luxury real estate development project. The design conveys architectural grandeur, refinement, and prestige — reflecting the elevated positioning of the property brand.",
+      keyFeatures: [
+        "Premium luxury brand identity",
+        "Business card design (front and back)",
+        "High-end typography and layout",
+        "Architecture-inspired visual theme",
+        "Gold and white colour palette",
+        "Professional print-ready format",
+        "Brand consistency across collateral"
+      ],
+      technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
+      location: "India",
+      isLive: false
+    },
+    {
+      id: "bodals-print",
+      title: "Bodals International — Print Collateral",
+      category: "Corporate Branding and Print Design",
+      liveUrl: "#",
+      description: "Complete corporate print design package for Bodals International, a global merchant export company. Includes a premium business card and a full-page brochure cover showcasing their international shipping, logistics, and trading capabilities.",
+      keyFeatures: [
+        "Corporate business card design",
+        "Full-page brochure cover design",
+        "Global trade & logistics visual theme",
+        "Premium gold and navy brand palette",
+        "Air, sea, and road freight imagery",
+        "World map connectivity concept",
+        "Print-ready high-resolution files"
+      ],
+      technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
+      location: "India",
+      isLive: false
     }
   ],
   processSteps: [

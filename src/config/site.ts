@@ -21,6 +21,7 @@ export interface ProjectItem {
   technologies: string[];
   location: string;
   isLive: boolean;
+  pdfUrl?: string;
 }
 
 export interface SiteConfig {
@@ -273,7 +274,8 @@ export const siteConfig: SiteConfig = {
       ],
       technologies: ["Adobe InDesign", "Adobe Photoshop", "Adobe Illustrator", "Print Design"],
       location: "Mumbai, India",
-      isLive: false
+      isLive: false,
+      pdfUrl: "/pdfs/sakhi_darpan.pdf"
     },
     {
       id: "grc",
@@ -292,7 +294,8 @@ export const siteConfig: SiteConfig = {
       ],
       technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
       location: "India",
-      isLive: false
+      isLive: false,
+      pdfUrl: "/pdfs/grc_bizcard.pdf"
     },
     {
       id: "bodals-print",
@@ -311,7 +314,8 @@ export const siteConfig: SiteConfig = {
       ],
       technologies: ["Adobe Photoshop", "Adobe Illustrator", "Brand Design", "Print Design"],
       location: "India",
-      isLive: false
+      isLive: false,
+      pdfUrl: "/pdfs/bodals_brochure.pdf"
     }
   ],
   processSteps: [

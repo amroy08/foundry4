@@ -153,7 +153,7 @@ export default function Portfolio() {
                     ))}
                   </ul>
                 </div>
-                <div className="pt-4">
+                <div className="flex flex-wrap gap-4 pt-4">
                   {project.isLive ? (
                     <motion.a
                       href={project.liveUrl}
@@ -167,9 +167,23 @@ export default function Portfolio() {
                       <ExternalLink className="ml-2 h-3.5 w-3.5" />
                     </motion.a>
                   ) : (
-                    <span className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-100 text-xs font-semibold tracking-wider text-brand-primary">
+                    <span className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-blue-50 border border-blue-100 text-xs font-semibold tracking-wider text-brand-primary cursor-default">
                       Print Design Delivered ✓
                     </span>
+                  )}
+
+                  {project.pdfUrl && (
+                    <motion.a
+                      href={project.pdfUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-brand-primary text-white hover:bg-brand-primary/95 text-xs font-semibold tracking-wider uppercase transition-all shadow-sm"
+                      whileHover={{ scale: 1.03, boxShadow: "0 8px 20px -4px rgba(37,99,235,0.3)" }}
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      View Full PDF (All Pages)
+                      <ExternalLink className="ml-2 h-3.5 w-3.5" />
+                    </motion.a>
                   )}
                 </div>
               </motion.div>

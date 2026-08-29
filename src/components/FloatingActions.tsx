@@ -10,7 +10,7 @@ export default function FloatingActions() {
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-[49] flex flex-col gap-3 pointer-events-auto">
+    <div className="fixed bottom-6 right-6 z-[99] flex flex-col gap-3.5 pointer-events-auto">
 
       {/* Brochure Button */}
       <div className="relative flex items-center justify-end group">
@@ -21,9 +21,6 @@ export default function FloatingActions() {
         <motion.button
           onClick={openBrochure}
           className="w-12 h-12 rounded-full bg-[#1e3a5f] text-white shadow-lg flex items-center justify-center hover:bg-[#2563EB] transition-colors focus-visible:ring-2 focus-visible:ring-[#2563EB]"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.8 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label="View Company Brochure"
@@ -42,9 +39,6 @@ export default function FloatingActions() {
           target="_blank"
           rel="noopener noreferrer"
           className="w-12 h-12 rounded-full bg-[#25D366] text-white shadow-lg flex items-center justify-center relative hover:bg-[#20ba5a] transition-colors focus-visible:ring-2 focus-visible:ring-[#25D366]"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Contact via WhatsApp"
@@ -66,9 +60,6 @@ export default function FloatingActions() {
         <motion.a
           href="mailto:info@foundry4.in"
           className="w-12 h-12 rounded-full bg-brand-primary text-white shadow-lg flex items-center justify-center hover:bg-brand-secondary transition-colors focus-visible:ring-2 focus-visible:ring-brand-primary"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 1.1 }}
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.95 }}
           aria-label="Contact via Email"

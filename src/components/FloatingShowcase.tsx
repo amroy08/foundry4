@@ -88,11 +88,11 @@ export default function FloatingShowcase() {
     <AnimatePresence>
       {isVisible && (
         <motion.div
-          initial={{ opacity: 0, y: 50, scale: 0.95 }}
-          animate={{ opacity: 1, y: 0, scale: 1 }}
-          exit={{ opacity: 0, y: 30, scale: 0.95 }}
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          exit={{ opacity: 0, scale: 0.95 }}
           transition={{ type: "spring", stiffness: 350, damping: 26 }}
-          className="fixed bottom-4 left-4 z-[48] w-[360px] max-w-[calc(100vw-2rem)] bg-white/95 border border-slate-200/80 backdrop-blur-md rounded-xl p-4 shadow-2xl shadow-slate-100 flex flex-col justify-between overflow-hidden group select-none pointer-events-auto"
+          className="fixed bottom-6 left-6 z-[48] w-[360px] max-w-[calc(100vw-2rem)] bg-white/95 border border-slate-200/80 backdrop-blur-md rounded-xl p-4.5 shadow-2xl shadow-slate-100 flex flex-col justify-between overflow-hidden group select-none pointer-events-auto"
         >
           {/* Header */}
           <div className="flex items-center justify-between mb-2 pb-2 border-b border-slate-100 relative z-10">

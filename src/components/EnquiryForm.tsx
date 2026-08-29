@@ -353,7 +353,7 @@ export default function EnquiryForm() {
                     value={formData.estimatedBudget}
                     onChange={handleInputChange}
                     className="w-full bg-white border border-slate-200 rounded-xl px-4 py-3.5 text-base text-slate-900 placeholder-slate-400 focus:outline-none focus:border-brand-primary focus:ring-2 focus:ring-blue-100 transition-all"
-                    placeholder="e.g. ₹50,000 - ₹2,00,000"
+                    placeholder="e.g. ₹20,000 - ₹2,00,000"
                     disabled={status === "loading"}
                   />
                 </div>

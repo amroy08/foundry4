@@ -78,8 +78,8 @@ export default function EnquiryForm() {
 
     if (!formData.projectDescription.trim()) {
       tempErrors.projectDescription = "Project description is required";
-    } else if (formData.projectDescription.trim().length < 20) {
-      tempErrors.projectDescription = "Please provide a bit more detail (min 20 characters)";
+    } else if (formData.projectDescription.trim().length < 10) {
+      tempErrors.projectDescription = "Please provide a bit more detail (min 10 characters)";
     }
 
     if (!formData.consent) {

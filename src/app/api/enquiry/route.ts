@@ -65,8 +65,8 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Phone number is required." }, { status: 400 });
     }
 
-    if (!projectDescription || projectDescription.trim().length < 20) {
-      return NextResponse.json({ success: false, error: "Project description must be at least 20 characters." }, { status: 400 });
+    if (!projectDescription || projectDescription.trim().length < 10) {
+      return NextResponse.json({ success: false, error: "Project description must be at least 10 characters." }, { status: 400 });
     }
 
     if (!consent) {
@@ -89,19 +89,20 @@ export async function POST(request: Request) {
 
     // 5. Send Emails
     if (isSmtpConfigured) {
-      // Create SMTP transporter
-      const transporter = nodemailer.createTransport({
-        host: SMTP_HOST,
-        port: parseInt(SMTP_PORT || "587"),
-        secure: parseInt(SMTP_PORT || "587") === 465, // True for 465, false for other ports
-        auth: {
-          user: SMTP_USER,
-          pass: SMTP_PASSWORD,
-        },
-      });
+      try {
+        // Create SMTP transporter
+        const transporter = nodemailer.createTransport({
+          host: SMTP_HOST,
+          port: parseInt(SMTP_PORT || "587"),
+          secure: parseInt(SMTP_PORT || "587") === 465, // True for 465, false for other ports
+          auth: {
+            user: SMTP_USER,
+            pass: SMTP_PASSWORD,
+          },
+        });
 
-      // HTML body for Company Notification Email
-      const adminMailHtml = `
+        // HTML body for Company Notification Email
+        const adminMailHtml = `
         <div style="font-family: sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #e2e8f0; border-radius: 8px;">
           <h2 style="color: #4f46e5; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px;">New Project Enquiry from Foundry4</h2>
           <table style="width: 100%; border-collapse: collapse; margin-top: 15px;">
@@ -146,8 +147,8 @@ export async function POST(request: Request) {
         </div>
       `;
 
-      // HTML body for Client Confirmation Email
-      const clientMailHtml = `
+        // HTML body for Client Confirmation Email
+        const clientMailHtml = `
         <div style="background-color: #030014; color: #f8fafc; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 32px 24px; border: 1px solid #1e1b4b; border-radius: 16px;">
           <!-- Top Accent Gradient Bar -->
           <div style="height: 4px; background: linear-gradient(90deg, #6366f1 0%, #d946ef 100%); border-radius: 4px; margin-bottom: 24px;"></div>
@@ -242,24 +243,37 @@ export async function POST(request: Request) {
         </div>
       `;
 
-      // Dispatch to Company Inbox and Client Confirmation in parallel
-      await Promise.all([
-        transporter.sendMail({
-          from: `"Foundry4 Enquiries" <${SMTP_USER}>`,
-          to: targetCompanyEmail,
-          subject: `New Project Request - ${serviceRequired} [${fullName}]`,
-          html: adminMailHtml,
-        }),
-        transporter.sendMail({
-          from: `"Foundry4 Support" <${SMTP_USER}>`,
-          to: email,
-          subject: `We've received your Foundry4 project inquiry!`,
-          html: clientMailHtml,
-        })
-      ]);
-      
-      console.log(`Enquiry email dispatched successfully for: ${email}`);
-
+        // Dispatch to Company Inbox and Client Confirmation in parallel
+        await Promise.all([
+          transporter.sendMail({
+            from: `"Foundry4 Enquiries" <${SMTP_USER}>`,
+            to: targetCompanyEmail,
+            subject: `New Project Request - ${serviceRequired} [${fullName}]`,
+            html: adminMailHtml,
+          }),
+          transporter.sendMail({
+            from: `"Foundry4 Support" <${SMTP_USER}>`,
+            to: email,
+            subject: `We've received your Foundry4 project inquiry!`,
+            html: clientMailHtml,
+          })
+        ]);
+        
+        console.log(`Enquiry email dispatched successfully for: ${email}`);
+      } catch (emailError) {
+        console.error("Failed to send SMTP email, falling back to server log:", emailError);
+        console.log("=== ENQUIRY LOG FALLBACK (SMTP ERROR) ===");
+        console.log(`Client Name: ${fullName}`);
+        console.log(`Client Email: ${email}`);
+        console.log(`Client Phone: ${phone}`);
+        console.log(`Company: ${companyName}`);
+        console.log(`Service Required: ${serviceRequired}`);
+        console.log(`Estimated Budget: ${estimatedBudget}`);
+        console.log(`Preferred Contact: ${preferredContact}`);
+        console.log(`Project Timeline: ${projectTimeline}`);
+        console.log(`Project Description:\n${projectDescription}`);
+        console.log("=========================================");
+      }
     } else {
       // SMTP variables missing - trigger fallback log mode
       console.warn("SMTP configuration details are missing. Running in Server Log fallback mode.");

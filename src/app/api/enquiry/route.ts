@@ -77,7 +77,7 @@ export async function POST(request: Request) {
     const smtpHost = process.env.SMTP_HOST || "smtppro.zoho.in";
     const smtpPort = parseInt(process.env.SMTP_PORT || "465");
     const smtpUser = process.env.SMTP_USER || "info@foundry4.in";
-    const smtpPass = process.env.SMTP_PASSWORD || "";
+    const smtpPass = process.env.SMTP_PASSWORD || "ARADUGzYHddQ";
     const targetCompanyEmail = process.env.CONTACT_EMAIL || smtpUser;
 
     // Check if password is available to send emails

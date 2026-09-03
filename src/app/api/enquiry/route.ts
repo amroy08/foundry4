@@ -74,30 +74,26 @@ export async function POST(request: Request) {
     }
 
     // 4. Retrieve SMTP environment variables
-    const {
-      SMTP_HOST,
-      SMTP_PORT,
-      SMTP_USER,
-      SMTP_PASSWORD,
-      CONTACT_EMAIL,
-    } = process.env;
+    const smtpHost = process.env.SMTP_HOST || "smtppro.zoho.in";
+    const smtpPort = parseInt(process.env.SMTP_PORT || "465");
+    const smtpUser = process.env.SMTP_USER || "info@foundry4.in";
+    const smtpPass = process.env.SMTP_PASSWORD || "";
+    const targetCompanyEmail = process.env.CONTACT_EMAIL || smtpUser;
 
-    // Check if configuration is present
-    const isSmtpConfigured = SMTP_HOST && SMTP_PORT && SMTP_USER && SMTP_PASSWORD && CONTACT_EMAIL;
-
-    const targetCompanyEmail = CONTACT_EMAIL || "info@foundry4.in";
+    // Check if password is available to send emails
+    const isSmtpConfigured = Boolean(smtpPass.trim());
 
     // 5. Send Emails
     if (isSmtpConfigured) {
       try {
         // Create SMTP transporter
         const transporter = nodemailer.createTransport({
-          host: SMTP_HOST,
-          port: parseInt(SMTP_PORT || "587"),
-          secure: parseInt(SMTP_PORT || "587") === 465, // True for 465, false for other ports
+          host: smtpHost,
+          port: smtpPort,
+          secure: smtpPort === 465, // True for port 465 (SSL), false for 587 (TLS)
           auth: {
-            user: SMTP_USER,
-            pass: SMTP_PASSWORD,
+            user: smtpUser,
+            pass: smtpPass,
           },
         });
 
@@ -246,13 +242,13 @@ export async function POST(request: Request) {
         // Dispatch to Company Inbox and Client Confirmation in parallel
         await Promise.all([
           transporter.sendMail({
-            from: `"Foundry4 Enquiries" <${SMTP_USER}>`,
+            from: `"Foundry4 Enquiries" <${smtpUser}>`,
             to: targetCompanyEmail,
             subject: `New Project Request - ${serviceRequired} [${fullName}]`,
             html: adminMailHtml,
           }),
           transporter.sendMail({
-            from: `"Foundry4 Support" <${SMTP_USER}>`,
+            from: `"Foundry4 Support" <${smtpUser}>`,
             to: email,
             subject: `We've received your Foundry4 project inquiry!`,
             html: clientMailHtml,
